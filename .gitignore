@@ -1,0 +1,12 @@
+﻿# VS: debug folder
+[Dd]ebug/
+[xX]86/
+[xX]64/
+
+# VS: solution and user-filter files
+.vs/
+*.vcxproj*
+
+# Others
+*.exe
+*.zip
