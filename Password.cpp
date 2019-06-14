@@ -27,3 +27,6 @@ bool Password::operator==(const Password& x)
 {
 	return (data == x.data);
 }
+void dosomething() {
+	
+}
