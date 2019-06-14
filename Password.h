@@ -18,5 +18,3 @@ class Password
 		void GetPassword(); // lấy và băm pass, đưa vào data
 		bool operator== (const Password& x); // so sánh
 };
-
-void dosomething();
