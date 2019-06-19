@@ -5,20 +5,24 @@
 Đồ án môn OOP của Nhóm 19 @ 18CLC6.
 
 ```
-Tiến trình hiện tại: ĐANG HOÀN THIỆN MÔ TẢ ĐỒ ÁN
+Tiến trình hiện tại: ||
 ```
 
+```
+README.md					Tệp này
+docs/Description.md			Mô tả đồ án
+docs/ClassDiagram.png		Sơ đồ lớp (có nhúng MX; có thể mở bằng draw.io)
+```
 
 
 ## Ghi chú
 
 ```
-TODO tuần này:
+TO-DO:
 - Hoàn thiện mô tả đồ án
 - Bổ sung quan hệ thừa kế (Inheritance), Aggregation
 - Bổ sung sơ đồ UML
 ```
-
 
 
 ## Task log
