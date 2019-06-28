@@ -1,13 +1,25 @@
 # Hệ thống quản lý bán hàng điện tử
 
-Nhóm 19, môn Lập trình hướng đối tượng (OOP)
+## Thông tin nhóm
 
+* Nhóm 19 môn Lập trình Hướng Đối tượng
+* Thành viên:
+  * 18127221 - Bùi Văn Thiện
+  * 18127185 - Bùi Vũ Hiếu Phụng
+  * 18127080 - Kiều Vũ Minh Đức
+  * 18127164 - Huỳnh Thiện Nhân
 
+## Sơ lược
 
-## Giới thiệu sơ lược
+### Vấn đề
 
-- Một hệ thống quản lý bán hàng điện tử cơ bản (list các shop, list các sản phẩm và list các order toàn cục) viết bằng C++, không có giao diện đồ họa
-- Mục tiêu: hiểu rõ hơn và cố gắng áp dụng những khái niệm/mô hình lập trình trong OOP; tìm hiểu về hệ thống quản lý `git` và workflow xoay quanh `git`
+* Cuộc sống phát triển đi cùng với đó là nhu cầu kinh doanh, buôn bán ngày càng tăng cao với các hình thức kinh doanh khác nhau. Bên cạnh việc mở các cửa hàng kinh doanh theo kiểu truyền thống với lợi thế về mặt bằng, ngày càng có nhiều doanh nghiệp đi theo hướng phát triển hoạt động bán hàng trực tuyến, trong đó nổi bật nhất là bán hàng trực tuyến.
+* Chính vì vậy, những sàn giao dịch điện tử đã ra đời như Shoppe, Lazada, Tiki,... Để hoạt động tốt, những trang thương mại này phụ thuộc nhiều vào việc lưu trữ và xử lí cơ sở dữ liệu. Đó là ý tưởng để nhóm em thực hiện đồ án này. 
+
+### Giới thiệu
+
+- Một hệ thống quản lý bán hàng điện tử cơ bản, được viết bằng C++, không có giao diện đồ họa. Hệ thống bao gồm những đối tượng cơ bản cần thiết như cửa hàng, sản phẩm, đơn hàng,...
+- Mục tiêu: Hiểu rõ và áp dụng những kiến thức cơ bản và nâng cao trong Lập trình Hướng Đối tượng. Đồng thời tìm hiểu về hệ thống quản lý `git` và workflow xoay quanh `git`
 - [GitHub repo](https://github.com/84436/LTHDT-18CLC6-Group17) (hiện tại đang `private`); kênh liên lạc chính của nhóm là nhóm Messenger và Discord
 
 
@@ -65,6 +77,7 @@ Nhóm 19, môn Lập trình hướng đối tượng (OOP)
 #### Lớp `Buyer` (người mua)
 
 - Ngoài thông tin cá nhân từ `Person` ra, tài khoản này còn thêm:
+	
 	- Hành động xóa tài khoản
 - Hoạt động đối với đơn hàng/sản phẩm
 	- Tìm kiếm sản phẩm (theo tên, theo tag)
@@ -81,6 +94,7 @@ Nhóm 19, môn Lập trình hướng đối tượng (OOP)
 	  
 #### Lớp `Shipper` (người giao hàng)
 - Ngoài thông tin cá nhân từ `Person` ra, tài khoản này còn thêm:
+	
 	- Hành động xóa tài khoản
 - Hoạt động đối với đơn hàng
 	- Xem thông tin: Seller, Buyer, giá (nếu ship COD), phí vận chuyển
