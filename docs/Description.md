@@ -19,8 +19,8 @@
 ### Giới thiệu
 
 - Một hệ thống quản lý bán hàng điện tử cơ bản, được viết bằng C++, không có giao diện đồ họa. Hệ thống bao gồm những đối tượng cơ bản cần thiết như cửa hàng, sản phẩm, đơn hàng,...
-- Mục tiêu: Hiểu rõ và áp dụng những kiến thức cơ bản và nâng cao trong Lập trình Hướng Đối tượng. Đồng thời tìm hiểu về hệ thống quản lý `git` và workflow xoay quanh `git`
-- [GitHub repo](https://github.com/84436/LTHDT-18CLC6-Group17) (hiện tại đang `private`); kênh liên lạc chính của nhóm là nhóm Messenger và Discord
+- Mục tiêu: Hiểu rõ và áp dụng những kiến thức cơ bản và nâng cao trong Lập trình Hướng Đối tượng. Đồng thời luyện tập tổ chức nhóm, tổ chức dự án, tìm hiểu về hệ thống quản lý `git` và workflow xoay quanh `git`.
+- [GitHub repo](https://github.com/84436/LTHDT-18CLC6-Group17) (hiện tại đang `private`); kênh liên lạc chính của nhóm là nhóm Messenger và Discord.
 
 
 
@@ -28,8 +28,8 @@
 
 #### Đặc thù
 
-- Mọi thứ sẽ quay quanh order (“người mua tạo order, người bán nhận và đồng ý/từ chối order, shipper nhận order và kiểm tra người mua đã nhận hàng chưa, người mua nhận hàng và cảm thấy hạnh phúc.”)
-- Mỗi ngày sẽ có một transaction list giữ các order. Số lượng order trong cái list chỉ có thể tăng thêm (không có bất kì bên nào được quyền can thiệp/sửa vào list này; chỉ có admin có quyền xem list). List cũ sẽ được archived sau khi hết một ngày và list mới sẽ được tạo cho ngày hôm sau.
+- Mọi thứ sẽ quay quanh đơn hàng (*order*) (“người mua tạo đơn hàng, người bán nhận và đồng ý/từ chối đơn, shipper nhận đơn và kiểm tra người mua đã nhận hàng chưa, người mua nhận hàng và cảm thấy hạnh phúc.”)
+- Mỗi ngày sẽ có một danh sách giao dịch (*transaction list*) giữ các đơn hàng. Số lượng đơn trong danh sách chỉ có thể tăng thêm (không có bất kì bên nào được quyền can thiệp/sửa vào danh sách này; chỉ có admin có quyền xem). Danh sách cũ sẽ được lưu lại sau khi hết một ngày và sẽ được tạo mới cho ngày hôm sau.
 
 
 
@@ -37,13 +37,13 @@
 
 1. Tạo, sửa, xóa Buyer, Seller, Product, Shipper tùy ý
 
-2. Tìm và xem lại transaction list của ngày hôm nay/một ngày nào đó
+2. Tìm và xem lại danh sách giao dịch của ngày hôm nay/một ngày nào đó
 
     
 
 #### Lớp `Person` ("tài khoản" trong hệ thống này)
 
-- Một superclass để có thể kế thừa ra `Buyer`, `Seller` và `Shipper`
+- Một superclass được `Buyer`, `Seller` và `Shipper` kế thừa.
 - Thông tin cá nhân bao gồm:
   - ID
   - Họ và tên
@@ -80,11 +80,11 @@
 	
 	- Hành động xóa tài khoản
 - Hoạt động đối với đơn hàng/sản phẩm
-	- Tìm kiếm sản phẩm (theo tên, theo tag)
+	- Tìm kiếm sản phẩm (theo tên, theo danh mục)
 	
-	- Tín dụng: check trước khi cho phép tạo đơn; chọn phương thức thanh toán (chuyển khoản/COD)
+	- Tín dụng: kiểm tra trước khi cho phép tạo đơn; chọn phương thức thanh toán (chuyển khoản/COD)
 	
-	- Kiểm tra độ uy tín của Buyer (người mua sau khi mua sẽ vote up hoặc down, sau đó chia tỉ lệ ra rate legit)
+	- Kiểm tra độ uy tín của Buyer (người mua sau khi mua sẽ vote up hoặc down, sau đó chia tỉ lệ ra độ uy tín)
 	
 	- Hủy đơn (chỉ được phép hủy trước khi Seller chấp nhận)
 	
@@ -121,7 +121,7 @@ Một đơn hàng gồm có:
 - ID order
 - ID, tên sản phẩm, số lượng
 - ID, thông tin cho: Seller, Buyer, Shipper
-- Chi phí: phương thức thanh toán, phí vận chuyển, giá đã thỏa thuận (aka giá bán; Buyer-Seller)
+- Chi phí: phương thức thanh toán, phí vận chuyển, giá đã thỏa thuận ( hoặc giá bán giữa Buyer-Seller)
 - Tình trạng:
 	- Seller: đang chờ chấp nhận đơn
 	- Seller: đã hủy đơn (nêu rõ lý do)
