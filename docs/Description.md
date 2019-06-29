@@ -47,6 +47,7 @@
 - Thông tin cá nhân bao gồm:
   - ID
   - Họ và tên
+  - Ngày tháng năm sinh, địa chỉ, email, số điện thoại
   - Một object `Wallet` (để quản lý tín dụng)
   - Mật khẩu đăng nhập (không được bao gồm trong class)
 
@@ -81,6 +82,8 @@
 	- Hành động xóa tài khoản
 - Hoạt động đối với đơn hàng/sản phẩm
 	- Tìm kiếm sản phẩm (theo tên, theo danh mục)
+	
+	  - Những mặt hàng mang tính nhạy cảm sẽ được lọc ra nếu người mua dưới 18 tuổi (xét ngày tháng năm sinh để biết tuổi)
 	
 	- Tín dụng: kiểm tra trước khi cho phép tạo đơn; chọn phương thức thanh toán (chuyển khoản/COD)
 	
