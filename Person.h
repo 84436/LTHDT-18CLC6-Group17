@@ -1,4 +1,5 @@
 #include "Wallet.h"
+#include <string>
 
 class Person {
 protected:
