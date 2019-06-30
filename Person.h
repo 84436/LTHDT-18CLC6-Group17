@@ -10,8 +10,8 @@ protected:
 	string Email;
 	string Phone;
 public:
-	Person(string id, string name, uint64_t x);
-	Person(string id, string name);
+	Person(string, string, uint64_t, uint64_t, string, string, string);
+	Person(string, string, uint64_t, string, string, string);
 	void EditInfo();
 	void ChangePassWord();
 	void DeleteAccount();
