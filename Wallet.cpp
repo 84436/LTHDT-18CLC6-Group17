@@ -1,5 +1,9 @@
 #include "Wallet.h"
 
+Wallet::Wallet() {
+	Balance = 0;
+}
+
 Wallet::Wallet(uint64_t x) {
 	Balance = x;
 }

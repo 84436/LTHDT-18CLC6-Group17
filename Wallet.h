@@ -5,6 +5,7 @@ class Wallet {
 private:
 	uint64_t Balance;
 public:
+	Wallet();
 	Wallet(uint64_t);
 	uint64_t CheckWallet();
 	void Deposit(uint64_t);
