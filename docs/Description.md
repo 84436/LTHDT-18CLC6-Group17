@@ -28,65 +28,77 @@
 
 #### Đặc thù
 
-- Mọi thứ sẽ quay quanh đơn hàng (*order*) (“người mua tạo đơn hàng, người bán nhận và đồng ý/từ chối đơn, shipper nhận đơn và kiểm tra người mua đã nhận hàng chưa, người mua nhận hàng và cảm thấy hạnh phúc.”)
-- Mỗi ngày sẽ có một danh sách giao dịch (*transaction list*) giữ các đơn hàng. Số lượng đơn trong danh sách chỉ có thể tăng thêm (không có bất kì bên nào được quyền can thiệp/sửa vào danh sách này; chỉ có admin có quyền xem). Danh sách cũ sẽ được lưu lại sau khi hết một ngày và sẽ được tạo mới cho ngày hôm sau.
+Mọi thứ sẽ quay quanh đơn hàng (*order*) (“người mua tạo đơn hàng, người bán nhận và đồng ý/từ chối đơn, shipper nhận đơn và kiểm tra người mua đã nhận hàng chưa, người mua nhận hàng.”)
 
+ 
 
-
-#### Lớp `Admin`
-
-1. Tạo, sửa, xóa Buyer, Seller, Product, Shipper tùy ý
-
-2. Tìm và xem lại danh sách giao dịch của ngày hôm nay/một ngày nào đó
-
-    
-
-#### Lớp `Person` ("tài khoản" trong hệ thống này)
+#### `Person` ("tài khoản" trong hệ thống này)
 
 - Một superclass được `Buyer`, `Seller` và `Shipper` kế thừa.
 - Thông tin cá nhân bao gồm:
   - ID
   - Họ và tên
   - Ngày tháng năm sinh, địa chỉ, email, số điện thoại
-  - Một object `Wallet` (để quản lý tín dụng)
+  - Một object `Wallet` (để quản lý tiền)
   - Mật khẩu đăng nhập (không được bao gồm trong class)
+- Các thao tác chung trên tài khoản bao gồm:
+  - Sửa thông tin cá nhân, thay đổi mật khẩu và xóa tài khoản
+  - Xem và lọc danh sách các order theo:
+    - Bản thân Seller/Buyer/Shipper (VD: nếu Seller chọn xem danh sách order, chỉ có những order có liên quan đến Seller nói trên sẽ được list ra)
+    - (Tùy chọn) Trạng thái đơn hàng hoặc ngày tạo đơn hàng
+    - Danh sách order sau khi được lọc sẽ được lưu vào một vector tạm (để bản thân Buyer/Seller/Shipper có thể chọn ra order cần thiết để thao tác trên nó)
 
 
 
-#### Lớp `Wallet` (ví)
+#### `Admin`
 
-- Một ví tiền cơ bản, cho phép người sở hữu ví kiểm tra, nạp và tiêu dùng tín dụng
+Một tài khoản đặc biệt kế thừa từ `Person`, có thông tin cá nhân hạn chế (VD: không ví, không ngày tháng năm sinh, v.v.) và có quyền:
+
+- Tạo, sửa, xóa `Buyer` và `Seller`
+- Xem và xóa `Product`
+- Xem *tất cả* các đơn hàng trong hệ thống và lọc theo ngày
 
 
 
-#### Lớp `Seller ` (người bán)
+#### `Wallet` (ví)
+
+- Một ví tiền cơ bản, cho phép người sở hữu ví kiểm tra, nạp và tiêu dùng tiền
+
+
+
+#### `Seller ` (người bán)
 
 - Ngoài thông tin cá nhân từ `Person` ra, tài khoản này còn thêm:
-	- Danh mục sản phẩm: tạo, edit (thông tin, tag, stock), xóa
-	- Hành động xóa tài khoản
 	
-- Hoạt động đối với đơn hàng
-	- Xử lí: chấp nhận đơn hàng/hủy đơn
-		- Nếu chấp nhận đơn: sản phẩm sẽ đến tay shipper lập tức
-		- Nếu hủy đơn: nêu rõ lý do
+	- Danh sách các `Shipper` và hành động tạo, xóa shipper
+	- Chỉ số đánh giá (rating)
+	
+- Hoạt động đối với sản phẩm:
+
+  - Tạo, sửa thông tin và xóa sản phẩm
+
+- Hoạt động đối với đơn hàng:
+	- Chấp nhận/từ chối đơn hàng
+		- Nếu chấp nhận: trạng thái của đơn hàng sẽ được thay đổi thành "chờ `Shipper` giao hàng"
+		- Nếu từ chối: ghi lại lý do
 	- Giảm giá đơn hàng (nếu có)
-	- Sửa tình trạng đơn hàng (sản phẩm đã đến tay Shipper): tự động sửa ngay khi chấp nhận đơn
 	
 	  
 	
 
-#### Lớp `Buyer` (người mua)
+#### `Buyer` (người mua)
 
-- Ngoài thông tin cá nhân từ `Person` ra, tài khoản này còn thêm:
+- Hoạt động đối với sản phẩm:
 	
-	- Hành động xóa tài khoản
-- Hoạt động đối với đơn hàng/sản phẩm
 	- Tìm kiếm sản phẩm (theo tên, theo danh mục)
-	
 	  - Những mặt hàng mang tính nhạy cảm sẽ được lọc ra nếu người mua dưới 18 tuổi (xét ngày tháng năm sinh để biết tuổi)
 	
-	- Tín dụng: kiểm tra trước khi cho phép tạo đơn; chọn phương thức thanh toán (chuyển khoản/COD)
+- Hoạt động đối với đơn hàng:
 	
+	- Tạo đơn hàng
+		
+		- Tiền: kiểm tra trước khi cho phép tạo đơn; chọn phương thức thanh toán (chuyển khoản/COD)
+		
 	- Kiểm tra độ uy tín của Buyer (người mua sau khi mua sẽ vote up hoặc down, sau đó chia tỉ lệ ra độ uy tín)
 	
 	- Hủy đơn (chỉ được phép hủy trước khi Seller chấp nhận)
@@ -94,11 +106,8 @@
 	- Kiểm tra tình trạng đơn hàng
 	
 	    
-	  
-#### Lớp `Shipper` (người giao hàng)
-- Ngoài thông tin cá nhân từ `Person` ra, tài khoản này còn thêm:
 	
-	- Hành động xóa tài khoản
+#### `Shipper` (người giao hàng)
 - Hoạt động đối với đơn hàng
 	- Xem thông tin: Seller, Buyer, giá (nếu ship COD), phí vận chuyển
 	
@@ -106,7 +115,7 @@
 	
     
 
-#### Lớp `Product` (sản phẩm)
+#### `Product` (sản phẩm)
 
 Thông tin sản phẩm bao gồm:
 
@@ -117,17 +126,19 @@ Thông tin sản phẩm bao gồm:
 
 
 
-#### Lớp `Order` (đơn hàng)
+#### `Order` (đơn hàng)
 
 Một đơn hàng gồm có:
 
 - ID order
 - ID, tên sản phẩm, số lượng
 - ID, thông tin cho: Seller, Buyer, Shipper
-- Chi phí: phương thức thanh toán, phí vận chuyển, giá đã thỏa thuận ( hoặc giá bán giữa Buyer-Seller)
+- Hệ số giá tiền (để giảm giá)
+- Ngày tạo đơn hàng, ngày hoàn tất đơn hàng
+- Chi phí: phương thức thanh toán, phí vận chuyển
 - Tình trạng:
 	- Seller: đang chờ chấp nhận đơn
-	- Seller: đã hủy đơn (nêu rõ lý do)
+	- Seller: đã hủy đơn (+ lý do)
 	- Shipper: đang vận chuyển
 	- Buyer: đã nhận
 
