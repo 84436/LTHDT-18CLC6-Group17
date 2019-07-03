@@ -2,7 +2,7 @@
 
 ## Thông tin nhóm
 
-* Nhóm 19 môn Lập trình Hướng Đối tượng
+* Nhóm 17 môn Lập trình Hướng Đối tượng
 * Thành viên:
   * 18127221 - Bùi Văn Thiện
   * 18127185 - Bùi Vũ Hiếu Phụng

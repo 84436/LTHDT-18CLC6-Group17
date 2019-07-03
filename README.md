@@ -2,10 +2,10 @@
 
 > "Quản lý chuối của bạn (và các loại nông phẩm/đồ gia dụng/gayming gear/mây mây)"
 
-Đồ án môn OOP của Nhóm 19 @ 18CLC6.
+Đồ án môn OOP của Nhóm 17 @ 18CLC6.
 
 ```
-Tiến trình hiện tại: ||
+Tiến trình hiện tại: HOÀN THÀNH MÔ TẢ + SƠ ĐỒ
 ```
 
 ```
@@ -19,9 +19,7 @@ docs/ClassDiagram.png		Sơ đồ lớp (có nhúng MX; có thể mở bằng dra
 
 ```
 TO-DO:
-- Hoàn thiện mô tả đồ án
-- Bổ sung quan hệ thừa kế (Inheritance), Aggregation
-- Bổ sung sơ đồ UML
+- Bắt tay vào làm :v
 ```
 
 
