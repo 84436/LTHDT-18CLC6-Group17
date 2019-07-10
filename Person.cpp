@@ -1,4 +1,16 @@
 #include "Person.h"
+#include "Shipper.h"
+
+Person::Person()
+{
+	ID = "";
+	Name = "";
+	Money.setBalance(0);
+	YOB = 0;
+	Address = "";
+	Email = "";
+	Phone = "";
+}
 
 Person::Person(string id, string name, uint64_t x, uint64_t yob, string address , string email, string phone) {
 	Money.Deposit(x);
@@ -41,4 +53,13 @@ void Person::EditInfo() {
 		cout << "PHONE NUMBER : \t"; getline(cin, Phone); cout << endl;
 	}
 	return;
+}
+
+void Person::OutputInfo(){
+	cout << "\t ID : \t" << ID << endl;
+	cout << "\t Name : \t" << Name << endl;
+	cout << "\t Year of Birth :\t" << YOB << endl;
+	cout << "\t Address : \t" << Address << endl;
+	cout << "\t Email : \t " << Email << endl;
+	cout << "\t Phone Number : \t" << Phone << endl;
 }
