@@ -4,26 +4,25 @@ Wallet::Wallet() {
 	Balance = 0;
 }
 
-Wallet::Wallet(uint64_t x) {
+Wallet::Wallet(int64_t x) {
 	Balance = x;
 }
 
-void Wallet::setBalance(uint64_t x){
+void Wallet::setBalance(int64_t x){
 	Balance = x;
 }
 
-uint64_t Wallet::CheckWallet() {
+int64_t Wallet::CheckWallet() {
 	return Balance;
 }
 
-void Wallet::Deposit(uint64_t x) {
+void Wallet::Deposit(int64_t x) {
 	Balance += x;
 }
 
-void Wallet::Withdraw(uint64_t x) {
+void Wallet::Withdraw(int64_t x) {
 	if (Balance < x) {
 		return;
 	}
 	Balance -= x;
 }
-

@@ -1,6 +1,6 @@
 ﻿#include "Login.h"
 
-void Password::GetPassword()
+void Account::GetPassword()
 {
 	// mask field
 	
@@ -23,7 +23,28 @@ void Password::GetPassword()
 	// băm
 }
 
-bool Password::operator==(const Password& x)
+bool Account::operator==(const Password& x)
 {
 	return (data == x.data);
+}
+
+bool Account::Authenticate(string ID, string Password)
+{
+	return (sha256(ID) == this->ID && sha256(Password) == this->Password);
+}
+
+Login::Login()
+{
+}
+
+Login::Login(const Login& x)
+{
+	for (auto i = x.Accounts.begin(); i != x.Accounts.end(); i++) {
+		this->Accounts.push_back((*i));
+	}
+}
+
+Login::~Login()
+{
+	Accounts.clear();
 }

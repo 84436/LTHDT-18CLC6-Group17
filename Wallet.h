@@ -1,14 +1,15 @@
-#include <iostream>
-using namespace std;
+#pragma once
+#include "_INCLUDES_.h"
 
 class Wallet {
-private:
-	uint64_t Balance;
-public:
-	Wallet();
-	Wallet(uint64_t);
-	void setBalance(uint64_t);
-	uint64_t CheckWallet();
-	void Deposit(uint64_t);
-	void Withdraw(uint64_t);
+	private:
+		int64_t Balance;
+
+	public:
+		Wallet();
+		Wallet(int64_t);
+		void setBalance(int64_t);
+		int64_t CheckWallet();
+		void Deposit(int64_t);
+		void Withdraw(int64_t);
 };

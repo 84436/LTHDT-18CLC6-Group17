@@ -12,7 +12,7 @@ void Product::GetInfo(){
 	cout << "\t Stock : \t" << Stock << endl;
 	cout << "\t Price : \t" << Price << endl;
 	cout << "\t Shipping Fee : \t" << ShippingFee << endl;
-	cout << "\t Rating : \t" << (1*Rating[0] + 2*Rating[1] + 3*Rating[2] + 4*Rating[3] + 5*Rating[4])/(Rating[0] + Rating[1] + Rating[2] + Rating[3] + Rating[4]) << endl;
+	cout << "\t Rating : \t" << (1 * Rating[0] + 2 * Rating[1] + 3 * Rating[2] + 4 * Rating[3] + 5 * Rating[4]) / (Rating[0] + Rating[1] + Rating[2] + Rating[3] + Rating[4]) << endl;
 }
 
 void Product::Rate(int){

@@ -12,14 +12,26 @@ Person::Person()
 	Phone = "";
 }
 
-Person::Person(string id, string name, uint64_t x, uint64_t yob, string address , string email, string phone) {
-	Money.Deposit(x);
-	ID = id;
-	Name = name;
-	YOB = yob;
-	Address = address;
-	Email = email;
-	Phone = phone;
+Person::Person(const Person& p)
+{
+	// TODO: my money or your money?
+	this->Money = p.Money;
+	this->ID = p.ID;
+	this->Name = p.Name;
+	this->YOB = p.YOB;
+	this->Address = p.Address;
+	this->Email = p.Email;
+	this->Phone = p.Phone;
+}
+
+Person::Person(string ID, string Name, uint64_t Balance, uint64_t YOB, string Address , string Email, string Phone) {
+	Money.Deposit(Balance);
+	this->ID = ID;
+	this->Name = Name;
+	this->YOB = YOB;
+	this->Address = Address;
+	this->Email = Email;
+	this->Phone = Phone;
 }
 
 Person::Person(string id, string name, uint64_t yob, string address, string email, string phone) {
@@ -29,6 +41,11 @@ Person::Person(string id, string name, uint64_t yob, string address, string emai
 	Address = address;
 	Email = email;
 	Phone = phone;
+}
+
+Person::~Person()
+{
+	this->FillteredOrder.clear();
 }
 
 void Person::EditInfo() {
@@ -55,11 +72,16 @@ void Person::EditInfo() {
 	return;
 }
 
+void Person::DeleteAccount()
+{
+	this->~Person();
+}
+
 void Person::OutputInfo(){
-	cout << "\t ID : \t" << ID << endl;
-	cout << "\t Name : \t" << Name << endl;
-	cout << "\t Year of Birth :\t" << YOB << endl;
-	cout << "\t Address : \t" << Address << endl;
-	cout << "\t Email : \t " << Email << endl;
-	cout << "\t Phone Number : \t" << Phone << endl;
+	cout << "ID            : " << ID << endl;
+	cout << "Name          : " << Name << endl;
+	cout << "Year of Birth : " << YOB << endl;
+	cout << "Address       : " << Address << endl;
+	cout << "Email         : " << Email << endl;
+	cout << "Phone         : " << Phone << endl;
 }

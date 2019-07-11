@@ -28,7 +28,11 @@
 
 #### Đặc thù
 
-Mọi thứ sẽ quay quanh đơn hàng (*order*) (“người mua tạo đơn hàng, người bán nhận và đồng ý/từ chối đơn, shipper nhận đơn và kiểm tra người mua đã nhận hàng chưa, người mua nhận hàng.”)
+- Mọi thứ sẽ quay quanh đơn hàng (*order*) (“người mua tạo đơn hàng, người bán nhận và đồng ý/từ chối đơn, shipper nhận đơn và kiểm tra người mua đã nhận hàng chưa, người mua nhận hàng.”)
+- (Dự tính) Các đối tượng trong hệ thống sẽ được bố trí vào những "provider" tương ứng. Cụ thể hơn:
+  - `People Provider` chứa các `Person` trong hệ thống và cung cấp các tính năng đăng nhập cơ bản
+  - `Product Provider` chứa toàn bộ các Product trong hệ thống
+  - `Order Provider` chứa toàn bộ các Order trong hệ thống
 
  
 
