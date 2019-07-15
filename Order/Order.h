@@ -1,5 +1,5 @@
 #pragma once
-#include "_INCLUDES_.h"
+#include "../_INCLUDES_.h"
 
 struct Date {
 	int Day;
@@ -22,7 +22,7 @@ class Order {
 
 	public:
 		void SetPriceCoeff(float _coeff);
-		uint64_t getTotalPrice();
+		int64_t getTotalPrice();
 		uint8_t getStatus();
 		string getNote();
 		void setStatus(uint8_t);

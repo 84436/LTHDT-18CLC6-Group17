@@ -1,5 +1,11 @@
 #include "Product.h"
 
+Product::Product(string SellerID, string ID, string Name, string Category, string Description, int32_t Stock, int64_t Price, int64_t ShippingFee)
+{
+	SetSellerID(SellerID);
+	ID(ID);
+}
+
 void Product::GetInfo(){
 	cout << endl << "\t \t INFORMATION : " << endl;
 	cout << "\t \t PROVIDER : " << endl;
@@ -20,18 +26,4 @@ void Product::Rate(int){
 	cout << "How many Stars you want to rate this Product (1 - 5) : ";
 	cin >> n;
 	Rating[n - 1]++;
-}
-
-uint64_t Product::getPrice()
-{
-	return Price;
-}
-
-uint64_t Product::getShippingFee()
-{
-	return ShippingFee;
-}
-
-void Product::setShippingFee(uint64_t x){
-	ShippingFee = x;
 }

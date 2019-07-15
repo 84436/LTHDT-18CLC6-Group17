@@ -1,7 +1,6 @@
-// Universal includes
-
 #pragma once
 
+// C++ STL
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -9,14 +8,23 @@
 #include <string>
 using namespace std;
 
+// SHA256, password hashing
 #include "sha256/sha256.h"
 
-#include "Login.h"
-#include "Person.h"
-#include "Wallet.h"
+// JSON, database
+#include "json/json.hpp"
+using json = nlohmann::json;
 
-#include "Buyer.h"
-#include "Seller.h"
-#include "Shipper.h"
-#include "Product.h"
-#include "Order.h"
+// Internals
+#include "Account/Account.h"
+#include "Account/AccountProvider.h"
+#include "Account/Buyer.h"
+#include "Account/Seller.h"
+#include "Account/Shipper.h"
+#include "Account/Wallet.h"
+#include "Database/Database.h"
+#include "Product/Product.h"
+#include "Order/Order.h"
+
+// Constants
+auto constexpr DATABASE_PATH = "C:/db.json";

@@ -1,6 +1,6 @@
 #include "Shipper.h"
 
-void Shipper::setShippingFee(uint64_t x){
+void Shipper::setShippingFee(int64_t x){
 	Product::setShippingFee(x);
 
 }

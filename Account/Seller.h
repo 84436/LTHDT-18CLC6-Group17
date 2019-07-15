@@ -1,13 +1,13 @@
 #pragma once
-#include "_INCLUDES_.h"
+#include "../_INCLUDES_.h"
 
-class Seller : public Person {
+class Seller : public Account {
 	private:
 		int Rating[5];
 		vector <Shipper> Shippers;
 
 	public:
-		Seller() : Person() {}
+		Seller() : Account() {}
 
 		void ListProduct();
 		void CreateProduct();

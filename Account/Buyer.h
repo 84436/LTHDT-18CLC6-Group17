@@ -1,12 +1,12 @@
 #pragma once
-#include "_INCLUDES_.h"
+#include "../_INCLUDES_.h"
 
-class Buyer : public Person {
+class Buyer : public Account {
 	private:
 		
 
 	public:
-		Buyer() : Person() {};
+		Buyer() : Account() {};
 
 		void SearchProduct();
 		Order CreateOrder();

@@ -30,13 +30,13 @@
 
 - Mọi thứ sẽ quay quanh đơn hàng (*order*) (“người mua tạo đơn hàng, người bán nhận và đồng ý/từ chối đơn, shipper nhận đơn và kiểm tra người mua đã nhận hàng chưa, người mua nhận hàng.”)
 - (Dự tính) Các đối tượng trong hệ thống sẽ được bố trí vào những "provider" tương ứng. Cụ thể hơn:
-  - `People Provider` chứa các `Person` trong hệ thống và cung cấp các tính năng đăng nhập cơ bản
+  - `People Provider` chứa các `Account` trong hệ thống và cung cấp các tính năng đăng nhập cơ bản
   - `Product Provider` chứa toàn bộ các Product trong hệ thống
   - `Order Provider` chứa toàn bộ các Order trong hệ thống
 
  
 
-#### `Person` ("tài khoản" trong hệ thống này)
+#### `Account` ("tài khoản" trong hệ thống này)
 
 - Một superclass được `Buyer`, `Seller` và `Shipper` kế thừa.
 - Thông tin cá nhân bao gồm:
@@ -56,7 +56,7 @@
 
 #### `Admin`
 
-Một tài khoản đặc biệt kế thừa từ `Person`, có thông tin cá nhân hạn chế (VD: không ví, không ngày tháng năm sinh, v.v.) và có quyền:
+Một tài khoản đặc biệt kế thừa từ `Account`, có thông tin cá nhân hạn chế (VD: không ví, không ngày tháng năm sinh, v.v.) và có quyền:
 
 - Tạo, sửa, xóa `Buyer` và `Seller`
 - Xem và xóa `Product`
@@ -72,7 +72,7 @@ Một tài khoản đặc biệt kế thừa từ `Person`, có thông tin cá n
 
 #### `Seller ` (người bán)
 
-- Ngoài thông tin cá nhân từ `Person` ra, tài khoản này còn thêm:
+- Ngoài thông tin cá nhân từ `Account` ra, tài khoản này còn thêm:
 	
 	- Danh sách các `Shipper` và hành động tạo, xóa shipper
 	- Chỉ số đánh giá (rating)

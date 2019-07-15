@@ -1,7 +1,7 @@
-#include "Person.h"
+#include "Account.h"
 #include "Shipper.h"
 
-Person::Person()
+Account::Account()
 {
 	ID = "";
 	Name = "";
@@ -12,7 +12,7 @@ Person::Person()
 	Phone = "";
 }
 
-Person::Person(const Person& p)
+Account::Account(const Account& p)
 {
 	// TODO: my money or your money?
 	this->Money = p.Money;
@@ -24,7 +24,7 @@ Person::Person(const Person& p)
 	this->Phone = p.Phone;
 }
 
-Person::Person(string ID, string Name, uint64_t Balance, uint64_t YOB, string Address , string Email, string Phone) {
+Account::Account(string ID, string Name, int64_t Balance, int64_t YOB, string Address , string Email, string Phone) {
 	Money.Deposit(Balance);
 	this->ID = ID;
 	this->Name = Name;
@@ -34,7 +34,7 @@ Person::Person(string ID, string Name, uint64_t Balance, uint64_t YOB, string Ad
 	this->Phone = Phone;
 }
 
-Person::Person(string id, string name, uint64_t yob, string address, string email, string phone) {
+Account::Account(string id, string name, int64_t yob, string address, string email, string phone) {
 	ID = id;
 	Name = name;
 	YOB = yob;
@@ -43,12 +43,12 @@ Person::Person(string id, string name, uint64_t yob, string address, string emai
 	Phone = phone;
 }
 
-Person::~Person()
+Account::~Account()
 {
 	this->FillteredOrder.clear();
 }
 
-void Person::EditInfo() {
+void Account::EditInfo() {
 	string a;
 	cout << " \t Account Information : \n";
 	cout << "ID : \t" << ID << endl;
@@ -72,12 +72,12 @@ void Person::EditInfo() {
 	return;
 }
 
-void Person::DeleteAccount()
+void Account::DeleteAccount()
 {
-	this->~Person();
+	this->~Account();
 }
 
-void Person::OutputInfo(){
+void Account::OutputInfo(){
 	cout << "ID            : " << ID << endl;
 	cout << "Name          : " << Name << endl;
 	cout << "Year of Birth : " << YOB << endl;

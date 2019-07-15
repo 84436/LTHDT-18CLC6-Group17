@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "_INCLUDES_.h"
+#include "../_INCLUDES_.h"
 
 // Hàm băm SHA-256
 // được cung cấp bởi http://www.zedwood.com/article/cpp-sha256-function
@@ -15,4 +15,4 @@ class Account
 		bool Authenticate(string ID, string Password);
 };
 
-// thứ giống Login nhưng là Person/People Provider
+// thứ giống Login nhưng là Account/People Provider

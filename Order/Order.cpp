@@ -4,7 +4,7 @@ void Order::SetPriceCoeff(float _coeff){
 	PriceCoeff = _coeff;
 }
 
-uint64_t Order::getTotalPrice()
+int64_t Order::getTotalPrice()
 {
 	return PriceCoeff * Product->getPrice() + Product->getShippingFee();
 }
