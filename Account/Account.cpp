@@ -3,49 +3,35 @@
 
 Account::Account()
 {
-	ID = "";
-	Name = "";
-	Money.setBalance(0);
-	YOB = 0;
-	Address = "";
-	Email = "";
-	Phone = "";
+	_ID = "";
+	_Name = "";
+	_Balance.setBalance(0);
+	_YOB = 0;
+	_Address = "";
+	_Email = "";
+	_Phone = "";
 }
 
-Account::Account(const Account& p)
+Account::Account(const Account& a)
 {
 	// TODO: my money or your money?
-	this->Money = p.Money;
-	this->ID = p.ID;
-	this->Name = p.Name;
-	this->YOB = p.YOB;
-	this->Address = p.Address;
-	this->Email = p.Email;
-	this->Phone = p.Phone;
+	this->_Balance = a._Balance;
+	this->_ID = a._ID;
+	this->_Name = a._Name;
+	this->_YOB = a._YOB;
+	this->_Address = a._Address;
+	this->_Email = a._Email;
+	this->_Phone = a._Phone;
 }
 
-Account::Account(string ID, string Name, int64_t Balance, int64_t YOB, string Address , string Email, string Phone) {
-	Money.Deposit(Balance);
-	this->ID = ID;
-	this->Name = Name;
-	this->YOB = YOB;
-	this->Address = Address;
-	this->Email = Email;
-	this->Phone = Phone;
-}
-
-Account::Account(string id, string name, int64_t yob, string address, string email, string phone) {
-	ID = id;
-	Name = name;
-	YOB = yob;
-	Address = address;
-	Email = email;
-	Phone = phone;
-}
-
-Account::~Account()
-{
-	this->FillteredOrder.clear();
+Account::Account(string _ID, string _Name, int64_t _Balance, int64_t _YOB, string _Address , string _Email, string _Phone) {
+	ID(_ID);
+	Name(_Name);
+	Balance(_Balance);
+	YOB(_YOB);
+	Address(_Address);
+	Email(_Email);
+	Phone(_Phone);
 }
 
 void Account::EditInfo() {
@@ -70,11 +56,6 @@ void Account::EditInfo() {
 		cout << "PHONE NUMBER : \t"; getline(cin, Phone); cout << endl;
 	}
 	return;
-}
-
-void Account::DeleteAccount()
-{
-	this->~Account();
 }
 
 void Account::OutputInfo(){

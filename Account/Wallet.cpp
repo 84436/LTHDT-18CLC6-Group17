@@ -12,7 +12,7 @@ void Wallet::setBalance(int64_t x){
 	Balance = x;
 }
 
-int64_t Wallet::CheckWallet() {
+int64_t Wallet::checkWallet() {
 	return Balance;
 }
 

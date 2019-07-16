@@ -9,7 +9,7 @@ class Wallet {
 		Wallet();
 		Wallet(int64_t);
 		void setBalance(int64_t);
-		int64_t CheckWallet();
+		int64_t checkWallet();
 		void Deposit(int64_t);
 		void Withdraw(int64_t);
 };

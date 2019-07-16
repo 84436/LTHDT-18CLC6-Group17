@@ -1,5 +1,24 @@
 #include "Order.h"
 
+Order::Order()
+{
+	_ID = "";
+	_Product = nullptr;
+	_Seller = nullptr;
+	_Buyer = nullptr;
+	_Shipper = nullptr;
+	_Note = "";
+}
+
+Order::Order(string _ID, string _ProductID, string _SellerID, string _BuyerID, string _ShipperID, float _PriceCoeff, Date _OrderDate, Date _ShippingDate, string _Note)
+{
+
+}
+
+Order::Order(const Order& o)
+{
+}
+
 void Order::SetPriceCoeff(float _coeff){
 	PriceCoeff = _coeff;
 }

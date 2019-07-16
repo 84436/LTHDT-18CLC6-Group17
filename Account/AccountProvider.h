@@ -5,7 +5,7 @@
 // được cung cấp bởi http://www.zedwood.com/article/cpp-sha256-function
 // CC-BY-SA 3.0
 
-class Account
+class AccountProvider
 {
 	private:
 		string ID;
