@@ -27,6 +27,7 @@ using json = nlohmann::json;
 #include "Product//ProductProvider.h"
 #include "Order/Order.h"
 #include "Order/OrderProvider.h"
+#include "Provider/Provider.h"
 
 // Constants
 auto constexpr DATABASE_PATH = "C:/db.json";
