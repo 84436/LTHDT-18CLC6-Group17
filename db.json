@@ -1,0 +1,91 @@
+{
+  "ACCOUNTS": {
+    "B00000001": {
+      "Name": "Generic Buyer",
+      "WalletBalance": 0,
+      "YearOfBirth": 1975,
+      "Address": "1 Buyers' Street, District, City",
+      "Email": "buyer1@project.banana",
+      "Phone": "+1-800-BUYER-1"
+    },
+    "B00000002": {
+      "Name": "Generic Buyer (non R-18)",
+      "WalletBalance": 0,
+      "YearOfBirth": 2010,
+      "Address": "2 Buyers' Street, District, City",
+      "Email": "buyer2@project.banana",
+      "Phone": "+1-800-BUYER-2"
+    },
+    "S00000001": {
+      "Name": "Generic Seller",
+      "WalletBalance": 0,
+      "YearOfBirth": 1975,
+      "Address": "1 Sellers' Street, District, City",
+      "Email": "seller@project.banana",
+      "Phone": "+1-800-SELLER",
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "H00000001": {
+      "Name": "Generic Shipper",
+      "WalletBalance": 0,
+      "YearOfBirth": 1975,
+      "Address": "1 Shippers' Street, District, City",
+      "Email": "shipper@project.banana",
+      "Phone": "+1-800-SHIPPER"
+    }
+  },
+  "PRODUCTS": {
+    "P00000001": {
+      "SellerID": "S00000001",
+      "isR18": true,
+      "Name": "Duc's Premium Sextay",
+      "Category": "Adult",
+      "Description": "Premium sextay from Duc's, now available on HaiLua's Farm (Generic Seller)",
+      "Stock": 1,
+      "Price": 69000,
+      "Rating": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "P00000002": {
+      "SellerID": "S00000001",
+      "isR18": false,
+      "Name": "Banana",
+      "Category": "Food/Produce",
+      "Description": "Fresh bananas from HaiLua's Farm (Generic Seller)",
+      "Stock": 1,
+      "Price": 10000,
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "ORDERS": {
+    "O20190717-0001": {
+      "ProductID": "P00000002",
+      "SellerID": "S00000001",
+      "BuyerID": "B00000002",
+      "ShipperID": "H00000001",
+      "PriceCoeff": 0.5,
+      "ShippingFee": 5000,
+      "OrderDate": "2019-07-17",
+      "ShippingDate": "2019-07-18",
+      "Status": 0,
+      "Note": ""
+    }
+  }
+}
