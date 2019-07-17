@@ -8,4 +8,6 @@ class Provider
 		Provider();
 	public:
 		static Provider* GetInstance();
+
+		//add, delete objects, read file .json, write file .json
 };

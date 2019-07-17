@@ -9,8 +9,9 @@ Product::Product()
 	_Decription = "";
 }
 
-Product::Product(string _SellerID, string _ID, string _Name, string _Category, string _Description, int32_t _Stock, int64_t _Price, int64_t _ShippingFee)
+Product::Product(AccountProvider* _AccountProvider, string _SellerID, string _ID, string _Name, string _Category, string _Description, int32_t _Stock, int64_t _Price, int64_t _ShippingFee)
 {
+	this->_AccountProvider = _AccountProvider;
 	Seller(_SellerID);
 	ID(_ID);
 	Name(_Name);
