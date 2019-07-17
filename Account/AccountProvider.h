@@ -15,29 +15,9 @@ class AccountProvider
 	public:
 		bool Authenticate(string ID, string Password);
 
-		Seller* findSeller(string ID) {
-			for (auto i = Accounts.begin(); i != Accounts.end(); ++i) {
-				if ((*i)->ID() == ID)
-					return (Seller*)(*i);
-			}
-			return nullptr;
-		}
-
-		Buyer* findBuyer(string ID) {
-			for (auto i = Accounts.begin(); i != Accounts.end(); ++i) {
-				if ((*i)->ID() == ID)
-					return (Buyer*)(*i);
-			}
-			return nullptr;
-		}
-
-		Shipper* findShipper(string ID) {
-			for (auto i = Accounts.begin(); i != Accounts.end(); ++i) {
-				if ((*i)->ID() == ID)
-					return (Shipper*)(*i);
-			}
-			return nullptr;
-		}
+		Seller* findSeller(string ID);
+		Buyer* findBuyer(string ID);
+		Shipper* findShipper(string ID);
 };
 
 // thứ giống Login nhưng là Account/People Provider
