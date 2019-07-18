@@ -4,6 +4,8 @@
 
 class Account {
 	protected:
+		ProductProvider* _ProductProvider = nullptr;
+		OrderProvider* _OrderProvider = nullptr;
 		string _ID;
 		string _Name;
 		int64_t _YOB = 1;
@@ -14,6 +16,7 @@ class Account {
 
 	public:
 		Account() {}
+		Account(ProductProvider* _ProductProvider, OrderProvider* _OrderProvider);
 		Account(const Account& a);
 
 		string  ID			()					{ return this->_ID; }

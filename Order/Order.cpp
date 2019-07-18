@@ -8,6 +8,8 @@ Order::Order(AccountProvider* _AccountProvider, ProductProvider* _ProductProvide
 
 Order::Order(const Order& o)
 {
+	this->_AccountProvider = o._AccountProvider;
+	this->_ProductProvider = o._ProductProvider;
 	this->_ID = o._ID;
 	this->_SellerID = o._SellerID;
 	this->_BuyerID = o._BuyerID;
@@ -22,7 +24,6 @@ Order::Order(const Order& o)
 
 int64_t Order::getTotalPrice()
 {
-	// return _PriceCoeff * _Product->Price() + _Product->ShippingFee();
 	return _PriceCoeff * _ProductProvider->GetByID(_ProductID)->Price() + _ShippingFee;
 }
 
