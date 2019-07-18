@@ -48,5 +48,5 @@ void Product::Rate(int){
 	int n;
 	cout << "How many Stars you want to rate this Product (1 - 5) : ";
 	cin >> n;
-	//Rating[n - 1]++; ??
+	_Rating[n - 1]++;
 }
