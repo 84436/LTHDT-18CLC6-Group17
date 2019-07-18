@@ -1,19 +1,19 @@
 #include "Account.h"
 
-string  Account::ID() { return this->_ID; }
-void    Account::ID(string ID) { this->_ID = ID; }
-string  Account::Name() { return this->_Name; }
-void    Account::Name(string Name) { this->_Name = Name; }
-int64_t Account::Balance() { return this->_Balance.checkWallet(); }
-void    Account::Balance(int64_t Balance) { this->_Balance.setBalance(Balance); }
-int64_t Account::YOB() { return this->_YOB; }
-void    Account::YOB(int64_t YOB) { this->_YOB = YOB; }
-string  Account::Address() { return this->_Address; }
-void    Account::Address(string Address) { this->_Address = Address; }
-string  Account::Email() { return this->_Email; }
-void    Account::Email(string Email) { this->_Email = Email; }
-string  Account::Phone() { return this->_Phone; }
-void    Account::Phone(string Phone) { this->_Phone = Phone; }
+//string  Account::ID() { return this->_ID; }
+//void    Account::ID(string ID) { this->_ID = ID; }
+//string  Account::Name() { return this->_Name; }
+//void    Account::Name(string Name) { this->_Name = Name; }
+//int64_t Account::Balance() { return this->_Balance.checkWallet(); }
+//void    Account::Balance(int64_t Balance) { this->_Balance.setBalance(Balance); }
+//int64_t Account::YOB() { return this->_YOB; }
+//void    Account::YOB(int64_t YOB) { this->_YOB = YOB; }
+//string  Account::Address() { return this->_Address; }
+//void    Account::Address(string Address) { this->_Address = Address; }
+//string  Account::Email() { return this->_Email; }
+//void    Account::Email(string Email) { this->_Email = Email; }
+//string  Account::Phone() { return this->_Phone; }
+//void    Account::Phone(string Phone) { this->_Phone = Phone; }
 
 Account::Account()
 {

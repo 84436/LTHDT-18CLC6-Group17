@@ -1,11 +1,17 @@
 #pragma once
 #include "../_INCLUDES_.h"
-#include "../Provider/Provider.h"
-#include "../Account/AccountProvider.h"
 #include "../Product/Product.h"
+#include "../Account/AccountProvider.h"
 
-class ProductProvider : public Provider
+class Product;
+
+class ProductProvider
 {
+	private:
+		ProductProvider();
+	public:
+		static ProductProvider& GetInstance();
+
 	private:
 		list<Product> Products;
 		AccountProvider* _AccountProvider;

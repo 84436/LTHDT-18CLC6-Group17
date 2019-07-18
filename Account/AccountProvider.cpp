@@ -49,6 +49,17 @@
 //	Accounts.clear();
 //}
 
+AccountProvider::AccountProvider()
+{
+	ReadFile();
+}
+
+AccountProvider& AccountProvider::GetInstance()
+{
+	static AccountProvider Instance;
+	return Instance;
+}
+
 void AccountProvider::ReadFile()
 {
 	fstream f(DATABASE_PATH, fstream::in);
@@ -59,15 +70,39 @@ void AccountProvider::ReadFile()
 		return;
 	}
 	json File = json::parse(f);
+
+	// Accounts
 	for (auto i = File["ACCOUNTS"].begin(); i != File["ACCOUNTS"].end(); ++i)
 	{
-		Account* a = new Account;
+		Account* a;
+
+		if (i.key()[0] == 'B') { a = new Buyer; }
+		else if (i.key()[0] == 'S') { a = new Seller; }
+		else { a = new Shipper; }
+
+		a->ID(i.key());
+		a->Name((*i)["Name"]);
+		a->Balance((*i)["WalletBalance"]);
+		a->YOB((*i)["YearOfBirth"]);
+		a->Address((*i)["Address"]);
+		a->Email((*i)["Email"]);
+		a->Phone((*i)["Phone"]);
+
+		if (i.key()[0] == 'S')
+		{
+			Seller* b = (Seller*)a;
+			b->RatingArray((*i)["Rating"][0], (*i)["Rating"][1], (*i)["Rating"][2], (*i)["Rating"][3], (*i)["Rating"][4]);
+		}
+
 		Accounts.push_back(a);
 	}
-	/*for (auto i = File["HASHES"].begin(); i != File["HASHES"].end(); ++i)
+
+	// Password hashes
+	for (auto i = File["HASHES"].begin(); i != File["HASHES"].end(); ++i)
 	{
-		PasswordHashes.emplace(PasswordHashes.end(), i.key(), i.value());
-	}*/
+		PasswordHash x = { i.key(), i.value() };
+		PasswordHashes.push_back(x);
+	}
 }
 
 void AccountProvider::WriteFile()
@@ -138,6 +173,22 @@ void AccountProvider::WriteFile()
 	}*/
 
 	f << File;
+}
+
+void AccountProvider::Delete(string _ID)
+{
+	// Remove related products
+
+	// Mark pending order + add note
+
+	// Actually delete account
+	for (auto i = Accounts.begin(); i != Accounts.end(); ++i)
+	{
+		if (ToLower((**i).ID()) == ToLower(_ID)) {
+			Accounts.erase(i);
+			break;
+		}
+	}
 }
 
 Seller* AccountProvider::FindSeller(string ID) {

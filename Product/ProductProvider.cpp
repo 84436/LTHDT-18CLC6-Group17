@@ -1,5 +1,16 @@
 #include "ProductProvider.h"
 
+ProductProvider::ProductProvider()
+{
+	ReadFile();
+}
+
+ProductProvider& ProductProvider::GetInstance()
+{
+	static ProductProvider Instance;
+	return Instance;
+}
+
 void ProductProvider::SetAccountProvider(AccountProvider* _AccountProvider)
 {
 	this->_AccountProvider = _AccountProvider;

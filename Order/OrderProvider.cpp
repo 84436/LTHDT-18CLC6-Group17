@@ -54,7 +54,7 @@ void OrderProvider::WriteFile()
 			{
 				i->ID(),
 				{
-					{"SellerID", i->SellerID()},
+					//{"SellerID", (i->SellerID() == nullptr ? "NULL" : i->SellerID()},
 					//{"isR18", i->isR18()},
 					//{"Name", i->Name()},
 					//{"Category", i->Category()},

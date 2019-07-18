@@ -18,7 +18,7 @@ class Account {
 		Account(const Account& a);
 
 		// Getters + Setters.
-		/*string  ID()					 { return this->_ID; }
+		string  ID()					 { return this->_ID; }
 		void    ID(string ID)			 { this->_ID = ID; }
 		string  Name()					 { return this->_Name; }
 		void    Name(string Name)		 { this->_Name = Name; }
@@ -31,22 +31,22 @@ class Account {
 		string  Email()					 { return this->_Email; }
 		void    Email(string Email)		 { this->_Email = Email; }
 		string  Phone()					 { return this->_Phone; }
-		void    Phone(string Phone)		 { this->_Phone = Phone; }*/
+		void    Phone(string Phone)		 { this->_Phone = Phone; }
 
-		string  ID();
-		void    ID(string ID);
-		string  Name();
-		void    Name(string Name);
-		int64_t Balance();
-		void    Balance(int64_t Balance);
-		int64_t YOB();
-		void    YOB(int64_t YOB);
-		string  Address();
-		void    Address(string Address);
-		string  Email();
-		void    Email(string Email);
-		string  Phone();
-		void    Phone(string Phone);
+		//string  ID();
+		//void    ID(string ID);
+		//string  Name();
+		//void    Name(string Name);
+		//int64_t Balance();
+		//void    Balance(int64_t Balance);
+		//int64_t YOB();
+		//void    YOB(int64_t YOB);
+		//string  Address();
+		//void    Address(string Address);
+		//string  Email();
+		//void    Email(string Email);
+		//string  Phone();
+		//void    Phone(string Phone);
 
 		void EditInfo();
 		// void ChangePassword(Login& h);

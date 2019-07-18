@@ -1,14 +1,4 @@
 #include "Product.h"
-
-Product::Product()
-{
-	_Seller = nullptr;
-	_ID = "";
-	_Name = "";
-	_Category = "";
-	_Decription = "";
-}
-
 Product::Product(AccountProvider* _AccountProvider)
 {
 	this->_AccountProvider = _AccountProvider;
@@ -16,7 +6,7 @@ Product::Product(AccountProvider* _AccountProvider)
 
 Product::Product(const Product& p)
 {
-	this->_Seller = p._Seller;
+	this->_SellerID = p._SellerID;
 	this->_ID = p._ID;
 	this->_Name = p._Name;
 	this->_Category = p._Category;

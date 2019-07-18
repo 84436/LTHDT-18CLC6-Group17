@@ -2,11 +2,12 @@
 #include "../_INCLUDES_.h"
 #include "../Account/AccountProvider.h"
 #include "../Account/Seller.h"
+#include "ProductProvider.h"
 
 class Product {
-	protected:
-		AccountProvider* _AccountProvider;
-		Seller* _Seller;
+	private:
+		AccountProvider* _AccountProvider = nullptr;
+		string _SellerID;
 		string _ID;
 		bool _isR18 = false;
 		string _Name;
@@ -15,15 +16,14 @@ class Product {
 		int32_t _Stock = 0;
 		int64_t _Price = 0;
 		vector<int> _Rating = {0};
-		
 
 	public:
-		Product();
+		Product() {}
 		Product(AccountProvider* _AccountProvider);
 		Product(const Product& p);
 
-		string  SellerID()							{ return this->_Seller->ID(); }
-		void	SellerID(string SellerID)			{ _Seller = _AccountProvider->FindSeller(SellerID); }
+		string  SellerID()							{ return this->_SellerID; }
+		void	SellerID(string _SellerID)			{ this->_SellerID = _SellerID; }
 		string  ID()								{ return this->_ID; }
 		void    ID(string ID)						{ this->_ID = ID; }
 		bool	isR18()								{ return this->_isR18; }
