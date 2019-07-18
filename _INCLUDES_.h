@@ -9,6 +9,8 @@
 using namespace std;
 
 // SHA256, password hashing
+// http://www.zedwood.com/article/cpp-sha256-function
+// CC-BY-SA 3.0
 #include "sha256/sha256.h"
 
 // JSON, database
@@ -16,21 +18,20 @@ using namespace std;
 using json = nlohmann::json;
 
 // Internals
-#include "Account/Account.h"
-#include "Account/AccountProvider.h"
-#include "Account/Buyer.h"
-#include "Account/Seller.h"
-#include "Account/Shipper.h"
-#include "Account/Wallet.h"
-#include "Database/Database.h"
-#include "Product/Product.h"
-#include "Product//ProductProvider.h"
-#include "Order/Order.h"
-#include "Order/OrderProvider.h"
-#include "Provider/Provider.h"
+//#include "Account/Account.h"
+//#include "Account/Buyer.h"
+//#include "Account/Seller.h"
+//#include "Account/Shipper.h"
+//#include "Account/Wallet.h"
+//#include "Product/Product.h"
+//#include "Order/Order.h"
+//#include "Provider/Provider.h"
+//#include "Account/AccountProvider.h"
+//#include "Product/ProductProvider.h"
+//#include "Order/OrderProvider.h"
 
 // Constants
-auto constexpr DATABASE_PATH = "C:/db.json";
+auto constexpr DATABASE_PATH = "D:/db.json";
 
 // Inline string helpers
 inline bool isEmptyString(const string& s)

@@ -1,15 +1,14 @@
 #pragma once
 #include "../_INCLUDES_.h"
+#include "Account.h"
 
 class Seller : public Account {
 	private:
-		int Rating[5];
-		vector <Shipper> Shippers;
+		vector<uint16_t> Rating = { 0, 0, 0, 0, 0 };
 
 	public:
 		Seller() : Account() {}
 
-		void ListProduct();
-		void CreateProduct();
-		void EditProduct(Product);
+		vector<uint16_t> RatingArray();
+		void RatingArray(uint16_t _1, uint16_t _2, uint16_t _3, uint16_t _4, uint16_t _5);
 };

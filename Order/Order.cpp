@@ -10,20 +10,10 @@ Order::Order()
 	_Note = "";
 }
 
-Order::Order(AccountProvider* _AccountProvider, ProductProvider* _ProductProvider, string _ID, string _ProductID, string _SellerID, string _BuyerID, string _ShipperID, float _PriceCoeff, Date _OrderDate, Date _ShippingDate, string _Note)
+Order::Order(AccountProvider* _AccountProvider, ProductProvider* _ProductProvider)
 {
 	this->_AccountProvider = _AccountProvider;
 	this->_ProductProvider = _ProductProvider;
-	ID(_ID);
-	Product(_ProductID);
-	Seller(_SellerID);
-	Buyer(_BuyerID);
-	Shipper(_ShipperID);
-	PriceCoeff(_PriceCoeff);
-	OrderDate(_OrderDate);
-	ShippingDate(_ShippingDate);
-	Status(_Status);
-	Note(_Note);
 }
 
 Order::Order(const Order& o)
@@ -44,7 +34,8 @@ Order::Order(const Order& o)
 
 int64_t Order::getTotalPrice()
 {
-	return _PriceCoeff * _Product->Price() + _Product->ShippingFee();
+	// return _PriceCoeff * _Product->Price() + _Product->ShippingFee();
+	return _PriceCoeff * _Product->Price();
 }
 
 uint8_t Order::getStatus()

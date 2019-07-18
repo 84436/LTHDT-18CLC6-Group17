@@ -9,17 +9,9 @@ Product::Product()
 	_Decription = "";
 }
 
-Product::Product(AccountProvider* _AccountProvider, string _SellerID, string _ID, string _Name, string _Category, string _Description, int32_t _Stock, int64_t _Price, int64_t _ShippingFee)
+Product::Product(AccountProvider* _AccountProvider)
 {
 	this->_AccountProvider = _AccountProvider;
-	Seller(_SellerID);
-	ID(_ID);
-	Name(_Name);
-	Category(_Category);
-	Description(_Description);
-	Stock(_Stock);
-	Price(_Price);
-	ShippingFee(_ShippingFee);
 }
 
 Product::Product(const Product& p)
@@ -31,7 +23,6 @@ Product::Product(const Product& p)
 	this->_Decription = p._Decription;
 	this->_Stock = p._Stock;
 	this->_Price = p._Price;
-	this->_ShippingFee = p._ShippingFee;
 
 	for (int i = 0; i < 5; i++) {
 		this->_Rating[i] = p._Rating[i];
@@ -57,5 +48,5 @@ void Product::Rate(int){
 	int n;
 	cout << "How many Stars you want to rate this Product (1 - 5) : ";
 	cin >> n;
-	//Rating[n - 1]++; ??
+	_Rating[n - 1]++;
 }

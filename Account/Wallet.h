@@ -1,5 +1,6 @@
 #pragma once
 #include "../_INCLUDES_.h"
+#include <iostream>
 
 class Wallet {
 	private:
