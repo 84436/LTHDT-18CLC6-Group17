@@ -1,43 +1,135 @@
 {
   "ACCOUNTS": {
     "B00000001": {
-      "Name": "Generic Buyer",
+      "Name": "Louis",
       "WalletBalance": 0,
       "YearOfBirth": 1975,
-      "Address": "1 Buyers' Street, District, City",
+      "Address": "1 Buyers' Street, District 8, HCM City",
       "Email": "buyer1@project.banana",
-      "Phone": "+1-800-BUYER-1"
+      "Phone": "+1-800-18213-1"
     },
     "B00000002": {
-      "Name": "Generic Buyer (non R-18)",
+      "Name": "David",
       "WalletBalance": 0,
-      "YearOfBirth": 2010,
-      "Address": "2 Buyers' Street, District, City",
+      "YearOfBirth": 2002,
+      "Address": "2 Buyers' Street, District 10, HCM City",
       "Email": "buyer2@project.banana",
-      "Phone": "+1-800-BUYER-2"
+      "Phone": "+1-800-09182-2"
+    },
+    "B00000003": {
+      "Name": "Jenni ",
+      "WalletBalance": 0,
+      "YearOfBirth": 1998,
+      "Address": "3 Buyers' Street, District 8, HCM City",
+      "Email": "buyer3@project.banana",
+      "Phone": "+1-800-18273-3"
+    },
+    "B00000004": {
+      "Name": "Liss",
+      "WalletBalance": 0,
+      "YearOfBirth": 1995,
+      "Address": "4 Buyers' Street, District 11, HCM City",
+      "Email": "buyer3@project.banana",
+      "Phone": "+1-800-98743-3"
+    },
+    "B00000005": {
+      "Name": "Jenni ",
+      "WalletBalance": 0,
+      "YearOfBirth": 1998,
+      "Address": "2 Buyers' Street, District 12, HCM City",
+      "Email": "buyer3@project.banana",
+      "Phone": "+1-800-12812-3"
     },
     "S00000001": {
-      "Name": "Generic Seller",
+      "Name": "Perk",
       "WalletBalance": 0,
-      "YearOfBirth": 1975,
-      "Address": "1 Sellers' Street, District, City",
+      "YearOfBirth": 1990,
+      "Address": "1 Sellers' Street, District 10, HCM City",
       "Email": "seller@project.banana",
-      "Phone": "+1-800-SELLER",
+      "Phone": "+1-800-129138",
+      "Rating": [
+        0,
+        0,
+        1,
+        3,
+        4
+      ]
+    },
+    "S00000002": {
+      "Name": "Soobin",
+      "WalletBalance": 0,
+      "YearOfBirth": 2005,
+      "Address": "2 Sellers' Street, District 3, HCM City",
+      "Email": "seller@project.banana",
+      "Phone": "+1-800-192990",
+      "Rating": [
+        0,
+        2,
+        0,
+        2,
+        3
+      ]
+    },
+    "S00000003": {
+      "Name": "Alex",
+      "WalletBalance": 0,
+      "YearOfBirth": 1980,
+      "Address": "3 Sellers' Street, District 8, HCM City",
+      "Email": "seller@project.banana",
+      "Phone": "+1-800-972477",
       "Rating": [
         0,
         0,
         0,
+        1,
+        6
+      ]
+    },
+    "S00000004": {
+      "Name": "Jone",
+      "WalletBalance": 0,
+      "YearOfBirth": 1993,
+      "Address": "4 Sellers' Street, District 5, HCM City",
+      "Email": "seller@project.banana",
+      "Phone": "+1-800-324475",
+      "Rating": [
         0,
-        0
+        0,
+        3,
+        3,
+        1
+      ]
+    },
+    "S00000005": {
+      "Name": "Han",
+      "WalletBalance": 0,
+      "YearOfBirth": 1999,
+      "Address": "5 Sellers' Street, District 2, HCM City",
+      "Email": "seller@project.banana",
+      "Phone": "+1-800-090902",
+      "Rating": [
+        0,
+        0,
+        0,
+        2,
+        4
       ]
     },
     "H00000001": {
-      "Name": "Generic Shipper",
+      "Name": "Lien Vo",
       "WalletBalance": 0,
-      "YearOfBirth": 1975,
-      "Address": "1 Shippers' Street, District, City",
+      "YearOfBirth": 2000,
+      "Address": "1 Shippers' Street, Thu Duc District, City",
       "Email": "shipper@project.banana",
-      "Phone": "+1-800-SHIPPER"
+      "Phone": "+1-800-3473843"
+    },
+    "H00000002": {
+      "Name": "Steven",
+      "WalletBalance": 0,
+      "YearOfBirth": 1979,
+      "Address": "2 Shippers' Street, District 7, HCM City",
+      "Email": "shipper@project.banana",
+      "Phone": "+1-800-524753"
     }
   },
   "PRODUCTS": {
@@ -47,11 +139,11 @@
       "Name": "Duc's Premium Sextay",
       "Category": "Adult",
       "Description": "Premium sextay from Duc's, now available on HaiLua's Farm (Generic Seller)",
-      "Stock": 1,
-      "Price": 69000,
+      "Stock": 7,
+      "Price": 6900000,
       "Rating": [
-        1,
-        0,
+        5,
+        2,
         0,
         0,
         0
@@ -62,14 +154,110 @@
       "isR18": false,
       "Name": "Banana",
       "Category": "Food/Produce",
-      "Description": "Fresh bananas from HaiLua's Farm (Generic Seller)",
-      "Stock": 1,
+      "Description": "Fresh bananas from HaiLua's Farm",
+      "Stock": 100,
       "Price": 10000,
       "Rating": [
         0,
         0,
         0,
+        3,
+        2
+      ]
+    },
+    "P00000003": {
+      "SellerID": "S00000005",
+      "isR18": false,
+      "Name": "Bed",
+      "Category": "Furniture",
+      "Description": "Good for sleep",
+      "Stock": 3,
+      "Price": 1000000,
+      "Rating": [
         0,
+        0,
+        1,
+        2,
+        5
+      ]
+    },
+    "P00000004": {
+      "SellerID": "S00000001",
+      "isR18": false,
+      "Name": "Beef",
+      "Category": "Food/Produce",
+      "Description": "from HaiLua's Farm",
+      "Stock": 10,
+      "Price": 50000,
+      "Rating": [
+        0,
+        0,
+        0,
+        1,
+        4
+      ]
+    },
+    "P00000005": {
+      "SellerID": "S00000001",
+      "isR18": false,
+      "Name": "Cherry",
+      "Category": "Food/Produce",
+      "Description": "from HaiLua's Farm",
+      "Stock": 1,
+      "Price": 30000,
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        3
+      ]
+    },
+    "P00000006": {
+      "SellerID": "S00000004",
+      "isR18": false,
+      "Name": "Shampoo",
+      "Category": "Neccessary",
+      "Description": "Sweet",
+      "Stock": 20,
+      "Price": 120000,
+      "Rating": [
+        0,
+        0,
+        0,
+        3,
+        1
+      ]
+    },
+    "P00000007": {
+      "SellerID": "S00000005",
+      "isR18": false,
+      "Name": "Glasses",
+      "Category": "Fashion",
+      "Description": "Beautiful",
+      "Stock": 10,
+      "Price": 100000,
+      "Rating": [
+        0,
+        0,
+        0,
+        1,
+        5
+      ]
+    },
+    "P00000008": {
+      "SellerID": "S00000002",
+      "isR18": false,
+      "Name": "Coconut",
+      "Category": "Food/Produce",
+      "Description": "VoThiLien's Farm",
+      "Stock": 1,
+      "Price": 12000,
+      "Rating": [
+        0,
+        0,
+        1,
+        4,
         1
       ]
     }
@@ -83,6 +271,42 @@
       "PriceCoeff": 0.5,
       "ShippingFee": 5000,
       "OrderDate": "2019-07-17",
+      "ShippingDate": "2019-07-18",
+      "Status": 0,
+      "Note": ""
+    },
+    "O20190717-0002": {
+      "ProductID": "P00000001",
+      "SellerID": "S00000003",
+      "BuyerID": "B00000004",
+      "ShipperID": "H00000001",
+      "PriceCoeff": 0.5,
+      "ShippingFee": 22000,
+      "OrderDate": "2019-07-17",
+      "ShippingDate": "2019-06-24",
+      "Status": 0,
+      "Note": ""
+    },
+    "O20190717-0003": {
+      "ProductID": "P00000005",
+      "SellerID": "S00000001",
+      "BuyerID": "B00000002",
+      "ShipperID": "H00000002",
+      "PriceCoeff": 0.5,
+      "ShippingFee": 15000,
+      "OrderDate": "2019-06-31",
+      "ShippingDate": "2019-07-18",
+      "Status": 0,
+      "Note": ""
+    },
+    "O20190717-0003 (copy)": {
+      "ProductID": "P00000003",
+      "SellerID": "S00000001",
+      "BuyerID": "B00000002",
+      "ShipperID": "H00000002",
+      "PriceCoeff": 0.5,
+      "ShippingFee": 30000,
+      "OrderDate": "2019-05-17",
       "ShippingDate": "2019-07-18",
       "Status": 0,
       "Note": ""
