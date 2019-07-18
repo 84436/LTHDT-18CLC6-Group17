@@ -37,32 +37,33 @@ Account::Account(string _ID, string _Name, int64_t _Balance, int64_t _YOB, strin
 void Account::EditInfo() {
 	string a;
 	cout << " \t Account Information : \n";
-	cout << "ID : \t" << ID << endl;
-	cout << "NAME : \t" << Name << endl;
-	cout << "YEAR of BIRTH :\t" << YOB << endl;
-	cout << "ADDRESS : \t" << Address << endl;
-	cout << "EMAIL : \t" << Email << endl;
-	cout << "PHONE NUMBER : \t" << Phone << endl;
+	cout << "ID : \t" << ID() << endl;
+	cout << "NAME : \t" << Name() << endl;
+	cout << "YEAR of BIRTH :\t" << YOB() << endl;
+	cout << "ADDRESS : \t" << Address() << endl;
+	cout << "EMAIL : \t" << Email() << endl;
+	cout << "PHONE NUMBER : \t" << Phone() << endl;
 	cout << endl << endl << "Do you want to change your infomation ? (Y/N) :" << endl;
 	while (getchar() != '\n');
 	getline(cin, a);
-	if (a == "Y") {
+
+	if (ToLower(a) == ToLower("Y")) {
 		cout << " \t Account Information : \n";
-		cout << "ID : \t"; getline(cin, ID); cout << endl;
-		cout << "NAME : \t"; getline(cin, Name); cout << endl;
-		cout << "YEAR of BIRTH :\t"; cin >> YOB; cout << endl;
-		cout << "ADDRESS : \t"; while (getchar() != '\n'); getline(cin, Address); cout << endl;
-		cout << "EMAIL : \t"; getline(cin, Email); cout << endl;
-		cout << "PHONE NUMBER : \t"; getline(cin, Phone); cout << endl;
+		cout << "ID : \t"; getline(cin, _ID);
+		cout << "NAME : \t"; getline(cin, _Name);
+		cout << "YEAR of BIRTH :\t"; cin >> _YOB;
+		cout << "ADDRESS : \t"; while (getchar() != '\n'); getline(cin, _Address);
+		cout << "EMAIL : \t"; getline(cin, _Email);
+		cout << "PHONE NUMBER : \t"; getline(cin, _Phone);
 	}
 	return;
 }
 
 void Account::OutputInfo(){
-	cout << "ID            : " << ID << endl;
-	cout << "Name          : " << Name << endl;
-	cout << "Year of Birth : " << YOB << endl;
-	cout << "Address       : " << Address << endl;
-	cout << "Email         : " << Email << endl;
-	cout << "Phone         : " << Phone << endl;
+	cout << "ID            : " << ID() << endl;
+	cout << "Name          : " << Name() << endl;
+	cout << "Year of Birth : " << YOB() << endl;
+	cout << "Address       : " << Address() << endl;
+	cout << "Email         : " << Email() << endl;
+	cout << "Phone         : " << Phone() << endl;
 }

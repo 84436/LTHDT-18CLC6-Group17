@@ -24,19 +24,19 @@ private:
 
 public:
 	Order();
-	Order(AccountProvider* _AccountProvider, ProductProvider* _ProductProvider, string _ID, string _ProductID, string _SellerID, string _BuyerID, string _ShipperID, float _PriceCoeff, Date _OrderDate, Date _ShippingDate, string _Note);
+	Order(AccountProvider* _AccountProvider, ProductProvider* _ProductProvider);
 	Order(const Order& o);
 
 	string  ID() { return this->_ID; }
 	void    ID(string ID) { this->_ID = ID; }
 	string  ProductID() { return this->_Product->ID(); }
-	void	Product(string ProductID) { this->_Product = _ProductProvider->GetByID(ProductID); }
+	void	ProductID(string ProductID) { this->_Product = _ProductProvider->GetByID(ProductID); }
 	string  SellerID() { return this->_Seller->ID(); }
-	void	Seller(string SellerID) { this->_Seller = _AccountProvider->findSeller(SellerID); }
+	void	SellerID(string SellerID) { this->_Seller = _AccountProvider->FindSeller(SellerID); }
 	string  BuyerID() { return this->_Buyer->ID(); }
-	void	Buyer(string BuyerID) { this->_Buyer = _AccountProvider->findBuyer(BuyerID); }
+	void	BuyerID(string BuyerID) { this->_Buyer = _AccountProvider->FindBuyer(BuyerID); }
 	string  ShipperID() { return this->_Shipper->ID(); }
-	void	Shipper(string ShipperID) { this->_Shipper = _AccountProvider->findShipper(ShipperID); }
+	void	ShipperID(string ShipperID) { this->_Shipper = _AccountProvider->FindShipper(ShipperID); }
 	float   PriceCoeff() { return this->_PriceCoeff; }
 	void    PriceCoeff(float PriceCoeff) { this->_PriceCoeff = PriceCoeff; }
 	Date    OrderDate() { return this->_OrderDate; }
