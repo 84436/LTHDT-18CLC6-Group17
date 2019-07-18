@@ -1,5 +1,6 @@
 #pragma once
 #include "../_INCLUDES_.h"
+#include "Account.h"
 
 class Seller : public Account {
 	private:

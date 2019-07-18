@@ -55,12 +55,12 @@ void OrderProvider::WriteFile()
 				i->ID(),
 				{
 					{"SellerID", i->SellerID()},
-					{"isR18", i->isR18()},
-					{"Name", i->Name()},
-					{"Category", i->Category()},
-					{"Description", i->Description()},
-					{"Stock", i->Stock()},
-					{"Price", i->Price()}
+					//{"isR18", i->isR18()},
+					//{"Name", i->Name()},
+					//{"Category", i->Category()},
+					//{"Description", i->Description()},
+					//{"Stock", i->Stock()},
+					//{"Price", i->Price()}
 				}
 			}
 		));

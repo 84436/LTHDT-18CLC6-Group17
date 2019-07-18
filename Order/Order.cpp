@@ -34,7 +34,8 @@ Order::Order(const Order& o)
 
 int64_t Order::getTotalPrice()
 {
-	return _PriceCoeff * _Product->Price() + _Product->ShippingFee();
+	// return _PriceCoeff * _Product->Price() + _Product->ShippingFee();
+	return _PriceCoeff * _Product->Price();
 }
 
 uint8_t Order::getStatus()

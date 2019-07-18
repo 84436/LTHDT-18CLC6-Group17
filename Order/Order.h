@@ -1,5 +1,7 @@
 #pragma once
 #include "../_INCLUDES_.h"
+#include "../Account/AccountProvider.h"
+#include "../Product/ProductProvider.h"
 
 struct Date {
 	int Day;

@@ -1,5 +1,8 @@
 #pragma once
 #include "../_INCLUDES_.h"
+#include "../Provider/Provider.h"
+#include "../Account/AccountProvider.h"
+#include "../Product/Product.h"
 
 class ProductProvider : public Provider
 {

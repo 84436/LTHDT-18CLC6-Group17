@@ -1,5 +1,9 @@
 #pragma once
 #include "../_INCLUDES_.h"
+#include "../Provider/Provider.h"
+#include "../Account/AccountProvider.h"
+#include "../Product/ProductProvider.h"
+#include "Order.h"
 
 class OrderProvider : public Provider
 {
@@ -17,7 +21,7 @@ class OrderProvider : public Provider
 		void Add(Order _Order);
 		void Delete(string _ID);
 		Order* GetByID(string _ID);
-		list<Order> Search(Buyer* _Buyer);
+		/*list<Order> Search(Buyer* _Buyer);
 		list<Order> Search(Seller* _Seller);
-		list<Order> Search(Shipper* _Shipper);
+		list<Order> Search(Shipper* _Shipper);*/
 };

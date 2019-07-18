@@ -64,10 +64,10 @@ void AccountProvider::ReadFile()
 		Account* a = new Account;
 		Accounts.push_back(a);
 	}
-	for (auto i = File["HASHES"].begin(); i != File["HASHES"].end(); ++i)
+	/*for (auto i = File["HASHES"].begin(); i != File["HASHES"].end(); ++i)
 	{
 		PasswordHashes.emplace(PasswordHashes.end(), i.key(), i.value());
-	}
+	}*/
 }
 
 void AccountProvider::WriteFile()
@@ -129,13 +129,13 @@ void AccountProvider::WriteFile()
 		}
 	}
 
-	File["HASHES"].clear();
+	/*File["HASHES"].clear();
 	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
 	{
 		File["HASHES"].push_back(json::object_t::value_type(
 			{ i->ID, i->Hash }
 		));
-	}
+	}*/
 
 	f << File;
 }
