@@ -26,7 +26,7 @@ int64_t Order::getTotalPrice()
 	return _PriceCoeff + _ProductProvider->GetByID(_ProductID)->Price() + _ShippingFee;
 }
 
-uint8_t Order::getStatus()
+int8_t Order::getStatus()
 {
 	if (_Status == 1) {
 		cout << "Your Order is Being Prepared " << endl;

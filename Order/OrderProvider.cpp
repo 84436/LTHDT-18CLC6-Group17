@@ -1,5 +1,16 @@
 #include "OrderProvider.h"
 
+OrderProvider::OrderProvider()
+{
+	ReadFile();
+}
+
+OrderProvider& OrderProvider::GetInstance()
+{
+	static OrderProvider Instance;
+	return Instance;
+}
+
 void OrderProvider::SetAccountProvider(AccountProvider* _AccountProvider)
 {
 	this->_AccountProvider = _AccountProvider;

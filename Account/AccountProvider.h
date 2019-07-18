@@ -21,15 +21,20 @@ class AccountProvider
 	private:
 		list<Account*> Accounts;
 		list<PasswordHash> PasswordHashes;
+		static int64_t NewAccountIDCounter;
+		string GenerateNewAccountID();
 
 	public:
 		void ReadFile();
 		void WriteFile();
-		// bool Authenticate(string ID, string Password);
+
+		string GetPassword();
+		bool Login(string _ID, string _HashedPassword);
+		void ChangePassword(string _ID);
+
+		void Add(Account* _Account);
 		void Delete(string _ID);
 		Seller* FindSeller(string ID);
 		Buyer* FindBuyer(string ID);
 		Shipper* FindShipper(string ID);
 };
-
-// thứ giống Login nhưng là Account/People Provider

@@ -1,16 +1,22 @@
 #pragma once
 #include "../_INCLUDES_.h"
-#include "../Provider/Provider.h"
 #include "../Account/AccountProvider.h"
 #include "../Product/ProductProvider.h"
 #include "Order.h"
 
-class OrderProvider : public Provider
+class OrderProvider
 {
+	private:
+		OrderProvider();
+	public:
+		static OrderProvider& GetInstance();
+
 	private:
 		list<Order> Orders;
 		AccountProvider* _AccountProvider;
 		ProductProvider* _ProductProvider;
+		static int64_t NewOrderIDCounter;
+		string GenerateNewOrderID();
 
 	public:
 		void SetAccountProvider(AccountProvider* _AccountProvider);

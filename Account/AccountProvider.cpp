@@ -1,53 +1,6 @@
 ﻿#include "AccountProvider.h"
 
-//void Account::GetPassword()
-//{
-//	// mask field
-//	
-//	char c = 0;
-//	while (c = cin.get()) {
-//		if (c == 8) { // BACKSPACE
-//
-//		}
-//		else if (c == 13) { // RETURN
-//
-//		}
-//		else if (c == 0 || c == 224) { // CONTROL CHARS
-//
-//		}
-//		else {
-//
-//		}
-//	}
-//
-//	// băm
-//}
-//
-//bool Account::operator==(const Password& x)
-//{
-//	return (data == x.data);
-//}
-//
-//bool Account::Authenticate(string ID, string Password)
-//{
-//	return (sha256(ID) == this->ID && sha256(Password) == this->Password);
-//}
-//
-//Login::Login()
-//{
-//}
-//
-//Login::Login(const Login& x)
-//{
-//	for (auto i = x.Accounts.begin(); i != x.Accounts.end(); i++) {
-//		this->Accounts.push_back((*i));
-//	}
-//}
-//
-//Login::~Login()
-//{
-//	Accounts.clear();
-//}
+int64_t AccountProvider::NewAccountIDCounter = 0;
 
 AccountProvider::AccountProvider()
 {
@@ -139,7 +92,7 @@ void AccountProvider::WriteFile()
 
 			// Sellers: get rating count
 			Seller* temp = (Seller*)(*i);
-			vector<uint16_t> Rating = temp->RatingArray();
+			vector<int16_t> Rating = temp->RatingArray();
 			for (int r = 0; r < 5; r++)
 			{
 				File["ACCOUNTS"][(*i)->ID()]["Rating"][r] = Rating[r];
@@ -164,15 +117,122 @@ void AccountProvider::WriteFile()
 		}
 	}
 
-	/*File["HASHES"].clear();
+	File["HASHES"].clear();
 	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
 	{
 		File["HASHES"].push_back(json::object_t::value_type(
 			{ i->ID, i->Hash }
 		));
-	}*/
+	}
 
 	f << File;
+}
+
+char MaskingChar()
+{
+	string Random = "!@#$%^&*";
+	return Random[rand() % Random.length()];
+}
+
+void AccountProvider::Add(Account* _Account)
+{
+	Account* x = nullptr;
+	switch (_Account->ID()[0])
+	{
+		case 'B':
+			x = new Buyer(*((Buyer*)_Account));
+			break;
+		case 'S':
+			x = new Seller(*((Seller*)_Account));
+			break;
+		case 'H':
+			x = new Shipper(*((Shipper*)_Account));
+			break;
+		default:
+			return;
+	}
+	Accounts.push_back(x);
+}
+
+string AccountProvider::GetPassword()
+{
+	srand(time(NULL));
+
+	string _HASHED;
+	char c = 0;
+	while (c = _getch())
+	{
+		if (c == 8) // BKSP
+		{
+			if (_HASHED.size() == 0)
+				continue;
+			else if (_HASHED.size() == 1)
+			{
+				_HASHED.pop_back();
+				cout << "\b \b";
+			}
+			else
+			{
+				_HASHED.pop_back();
+				cout << "\b \b\b" << MaskingChar() << " \b";
+			}
+		}
+		else if (c == 13) // RETURN
+		{
+			if (_HASHED.size() > 0) cout << "\b \b";
+			break;
+		}
+		else if (c == 0 || c == 224) // CTRL
+		{
+			_getch();
+		}
+		else
+		{
+			_HASHED.push_back(c);
+			if (_HASHED.size() - 1 == 0) cout << MaskingChar();
+			else cout << "\b " << MaskingChar();
+		}
+	}
+	cout << endl << "Plain: " << _HASHED << endl;
+	_HASHED = sha256(_HASHED);
+	return _HASHED;
+}
+
+bool AccountProvider::Login(string _ID, string _HashedPassword)
+{
+	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
+	{
+		if (ToLower(i->ID) == ToLower(_ID))
+		{
+			return (i->Hash == _HashedPassword);
+		}
+	}
+	return false;
+}
+
+void AccountProvider::ChangePassword(string _ID)
+{
+	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
+	{
+		if (ToLower(i->ID) == ToLower(_ID))
+		{
+			cout << "Enter password: ";
+			string Password1 = GetPassword();
+			cout << "Re-enter password: ";
+			string Password2 = GetPassword();
+			if (Password1 == Password2)
+			{
+				i->Hash = Password1;
+				WriteFile();
+				cout << "Password changed." << endl;
+			}
+			else
+			{
+				cout << "Passwords do not match. Password changing request aborted." << endl;
+			}
+		}
+	}
+	cout << "Account not found." << endl;
 }
 
 void AccountProvider::Delete(string _ID)

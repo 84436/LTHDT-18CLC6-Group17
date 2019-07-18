@@ -1,16 +1,15 @@
 #pragma once
 #include "../_INCLUDES_.h"
-#include <iostream>
 
 class Wallet {
 	private:
-		int64_t Balance;
+		int64_t _Balance = 0;
 
 	public:
 		Wallet();
-		Wallet(int64_t);
-		void setBalance(int64_t);
-		int64_t checkWallet();
-		void Deposit(int64_t);
-		void Withdraw(int64_t);
+		Wallet(int64_t _Balance);
+		void	Balance(int64_t _Balance);
+		int64_t	Balance() const;
+		void	Deposit(int64_t x);
+		void	Withdraw(int64_t x);
 };

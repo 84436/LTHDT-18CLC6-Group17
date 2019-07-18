@@ -1,4 +1,14 @@
 {
+  "COUNTERS": {
+    "BUYER": 6,
+    "SELLER": 6,
+    "SHIPPER": 3,
+    "PRODUCT": 9,
+    "ORDER": 5
+  },
+  "HASHES": {
+    "B00000001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
   "ACCOUNTS": {
     "B00000001": {
       "Name": "Louis",
@@ -299,7 +309,7 @@
       "Status": 0,
       "Note": ""
     },
-    "O20190717-0003 (copy)": {
+    "O20190717-0004": {
       "ProductID": "P00000003",
       "SellerID": "S00000001",
       "BuyerID": "B00000002",

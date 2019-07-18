@@ -19,10 +19,10 @@ class Order {
 		string _BuyerID;
 		string _ShipperID;
 		double _PriceCoeff = 0;
-		uint64_t _ShippingFee = 0;
+		int64_t _ShippingFee = 0;
 		Date _OrderDate = { 1,1,1 };
 		Date _ShippingDate = { 1,1,1 };
-		uint8_t _Status = 0;
+		int8_t _Status = 0;
 		string _Note;
 
 	public:
@@ -46,11 +46,11 @@ class Order {
 		void    OrderDate(Date OrderDate) { this->_OrderDate = OrderDate; }
 		Date    ShippingDate() { return this->_ShippingDate; }
 		void    ShippingDate(Date ShippingDate) { this->_ShippingDate = ShippingDate; }
-		uint8_t Status() { return this->_Status; }
-		void    Status(uint8_t Status) { this->_Status = Status; }
+		int8_t Status() { return this->_Status; }
+		void    Status(int8_t Status) { this->_Status = Status; }
 		string  Note() { return this->_Note; }
 		void    Note(string Note) { this->_Note = Note; }
 
 		int64_t getTotalPrice();
-		uint8_t getStatus();
+		int8_t getStatus();
 };

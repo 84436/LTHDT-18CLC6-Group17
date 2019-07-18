@@ -1,11 +1,11 @@
 #include "Seller.h"
 
-vector<uint16_t> Seller::RatingArray()
+vector<int16_t> Seller::RatingArray()
 {
 	return Rating;
 }
 
-void Seller::RatingArray(uint16_t _1, uint16_t _2, uint16_t _3, uint16_t _4, uint16_t _5)
+void Seller::RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_t _5)
 {
 	this->Rating[0] = _1;
 	this->Rating[1] = _2;

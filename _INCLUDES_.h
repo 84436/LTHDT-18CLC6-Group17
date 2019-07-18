@@ -6,6 +6,8 @@
 #include <vector>
 #include <list>
 #include <string>
+#include <ctime> // password
+#include <conio.h> // password
 using namespace std;
 
 // SHA256, password hashing

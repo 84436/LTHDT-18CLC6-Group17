@@ -8,5 +8,5 @@ class Shipper : public Account {
 		Shipper() : Account() {};
 
 		void setShippingFee(int64_t);
-		void updateStatus(uint8_t);
+		void updateStatus(int8_t);
 };
