@@ -33,13 +33,12 @@ docs/ClassDiagram.png		Sơ đồ lớp (có nhúng MX; có thể mở bằng dra
 | 18127221 | Bùi Văn Thiện     | 2019/07/17 | Thêm lớp Provider chứ các Object                 |
 | 18127185 | Bùi Vũ Hiếu Phụng | 2019/07/17 | Quy định lại tên biến, thêm các getter và setter |
 | 18127185 | Bùi Vũ Hiếu Phụng | 2019/07/17 | Tìm Seller, Buyer, Shipper theo ID               |
+| 18127221 | Bùi Văn Thiện     | 2019/07/18 | Đọc các file .json đưa vào database              |
+| 18127080 | Kiều Vũ Minh Đức  | 2019/07/18 | Tìm Order theo ID                                |
+| 18127164 | Huỳnh Thiện Nhân  | 2019/07/18 | Tìm Product theo ID Seller, tên sản phẩm         |
 |          |                   |            |                                                  |
 |          |                   |            |                                                  |
 |          |                   |            |                                                  |
 |          |                   |            |                                                  |
 |          |                   |            |                                                  |
 |          |                   |            |                                                  |
-|          |                   |            |                                                  |
-|          |                   |            |                                                  |
-|          |                   |            |                                                  |
-
