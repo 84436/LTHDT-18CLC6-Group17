@@ -5,11 +5,19 @@ class OrderProvider : public Provider
 {
 	private:
 		list<Order> Orders;
+		AccountProvider* _AccountProvider;
+		ProductProvider* _ProductProvider;
 
 	public:
-		void Add(Product _Product);
+		void SetAccountProvider(AccountProvider* _AccountProvider);
+		void SetProductProvider(ProductProvider* _ProductProvider);
+
+		void ReadFile();
+		void WriteFile();
+		void Add(Order _Order);
 		void Delete(string _ID);
-		Product* GetByID(string _ID);
-		list<Product> Search(string _Name);
-		list<Product> Search(Seller* _Seller);
+		Order* GetByID(string _ID);
+		list<Order> Search(Buyer* _Buyer);
+		list<Order> Search(Seller* _Seller);
+		list<Order> Search(Shipper* _Shipper);
 };

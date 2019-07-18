@@ -1,23 +1,25 @@
 ﻿#pragma once
 #include "../_INCLUDES_.h"
 
-// Hàm băm SHA-256
-// được cung cấp bởi http://www.zedwood.com/article/cpp-sha256-function
-// CC-BY-SA 3.0
+struct PasswordHash
+{
+	string ID;
+	string Hash;
+};
 
-class AccountProvider
+class AccountProvider : public Provider
 {
 	private:
-		string ID;
-		string Password;
 		list<Account*> Accounts;
+		list <PasswordHash> PasswordHashes;
 
 	public:
+		void ReadFile();
+		void WriteFile();
 		bool Authenticate(string ID, string Password);
-
-		Seller* findSeller(string ID);
-		Buyer* findBuyer(string ID);
-		Shipper* findShipper(string ID);
+		Seller* FindSeller(string ID);
+		Buyer* FindBuyer(string ID);
+		Shipper* FindShipper(string ID);
 };
 
 // thứ giống Login nhưng là Account/People Provider
