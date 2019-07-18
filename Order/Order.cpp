@@ -23,7 +23,7 @@ Order::Order(const Order& o)
 int64_t Order::getTotalPrice()
 {
 	// return _PriceCoeff * _Product->Price() + _Product->ShippingFee();
-	return _PriceCoeff + _ProductProvider->GetByID(_ProductID)->Price() + _ShippingFee;
+	return _PriceCoeff * _ProductProvider->GetByID(_ProductID)->Price() + _ShippingFee;
 }
 
 int8_t Order::getStatus()

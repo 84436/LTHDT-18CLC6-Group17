@@ -32,6 +32,16 @@ using json = nlohmann::json;
 //#include "Product/ProductProvider.h"
 //#include "Order/OrderProvider.h"
 
+class Account;
+class Buyer;
+class Seller;
+class Shipper;
+class Product;
+class Order;
+class AccountProvider;
+class ProductProvider;
+class OrderProvider;
+
 // Constants
 auto constexpr DATABASE_PATH = "D:/db.json";
 

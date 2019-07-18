@@ -40,7 +40,7 @@ class Order {
 		void	BuyerID(string BuyerID) { this->_BuyerID = BuyerID; }
 		string  ShipperID() { return this->_ShipperID; }
 		void	ShipperID(string ShipperID) { this->_ShipperID = ShipperID; }
-		float   PriceCoeff() { return this->_PriceCoeff; }
+		double   PriceCoeff() { return this->_PriceCoeff; }
 		void    PriceCoeff(float PriceCoeff) { this->_PriceCoeff = PriceCoeff; }
 		Date    OrderDate() { return this->_OrderDate; }
 		void    OrderDate(Date OrderDate) { this->_OrderDate = OrderDate; }
