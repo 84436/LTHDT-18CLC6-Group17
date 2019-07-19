@@ -14,7 +14,10 @@ Account::Account(const Account& a)
 
 int64_t Account::GetAge()
 {
-	return 2019 - this->_YOB;
+	struct tm buffer;
+	time_t now = time(0);
+	localtime_s(&buffer, &now);
+	return localtime_s(&buffer, &now) + 1900 - this->YOB();
 }
 
 void Account::EditInfo()
@@ -36,6 +39,11 @@ void Account::OutputInfo(){
 	cout << "Phone         : " << Phone() << endl;
 }
 
+
+void Account::CheckBalance()
+{
+	cout << "Balance: " << this->_Wallet.Balance() << endl;
+}
 
 void Account::Deposit(int64_t _Balance)
 {
