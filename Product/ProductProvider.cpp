@@ -25,11 +25,6 @@ string ProductProvider::GenerateNewProductID()
 	return NewID;
 }
 
-void ProductProvider::SetAccountProvider(AccountProvider* _AccountProvider)
-{
-	this->_AccountProvider = _AccountProvider;
-}
-
 void ProductProvider::ReadFile()
 {
 	fstream f(DATABASE_PATH, fstream::in);
@@ -44,7 +39,7 @@ void ProductProvider::ReadFile()
 	// Products
 	for (auto i = File["PRODUCTS"].begin(); i != File["PRODUCTS"].end(); ++i)
 	{
-		Product p(_AccountProvider);
+		Product p;
 		p.ID(i.key());
 		p.SellerID((*i)["SellerID"]);
 		p.isR18((*i)["isR18"]);

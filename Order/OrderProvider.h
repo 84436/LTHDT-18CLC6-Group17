@@ -13,15 +13,10 @@ class OrderProvider
 
 	private:
 		list<Order> Orders;
-		AccountProvider* _AccountProvider;
-		ProductProvider* _ProductProvider;
 		static int32_t NewOrderIDCounter;
 		string GenerateNewOrderID();
 
 	public:
-		void SetAccountProvider(AccountProvider* _AccountProvider);
-		void SetProductProvider(ProductProvider* _ProductProvider);
-
 		void ReadFile();
 		void WriteFile();
 		void Add(Order _Order);

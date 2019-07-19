@@ -25,16 +25,6 @@ string OrderProvider::GenerateNewOrderID()
 	return NewID;
 }
 
-void OrderProvider::SetAccountProvider(AccountProvider* _AccountProvider)
-{
-	this->_AccountProvider = _AccountProvider;
-}
-
-void OrderProvider::SetProductProvider(ProductProvider* _ProductProvider)
-{
-	this->_ProductProvider = _ProductProvider;
-}
-
 void OrderProvider::ReadFile()
 {
 	fstream f(DATABASE_PATH, fstream::in);
@@ -49,7 +39,7 @@ void OrderProvider::ReadFile()
 	// Orders
 	for (auto i = File["ORDERS"].begin(); i != File["ORDERS"].end(); ++i)
 	{
-		Order o(_AccountProvider, _ProductProvider);
+		Order o;
 		o.ID(i.key());
 		o.ProductID((*i)["ProductID"]);
 		o.SellerID((*i)["SellerID"]);
@@ -84,6 +74,7 @@ void OrderProvider::WriteFile()
 			{
 				i->ID(),
 				{
+					{"BuyerID", i->BuyerID()}
 					//{"SellerID", (i->SellerID() == nullptr ? "NULL" : i->SellerID()},
 					//{"isR18", i->isR18()},
 					//{"Name", i->Name()},

@@ -1,8 +1,4 @@
 #include "Product.h"
-Product::Product(AccountProvider* _AccountProvider)
-{
-	this->_AccountProvider = _AccountProvider;
-}
 
 Product::Product(const Product& p)
 {

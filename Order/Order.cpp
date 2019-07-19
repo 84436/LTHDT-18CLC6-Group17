@@ -1,15 +1,7 @@
-#include "Order.h"
-
-Order::Order(AccountProvider* _AccountProvider, ProductProvider* _ProductProvider)
-{
-	this->_AccountProvider = _AccountProvider;
-	this->_ProductProvider = _ProductProvider;
-}
+﻿#include "Order.h"
 
 Order::Order(const Order& o)
 {
-	this->_AccountProvider = o._AccountProvider;
-	this->_ProductProvider = o._ProductProvider;
 	this->_ID = o._ID;
 	this->_SellerID = o._SellerID;
 	this->_BuyerID = o._BuyerID;
@@ -21,10 +13,9 @@ Order::Order(const Order& o)
 	this->_Note = o._Note;
 }
 
-//??????????
 int64_t Order::getTotalPrice()
 {
-	return _PriceCoeff * _ProductProvider->GetByID(_ProductID)->Price() + _ShippingFee;
+	return _PriceCoeff * ProductProvider::GetInstance().GetByID(_ProductID)->Price() + _ShippingFee;
 }
 
 int8_t Order::getStatus()

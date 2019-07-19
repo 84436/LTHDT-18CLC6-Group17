@@ -6,7 +6,6 @@
 
 class Product {
 	private:
-		AccountProvider* _AccountProvider = nullptr;
 		string _SellerID;
 		string _ID;
 		bool _isR18 = false;
@@ -19,7 +18,6 @@ class Product {
 
 	public:
 		Product() {}
-		Product(AccountProvider* _AccountProvider);
 		Product(const Product& p);
 
 		string  SellerID		()							{ return this->_SellerID; }

@@ -11,8 +11,6 @@ struct Date {
 
 class Order {
 	private:
-		AccountProvider* _AccountProvider = nullptr;
-		ProductProvider* _ProductProvider = nullptr;
 		string _ID;
 		string _ProductID;
 		string _SellerID;
@@ -27,7 +25,6 @@ class Order {
 
 	public:
 		Order() {}
-		Order(AccountProvider* _AccountProvider, ProductProvider* _ProductProvider);
 		Order(const Order& o);
 
 		string  ID				()						{ return this->_ID; }
