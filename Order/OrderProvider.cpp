@@ -11,6 +11,18 @@ OrderProvider& OrderProvider::GetInstance()
 	return Instance;
 }
 
+string OrderProvider::GenerateNewOrderID()
+{
+	string NewID = to_string(NewOrderIDCounter);
+
+	if (NewID.length() < 8)
+		for (size_t i = 0; i < 8 - NewID.length(); i++)
+			NewID.insert(NewID.begin(), '0');
+	NewID.insert(NewID.begin(), 'O');
+
+	return NewID;
+}
+
 void OrderProvider::SetAccountProvider(AccountProvider* _AccountProvider)
 {
 	this->_AccountProvider = _AccountProvider;
@@ -31,6 +43,8 @@ void OrderProvider::ReadFile()
 		return;
 	}
 	json File = json::parse(f);
+
+	// Orders
 	for (auto i = File["ORDERS"].begin(); i != File["ORDERS"].end(); ++i)
 	{
 		Order o(_AccountProvider, _ProductProvider);
@@ -46,6 +60,9 @@ void OrderProvider::ReadFile()
 		o.Note((*i)["Note"]);
 		Orders.push_back(o);
 	}
+
+	// New ID counter
+	NewOrderIDCounter = File["COUNTERS"]["ORDER"];
 }
 
 void OrderProvider::WriteFile()
@@ -107,4 +124,25 @@ Order* OrderProvider::GetByID(string _ID)
 		}
 	}
 	return _Order;
+}
+
+list<Order&> OrderProvider::Search(Buyer* _Buyer)
+{
+	list <Order&> FilteredOrders;
+
+	return FilteredOrders;
+}
+
+list<Order&> OrderProvider::Search(Seller* _Seller)
+{
+	list <Order&> FilteredOrders;
+
+	return FilteredOrders;
+}
+
+list<Order&> OrderProvider::Search(Shipper* _Shipper)
+{
+	list <Order&> FilteredOrders;
+
+	return FilteredOrders;
 }

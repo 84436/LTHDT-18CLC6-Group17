@@ -21,8 +21,10 @@ class AccountProvider
 	private:
 		list<Account*> Accounts;
 		list<PasswordHash> PasswordHashes;
-		static int64_t NewAccountIDCounter;
-		string GenerateNewAccountID();
+		static int32_t NewBuyerIDCounter;
+		static int32_t NewSellerIDCounter;
+		static int32_t NewShipperIDCounter;
+		string GenerateNewAccountID(char AccountType);
 
 	public:
 		void ReadFile();

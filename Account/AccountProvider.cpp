@@ -1,7 +1,5 @@
 ﻿#include "AccountProvider.h"
 
-int64_t AccountProvider::NewAccountIDCounter = 0;
-
 AccountProvider::AccountProvider()
 {
 	ReadFile();
@@ -11,6 +9,35 @@ AccountProvider& AccountProvider::GetInstance()
 {
 	static AccountProvider Instance;
 	return Instance;
+}
+
+string AccountProvider::GenerateNewAccountID(char AccountType)
+{
+	string NewID;
+	switch (AccountType)
+	{
+		case 'B':
+			NewID = to_string(NewBuyerIDCounter);
+			NewBuyerIDCounter++;
+			break;
+		case 'S':
+			NewID = to_string(NewSellerIDCounter);
+			NewSellerIDCounter++;
+			break;
+		case 'H':
+			NewID = to_string(NewShipperIDCounter);
+			NewShipperIDCounter++;
+			break;
+		default:
+			return "";
+	}
+
+	if (NewID.length() < 8)
+		for (size_t i = 0; i < 8 - NewID.length(); i++)
+			NewID.insert(NewID.begin(), '0');
+	NewID.insert(NewID.begin(), AccountType);
+
+	return NewID;
 }
 
 void AccountProvider::ReadFile()
@@ -55,6 +82,14 @@ void AccountProvider::ReadFile()
 	{
 		PasswordHash x = { i.key(), i.value() };
 		PasswordHashes.push_back(x);
+	}
+
+	// New ID counters
+	for (auto i = File["COUNTERS"].begin(); i != File["COUNTERS"].end(); ++i)
+	{
+		if (i.key() == "BUYER") { NewBuyerIDCounter = i.value(); continue; }
+		if (i.key() == "SELLER") { NewSellerIDCounter = i.value(); continue; }
+		if (i.key() == "SHIPPER") { NewShipperIDCounter = i.value(); continue; }
 	}
 }
 
