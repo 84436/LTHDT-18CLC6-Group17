@@ -107,12 +107,12 @@ void OrderProvider::Delete(string _ID)
 	}
 }
 
-Order* OrderProvider::GetByID(string _ID)
+Order* OrderProvider::GetByID(string _OrderID)
 {
 	Order* _Order = nullptr;
 	for (auto i = Orders.begin(); i != Orders.end(); ++i)
 	{
-		if (ToLower(i->ID()) == ToLower(_ID))
+		if (ToLower(i->ID()) == ToLower(_OrderID))
 		{
 			_Order = &(*i);
 		}
@@ -123,10 +123,30 @@ Order* OrderProvider::GetByID(string _ID)
 list<Order> OrderProvider::Search(string _AccountID)
 {
 	list<Order> FilteredOrders;
-	for (auto i = Orders.begin(); i != Orders.end(); ++i)
-	{
-		if (i->ID() == _AccountID)
-			FilteredOrders.push_back(*i);
+
+	if (_AccountID[0] == 'B') {
+		for (auto i = Orders.begin(); i != Orders.end(); ++i)
+		{
+			if (i->BuyerID() == _AccountID)
+				FilteredOrders.push_back(*i);
+		}
 	}
+	
+	if (_AccountID[0] == 'S') {
+		for (auto i = Orders.begin(); i != Orders.end(); ++i)
+		{
+			if (i->SellerID() == _AccountID)
+				FilteredOrders.push_back(*i);
+		}
+	}
+
+	if (_AccountID[0] == 'H') {
+		for (auto i = Orders.begin(); i != Orders.end(); ++i)
+		{
+			if (i->ShipperID() == _AccountID)
+				FilteredOrders.push_back(*i);
+		}
+	}
+
 	return FilteredOrders;
 }
