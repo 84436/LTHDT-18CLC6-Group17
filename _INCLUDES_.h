@@ -3,8 +3,8 @@
 // C++ STL
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <list>
+#include <vector>
 #include <string>
 #include <ctime> // password
 #include <conio.h> // password
@@ -19,19 +19,7 @@ using namespace std;
 #include "json/json.hpp"
 using json = nlohmann::json;
 
-// Internals
-//#include "Account/Account.h"
-//#include "Account/Buyer.h"
-//#include "Account/Seller.h"
-//#include "Account/Shipper.h"
-//#include "Account/Wallet.h"
-//#include "Product/Product.h"
-//#include "Order/Order.h"
-//#include "Provider/Provider.h"
-//#include "Account/AccountProvider.h"
-//#include "Product/ProductProvider.h"
-//#include "Order/OrderProvider.h"
-
+// Forward declarations, because classes.
 class Account;
 class Buyer;
 class Seller;
@@ -59,3 +47,5 @@ inline string ToLower(const string& s)
 	}
 	return Lowered;
 }
+
+// Get current day, month, year

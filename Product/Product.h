@@ -1,6 +1,7 @@
 #pragma once
 #include "../_INCLUDES_.h"
 #include "../Account/Seller.h"
+#include "../Account/AccountProvider.h"
 
 class Product {
 	private:
@@ -36,5 +37,6 @@ class Product {
 		void    Price			(int64_t Price)				{ this->_Price = Price; }
 
 		void GetInfo();
-		void Rate(int);
+		float Rate();
+		void Rate(int _Rate);
 };

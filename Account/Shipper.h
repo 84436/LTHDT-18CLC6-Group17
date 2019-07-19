@@ -2,11 +2,12 @@
 #include "../_INCLUDES_.h"
 #include "Account.h"
 
-class Shipper : public Account {
+class Shipper : public Account
+{
 	private:
 	public:
-		Shipper() : Account() {};
+		Shipper() : Account() {}
+		Shipper(const Shipper& h) : Account(h) {}
 
-		void setShippingFee(int64_t);
-		void updateStatus(int8_t);
+		void FinishOrder(string _OrderID);
 };

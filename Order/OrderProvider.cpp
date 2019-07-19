@@ -120,23 +120,13 @@ Order* OrderProvider::GetByID(string _ID)
 	return _Order;
 }
 
-list<Order*> OrderProvider::Search(Buyer* _Buyer)
+list<Order> OrderProvider::Search(string _AccountID)
 {
-	list <Order*> FilteredOrders;
-
-	return FilteredOrders;
-}
-
-list<Order*> OrderProvider::Search(Seller* _Seller)
-{
-	list <Order*> FilteredOrders;
-
-	return FilteredOrders;
-}
-
-list<Order*> OrderProvider::Search(Shipper* _Shipper)
-{
-	list <Order*> FilteredOrders;
-
+	list<Order> FilteredOrders;
+	for (auto i = Orders.begin(); i != Orders.end(); ++i)
+	{
+		if (i->ID() == _AccountID)
+			FilteredOrders.push_back(*i);
+	}
 	return FilteredOrders;
 }

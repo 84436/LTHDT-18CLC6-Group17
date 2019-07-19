@@ -2,6 +2,13 @@
 #include "../_INCLUDES_.h"
 #include "..///Product/ProductProvider.h"
 
+// Statuses
+auto constexpr BUYER_CANCELLED = 1;
+auto constexpr SELLER_CANCELLED = 2;
+auto constexpr SELLER_PENDING = 3;
+auto constexpr SHIPPING_PENDING = 4;
+auto constexpr COMPLETED = 0;
+
 struct Date {
 	int Day;
 	int Month;
@@ -49,6 +56,8 @@ class Order {
 		string  Note			()						{ return this->_Note; }
 		void    Note			(string _Note)			{ this->_Note = _Note; }
 
-		int64_t getTotalPrice();
-		int8_t getStatus();
+		string Status_String();
+
+		int64_t TotalPrice();
+		void GetInfo();
 };

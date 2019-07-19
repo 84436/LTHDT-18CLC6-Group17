@@ -13,26 +13,42 @@ Order::Order(const Order& o)
 	this->_Note = o._Note;
 }
 
-int64_t Order::getTotalPrice()
+string Order::Status_String()
+{
+	switch (this->Status())
+	{
+		case BUYER_CANCELLED:
+			return "Cancelled by buyer";
+		case SELLER_CANCELLED:
+			return "Cancelled by seller";
+		case SELLER_PENDING:
+			return "Waiting for seller approval";
+		case SHIPPING_PENDING:
+			return "Delivering";
+		case COMPLETED:
+			return "Completed";
+		default:
+			return "Unknown status";
+	}
+}
+
+int64_t Order::TotalPrice()
 {
 	ProductProvider& _ProductProvider = ProductProvider::GetInstance();
 	return _PriceCoeff * _ProductProvider.GetByID(_ProductID)->Price() + _ShippingFee;
 }
 
-int8_t Order::getStatus()
+void Order::GetInfo()
 {
-	if (_Status == 1) {
-		cout << "Your Order is Being Prepared " << endl;
-	}
-	else if (_Status == 2) {
-		cout << "Your Order is Delivering " << endl;
-	}
-	else if (_Status == 3) {
-		cout << "Your Order has Arrived !!! " << endl;
-	}
-	else if (_Status == 0) {
-		cout << "Your Order has been Cancelled !!! " << endl;
-	}
-	return _Status;
+	cout << "ID            : " << this->ID() << endl;
+	cout << "Product       : " << endl;
+	cout << "Seller        : " << endl;
+	cout << "Buyer         : " << endl;
+	cout << "Shipper       : " << endl;
+	cout << "Shipping fee  : " << this->ShippingFee() << endl;
+	cout << "Total price   : " << this->TotalPrice() << endl;
+	cout << "Ordered date  : " << this->OrderDate().Year << "-" << this->OrderDate().Month << "-" << this->OrderDate().Day << endl;
+	cout << "Shipping date : " << this->ShippingDate().Year << "-" << this->ShippingDate().Month << "-" << this->ShippingDate().Day << endl;
+	cout << "Status        : " << this->Status_String() << endl;
+	cout << "Note          : " << (this->Note().length() == 0 ? "n/a" : this->Note()) << endl;
 }
-

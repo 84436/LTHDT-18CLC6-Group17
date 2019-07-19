@@ -2,8 +2,6 @@
 #include "../_INCLUDES_.h"
 #include "../Product/Product.h"
 
-class Product;
-
 class ProductProvider
 {
 	private:

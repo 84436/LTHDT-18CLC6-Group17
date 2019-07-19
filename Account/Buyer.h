@@ -1,19 +1,16 @@
 #pragma once
 #include "../_INCLUDES_.h"
 #include "Account.h"
-#include "AccountProvider.h"
-#include "../Product/ProductProvider.h"
-#include "..//Order/OrderProvider.h"
 
-class Buyer : public Account {
-	private:
-
+class Buyer : public Account
+{
 	public:
 		Buyer() : Account() {};
+		Buyer(const Buyer& b) : Account(b) {};
 
 		void SearchProductByID(string _ProductID);
 		void SearchProductByName(string _ProductName);
-		/*Order CreateOrder();
-		void CancelOrder(Order& _order);*/
+		void CreateOrder(); //
+		void CancelOrder(string _OrderID); //
 		void Rate(string _OrderID);
 };

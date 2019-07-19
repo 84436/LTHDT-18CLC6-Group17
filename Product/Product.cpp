@@ -15,22 +15,25 @@ Product::Product(const Product& p)
 	}
 }
 
-void Product::GetInfo(){
-	cout << endl << "PROVIDER : " << _SellerID << endl;
-	cout << "PRODUCT INFORMATION : " << endl;
-	cout << "ID : " << _ID << endl;
-	cout << "R18 : " << _isR18 << endl;
-	cout << "Name : " << _Name << endl;
-	cout << "Category : " << _Category << endl;
+void Product::GetInfo()
+{
+	cout << "Name       : " << _Name << endl;
+	cout << "ID         : " << _ID << endl;
+	cout << "Seller     : " << AccountProvider::GetInstance().FindSeller(_SellerID)->Name() << " (ID: " << _SellerID << ")" << endl;
+	cout << "Is R18?    : " << (_isR18 ? "true" : "false") << endl;
+	cout << "Category   : " << _Category << endl;
 	cout << "Decription : " << _Decription << endl;
-	cout << "Stock : " << _Stock << endl;
-	cout << "Price : " << _Price << endl;
-	//cout << "Rating : " << (1 * Rating[0] + 2 * Rating[1] + 3 * Rating[2] + 4 * Rating[3] + 5 * Rating[4]) / (Rating[0] + Rating[1] + Rating[2] + Rating[3] + Rating[4]) << endl;
+	cout << "Stock      : " << _Stock << endl;
+	cout << "Price      : " << _Price << endl;
+	cout << "Rate       : " << Rate() << endl;
 }
 
-void Product::Rate(int){
-	int n;
-	cout << "How many Stars you want to rate this Product (1 - 5) : ";
-	cin >> n;
-	_Rating[n - 1]++;
+float Product::Rate()
+{
+	return (1 * _Rating[0] + 2 * _Rating[1] + 3 * _Rating[2] + 4 * _Rating[3] + 5 * _Rating[4]) / (_Rating[0] + _Rating[1] + _Rating[2] + _Rating[3] + _Rating[4]);
+}
+
+void Product::Rate(int _Rate)
+{
+	_Rating[_Rate - 1]++;
 }

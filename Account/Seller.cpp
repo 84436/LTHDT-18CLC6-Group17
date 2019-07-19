@@ -1,4 +1,34 @@
-#include "Seller.h"
+﻿#include "Seller.h"
+#include "AccountProvider.h"
+#include "../Product/ProductProvider.h"
+#include "../Order/OrderProvider.h"
+
+void Seller::AddProduct()
+{
+	// Hỏi tất cả, trừ ID
+}
+
+void Seller::EditProduct(string _ProductID)
+{
+	// Edit tương tự như bên EditInfo() của Account, trừ ID
+}
+
+void Seller::DeleteProduct(string _ProductID)
+{
+	ProductProvider::GetInstance().Delete(_ProductID);
+}
+
+void Seller::AcceptOrder(string _OrderID)
+{
+	// Set shipping fee
+	OrderProvider::GetInstance().GetByID(_OrderID)->Status(SHIPPING_PENDING);
+}
+
+void Seller::RejectOrder(string _OrderID)
+{
+	// Hỏi lý do tại sao (ghi vào Note)
+	OrderProvider::GetInstance().GetByID(_OrderID)->Status(SELLER_CANCELLED);
+}
 
 vector<int16_t> Seller::RatingArray()
 {

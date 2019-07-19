@@ -1,4 +1,5 @@
 #include "Account.h"
+#include "../Order/OrderProvider.h"
 
 Account::Account(const Account& a)
 {
@@ -33,4 +34,34 @@ void Account::OutputInfo(){
 	cout << "Address       : " << Address() << endl;
 	cout << "Email         : " << Email() << endl;
 	cout << "Phone         : " << Phone() << endl;
+}
+
+
+void Account::Deposit(int64_t _Balance)
+{
+	this->_Wallet.Deposit(_Balance);
+}
+
+void Account::Withdraw(int64_t _Balance)
+{
+	this->_Wallet.Withdraw(_Balance);
+}
+
+void Account::ListOrder()
+{
+	list<Order> FilteredOrders = OrderProvider::GetInstance().Search(this->ID());
+	if (FilteredOrders.size() == 0)
+	{
+		cout << "No orders." << endl;
+		return;
+	}
+	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
+	{
+		cout << (*i).ID() << ": " << (*i).Status_String() << endl;
+	}
+}
+
+void Account::GetOrderInfo(string _OrderID)
+{
+	OrderProvider::GetInstance().GetByID(_OrderID)->GetInfo();
 }
