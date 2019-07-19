@@ -15,7 +15,8 @@ Order::Order(const Order& o)
 
 int64_t Order::getTotalPrice()
 {
-	return _PriceCoeff * ProductProvider::GetInstance().GetByID(_ProductID)->Price() + _ShippingFee;
+	ProductProvider& _ProductProvider = ProductProvider::GetInstance();
+	return _PriceCoeff * _ProductProvider.GetByID(_ProductID)->Price() + _ShippingFee;
 }
 
 int8_t Order::getStatus()

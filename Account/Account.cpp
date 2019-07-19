@@ -1,15 +1,7 @@
 #include "Account.h"
 
-Account::Account(ProductProvider* _ProductProvider, OrderProvider* _OrderProvider)
-{
-	this->_ProductProvider = _ProductProvider;
-	this->_OrderProvider = _OrderProvider;
-}
-
 Account::Account(const Account& a)
 {
-	this->_ProductProvider = a._ProductProvider;
-	this->_OrderProvider = a._OrderProvider;
 	this->_ID = a._ID;
 	this->_Name = a._Name;
 	this->_YOB = a._YOB;
@@ -17,6 +9,11 @@ Account::Account(const Account& a)
 	this->_Email = a._Email;
 	this->_Phone = a._Phone;
 	this->_Wallet.Balance(a._Wallet.Balance());
+}
+
+int64_t Account::GetAge()
+{
+	return 2019 - this->_YOB;
 }
 
 void Account::EditInfo()

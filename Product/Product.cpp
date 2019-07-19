@@ -15,20 +15,18 @@ Product::Product(const Product& p)
 	}
 }
 
-//void Product::GetInfo(){
-//	cout << endl << "\t \t INFORMATION : " << endl;
-//	cout << "\t \t PROVIDER : " << endl;
-//	_Seller->OutputInfo();
-//	cout << "\t \t PRODUCT INFORMATION : " << endl;
-//	cout << "\t ID : \t" << ID << endl;
-//	cout << "\t Name : \t" << Name << endl;
-//	cout << "\t Category : \t" << Category << endl;
-//	cout << "\t Decription : \t" << Decription << endl;
-//	cout << "\t Stock : \t" << Stock << endl;
-//	cout << "\t Price : \t" << Price << endl;
-//	cout << "\t Shipping Fee : \t" << ShippingFee << endl;
-//	cout << "\t Rating : \t" << (1 * Rating[0] + 2 * Rating[1] + 3 * Rating[2] + 4 * Rating[3] + 5 * Rating[4]) / (Rating[0] + Rating[1] + Rating[2] + Rating[3] + Rating[4]) << endl;
-//}
+void Product::GetInfo(){
+	cout << endl << "PROVIDER : " << _SellerID << endl;
+	cout << "PRODUCT INFORMATION : " << endl;
+	cout << "ID : " << _ID << endl;
+	cout << "R18 : " << _isR18 << endl;
+	cout << "Name : " << _Name << endl;
+	cout << "Category : " << _Category << endl;
+	cout << "Decription : " << _Decription << endl;
+	cout << "Stock : " << _Stock << endl;
+	cout << "Price : " << _Price << endl;
+	//cout << "Rating : " << (1 * Rating[0] + 2 * Rating[1] + 3 * Rating[2] + 4 * Rating[3] + 5 * Rating[4]) / (Rating[0] + Rating[1] + Rating[2] + Rating[3] + Rating[4]) << endl;
+}
 
 void Product::Rate(int){
 	int n;

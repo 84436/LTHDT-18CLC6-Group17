@@ -1,7 +1,5 @@
 #pragma once
 #include "../_INCLUDES_.h"
-#include "../Account/AccountProvider.h"
-#include "../Product/ProductProvider.h"
 #include "Order.h"
 
 class OrderProvider

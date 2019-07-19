@@ -45,7 +45,8 @@ void OrderProvider::ReadFile()
 		o.SellerID((*i)["SellerID"]);
 		o.BuyerID((*i)["BuyerID"]);
 		o.ShipperID((*i)["ShipperID"]);
-		o.PriceCoeff((*i)["isR18"]);
+		o.PriceCoeff((*i)["PriceCoeff"]);
+		o.ShippingFee((*i)["PriceCoeff"]);
 		// o.OrderDate((*i) ...);
 		// o.ShippingDate((*i) ...);
 		o.Status((*i)["Status"]);

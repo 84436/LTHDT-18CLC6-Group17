@@ -4,8 +4,6 @@
 
 class Account {
 	protected:
-		ProductProvider* _ProductProvider = nullptr;
-		OrderProvider* _OrderProvider = nullptr;
 		string _ID;
 		string _Name;
 		int64_t _YOB = 1;
@@ -16,7 +14,6 @@ class Account {
 
 	public:
 		Account() {}
-		Account(ProductProvider* _ProductProvider, OrderProvider* _OrderProvider);
 		Account(const Account& a);
 
 		string  ID			()					{ return this->_ID; }
@@ -34,6 +31,7 @@ class Account {
 		int64_t Balance		()					{ return this->_Wallet.Balance(); }
 		void    Balance		(int64_t _Balance)	{ this->_Wallet.Balance(_Balance); }
 
+		int64_t GetAge();
 		void EditInfo();
 		virtual void OutputInfo();
 };
