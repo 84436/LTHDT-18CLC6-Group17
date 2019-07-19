@@ -11,6 +11,18 @@ ProductProvider& ProductProvider::GetInstance()
 	return Instance;
 }
 
+string ProductProvider::GenerateNewProductID()
+{
+	string NewID = to_string(NewProductIDCounter);
+
+	if (NewID.length() < 8)
+		for (size_t i = 0; i < 8 - NewID.length(); i++)
+			NewID.insert(NewID.begin(), '0');
+	NewID.insert(NewID.begin(), 'P');
+
+	return NewID;
+}
+
 void ProductProvider::SetAccountProvider(AccountProvider* _AccountProvider)
 {
 	this->_AccountProvider = _AccountProvider;
@@ -26,6 +38,8 @@ void ProductProvider::ReadFile()
 		return;
 	}
 	json File = json::parse(f);
+
+	// Products
 	for (auto i = File["PRODUCTS"].begin(); i != File["PRODUCTS"].end(); ++i)
 	{
 		Product p(_AccountProvider);
@@ -39,6 +53,9 @@ void ProductProvider::ReadFile()
 		p.Price((*i)["Price"]);
 		Products.push_back(p);
 	}
+
+	// New ID counter
+	NewProductIDCounter = File["COUNTERS"]["PRODUCT"];
 }
 
 void ProductProvider::WriteFile()
