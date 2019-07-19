@@ -1,5 +1,7 @@
 #include "ProductProvider.h"
 
+int32_t ProductProvider::NewProductIDCounter = 0;
+
 ProductProvider::ProductProvider()
 {
 	ReadFile();

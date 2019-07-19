@@ -15,7 +15,7 @@ class ProductProvider
 	private:
 		list<Product> Products;
 		AccountProvider* _AccountProvider;
-		static int64_t NewProductIDCounter;
+		static int32_t NewProductIDCounter;
 		string GenerateNewProductID();
 
 	public:

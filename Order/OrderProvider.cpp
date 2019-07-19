@@ -1,5 +1,7 @@
 #include "OrderProvider.h"
 
+int32_t OrderProvider::NewOrderIDCounter = 0;
+
 OrderProvider::OrderProvider()
 {
 	ReadFile();
@@ -126,23 +128,23 @@ Order* OrderProvider::GetByID(string _ID)
 	return _Order;
 }
 
-list<Order&> OrderProvider::Search(Buyer* _Buyer)
+list<Order*> OrderProvider::Search(Buyer* _Buyer)
 {
-	list <Order&> FilteredOrders;
+	list <Order*> FilteredOrders;
 
 	return FilteredOrders;
 }
 
-list<Order&> OrderProvider::Search(Seller* _Seller)
+list<Order*> OrderProvider::Search(Seller* _Seller)
 {
-	list <Order&> FilteredOrders;
+	list <Order*> FilteredOrders;
 
 	return FilteredOrders;
 }
 
-list<Order&> OrderProvider::Search(Shipper* _Shipper)
+list<Order*> OrderProvider::Search(Shipper* _Shipper)
 {
-	list <Order&> FilteredOrders;
+	list <Order*> FilteredOrders;
 
 	return FilteredOrders;
 }

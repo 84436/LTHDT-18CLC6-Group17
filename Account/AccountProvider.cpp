@@ -1,5 +1,9 @@
 ﻿#include "AccountProvider.h"
 
+int32_t AccountProvider::NewBuyerIDCounter = 0;
+int32_t AccountProvider::NewSellerIDCounter = 0;
+int32_t AccountProvider::NewShipperIDCounter = 0;
+
 AccountProvider::AccountProvider()
 {
 	ReadFile();
