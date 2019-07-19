@@ -102,12 +102,12 @@ Product* ProductProvider::GetByID(string _ID)
 	return _Product;
 }
 
-list<Product> ProductProvider::SearchByName(string _Name)
+list<Product> ProductProvider::SearchByName(string _Name, bool _isR18)
 {
 	list<Product> _Products;
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{
-		if (ToLower(i->Name()).find(ToLower(_Name)) != string::npos)
+		if ((ToLower(i->Name()).find(ToLower(_Name)) != string::npos) && (i->isR18() == _isR18 ))
 		{
 			_Products.push_back((*i));
 		}
@@ -115,12 +115,12 @@ list<Product> ProductProvider::SearchByName(string _Name)
 	return _Products;
 }
 
-list<Product> ProductProvider::SearchBySeller(string _SellerID)
+list<Product> ProductProvider::SearchBySeller(string _SellerID, bool _isR18)
 {
 	list<Product> _Products;
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{
-		if (i->SellerID() == _SellerID)
+		if (i->SellerID() == _SellerID && (i->isR18() == _isR18))
 		{
 			_Products.push_back((*i));
 		}

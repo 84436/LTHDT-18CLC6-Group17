@@ -11,4 +11,5 @@ class Seller : public Account {
 
 		vector<int16_t> RatingArray();
 		void RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_t _5);
+		void Rate(int _score);
 };

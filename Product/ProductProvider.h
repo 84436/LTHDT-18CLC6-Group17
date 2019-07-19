@@ -25,7 +25,7 @@ class ProductProvider
 		void WriteFile();
 		void Add(Product _Product);
 		void Delete(string _ID);
-		Product* GetByID(string _ID);
-		list<Product> SearchByName(string _Name);
-		list<Product> SearchBySeller(string _SellerID);
+		Product* GetByID(string _ID); 
+		list<Product> SearchByName(string _Name, bool _isR18);
+		list<Product> SearchBySeller(string _SellerID,  bool _isR18);
 };

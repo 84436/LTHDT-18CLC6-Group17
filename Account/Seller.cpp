@@ -13,3 +13,8 @@ void Seller::RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_t
 	this->Rating[3] = _4;
 	this->Rating[4] = _5;
 }
+
+void Seller::Rate(int _score)
+{
+	Rating[_score - 1]++;
+}

@@ -1,6 +1,8 @@
 #pragma once
 #include "../_INCLUDES_.h"
 #include "Account.h"
+#include "../Product/ProductProvider.h"
+#include "../Order/Order.h"
 
 class Buyer : public Account {
 	private:
@@ -8,8 +10,8 @@ class Buyer : public Account {
 	public:
 		Buyer() : Account() {};
 
-		// void SearchProduct();
-		// Order CreateOrder();
-		// void CancelOrder(Order& _order);
-		// void Rate(Order& _order);
+		void SearchProduct(string _name);
+		Order CreateOrder();
+		void CancelOrder(Order& _order);
+		void Rate(Order& _order);
 };
