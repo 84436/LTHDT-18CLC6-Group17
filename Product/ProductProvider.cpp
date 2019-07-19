@@ -88,6 +88,7 @@ void ProductProvider::WriteFile()
 
 void ProductProvider::Add(Product _Product)
 {
+	_Product.ID(GenerateNewProductID());
 	Products.push_back(_Product);
 }
 

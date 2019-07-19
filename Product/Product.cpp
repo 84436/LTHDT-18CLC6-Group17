@@ -6,7 +6,7 @@ Product::Product(const Product& p)
 	this->_ID = p._ID;
 	this->_Name = p._Name;
 	this->_Category = p._Category;
-	this->_Decription = p._Decription;
+	this->_Description = p._Description;
 	this->_Stock = p._Stock;
 	this->_Price = p._Price;
 
@@ -22,10 +22,20 @@ void Product::GetInfo()
 	cout << "Seller     : " << AccountProvider::GetInstance().FindSeller(_SellerID)->Name() << " (ID: " << _SellerID << ")" << endl;
 	cout << "Is R18?    : " << (_isR18 ? "true" : "false") << endl;
 	cout << "Category   : " << _Category << endl;
-	cout << "Decription : " << _Decription << endl;
+	cout << "Decription : " << _Description << endl;
 	cout << "Stock      : " << _Stock << endl;
 	cout << "Price      : " << _Price << endl;
 	cout << "Rate       : " << Rate() << endl;
+}
+
+void Product::EditInfo()
+{
+	string s;
+	cout << "Name [" << this->Name() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Name(s); s.clear();
+	cout << "Is R18? [" << (this->isR18() ? "true" : "false") << "] : "; getline(cin, s); if (!isEmptyString(s)) this->isR18(s == "true" ? true : false); s.clear();
+	cout << "Category [" << this->Category() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Category(s); s.clear();
+	cout << "Description [" << this->Description() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Description(s); s.clear();
+	cout << "Price [" << this->Price() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Price(stoi(s)); s.clear();
 }
 
 float Product::Rate()
@@ -36,4 +46,13 @@ float Product::Rate()
 void Product::Rate(int _Rate)
 {
 	_Rating[_Rate - 1]++;
+}
+
+void Product::AddStock(int32_t amount)
+{
+	this->_Stock += amount;
+}
+void Product::RemoveStock(int32_t amount)
+{
+	this->_Stock -= amount;
 }
