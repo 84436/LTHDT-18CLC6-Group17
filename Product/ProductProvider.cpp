@@ -31,7 +31,9 @@ void ProductProvider::ReadFile()
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
-		) {
+		)
+	{
+		cout << "Database does not exist." << endl;
 		return;
 	}
 	json File = json::parse(f);
@@ -57,7 +59,7 @@ void ProductProvider::ReadFile()
 
 void ProductProvider::WriteFile()
 {
-	fstream f(DATABASE_PATH, fstream::in);
+	fstream f(DATABASE_PATH, fstream::out | fstream::trunc);
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
@@ -84,6 +86,7 @@ void ProductProvider::WriteFile()
 		));
 	}
 	f << File;
+	ReadFile();
 }
 
 void ProductProvider::Add(Product _Product)

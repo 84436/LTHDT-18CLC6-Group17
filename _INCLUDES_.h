@@ -6,6 +6,7 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <map> // shell command list
 #include <ctime> // password
 #include <conio.h> // password
 using namespace std;

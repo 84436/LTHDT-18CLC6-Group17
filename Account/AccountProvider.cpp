@@ -36,8 +36,10 @@ string AccountProvider::GenerateNewAccountID(char AccountType)
 			return "";
 	}
 
-	if (NewID.length() < 8)
-		for (size_t i = 0; i < 8 - NewID.length(); i++)
+	size_t NewID_CurrentLength = NewID.length();
+
+	if (NewID_CurrentLength < 8)
+		for (size_t i = 0; i < 8 - NewID_CurrentLength; i++)
 			NewID.insert(NewID.begin(), '0');
 	NewID.insert(NewID.begin(), AccountType);
 
@@ -50,7 +52,9 @@ void AccountProvider::ReadFile()
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
-		) {
+		)
+	{
+		cout << "Database does not exist." << endl;
 		return;
 	}
 	json File = json::parse(f);
@@ -99,7 +103,7 @@ void AccountProvider::ReadFile()
 
 void AccountProvider::WriteFile()
 {
-	fstream f(DATABASE_PATH, fstream::in);
+	fstream f(DATABASE_PATH, fstream::out);
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
@@ -165,6 +169,7 @@ void AccountProvider::WriteFile()
 	}
 
 	f << File;
+	ReadFile();
 }
 
 char MaskingChar()
@@ -173,10 +178,10 @@ char MaskingChar()
 	return Random[rand() % Random.length()];
 }
 
-void AccountProvider::Add(Account* _Account)
+void AccountProvider::Add(Account* _Account, char AccountType)
 {
 	Account* x = nullptr;
-	switch (_Account->ID()[0])
+	switch (AccountType)
 	{
 		case 'B':
 			x = new Buyer(*((Buyer*)_Account));
@@ -190,7 +195,12 @@ void AccountProvider::Add(Account* _Account)
 		default:
 			return;
 	}
+	x->ID(AccountProvider::GetInstance().GenerateNewAccountID(AccountType));
+	ChangePassword(x->ID(), sha256(""));
+
+	cout << "New account ID = " << x->ID() << endl;
 	Accounts.push_back(x);
+	WriteFile();
 }
 
 string AccountProvider::GetPassword()
@@ -232,7 +242,8 @@ string AccountProvider::GetPassword()
 			else cout << "\b " << MaskingChar();
 		}
 	}
-	cout << endl << "Plain: " << _HASHED << endl;
+	cout << endl;
+
 	_HASHED = sha256(_HASHED);
 	return _HASHED;
 }
@@ -249,29 +260,17 @@ bool AccountProvider::Login(string _ID, string _HashedPassword)
 	return false;
 }
 
-void AccountProvider::ChangePassword(string _ID)
+void AccountProvider::ChangePassword(string _ID, string _HashedPassword)
 {
 	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
 	{
 		if (ToLower(i->ID) == ToLower(_ID))
 		{
-			cout << "Enter password: ";
-			string Password1 = GetPassword();
-			cout << "Re-enter password: ";
-			string Password2 = GetPassword();
-			if (Password1 == Password2)
-			{
-				i->Hash = Password1;
-				WriteFile();
-				cout << "Password changed." << endl;
-			}
-			else
-			{
-				cout << "Passwords do not match. Password changing request aborted." << endl;
-			}
+			i->Hash = _HashedPassword;
+			WriteFile();
+			return;
 		}
 	}
-	cout << "Account not found." << endl;
 }
 
 void AccountProvider::Delete(string _ID)

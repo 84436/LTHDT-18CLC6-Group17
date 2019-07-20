@@ -32,9 +32,9 @@ class AccountProvider
 
 		string GetPassword();
 		bool Login(string _ID, string _HashedPassword);
-		void ChangePassword(string _ID);
+		void ChangePassword(string _ID, string _HashedPassword);
 
-		void Add(Account* _Account);
+		void Add(Account* _Account, char AccountType);
 		void Delete(string _ID);
 		Seller* FindSeller(string ID);
 		Buyer* FindBuyer(string ID);
