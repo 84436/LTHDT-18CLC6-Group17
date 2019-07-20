@@ -11,8 +11,8 @@ class Seller : public Account
 		Seller() : Account() {}
 		Seller(const Seller& s) : Account(s) { this->Rating = s.Rating; }
 		
-		void AddProduct(); //
-		void EditProduct(string _ProductID); //
+		void AddProduct();
+		void EditProduct(string _ProductID);
 		void DeleteProduct(string _ProductID);
 
 		void AcceptOrder(string _OrderID); //

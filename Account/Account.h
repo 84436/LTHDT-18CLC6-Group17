@@ -31,6 +31,7 @@ class Account {
 		int64_t Balance		()					{ return this->_Wallet.Balance(); }
 		void    Balance		(int64_t _Balance)	{ this->_Wallet.Balance(_Balance); }
 
+		void CheckBalance();
 		void Deposit(int64_t _Balance);
 		void Withdraw(int64_t _Balance);
 

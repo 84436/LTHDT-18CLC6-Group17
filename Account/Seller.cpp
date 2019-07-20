@@ -5,12 +5,22 @@
 
 void Seller::AddProduct()
 {
-	// Hỏi tất cả, trừ ID
+	Product p;
+	p.SellerID(this->ID());
+	this->EditProduct(p.ID());
+	string amount;
+	cout << "Add stock: "; getline(cin, amount); p.AddStock(stoi(amount));
+	ProductProvider::GetInstance().Add(p);
 }
 
 void Seller::EditProduct(string _ProductID)
 {
-	// Edit tương tự như bên EditInfo() của Account, trừ ID
+	Product* p = ProductProvider::GetInstance().GetByID(_ProductID);
+	if (p == nullptr) {
+		cout << "Product does not exist" << endl;
+		return;
+	}
+	p->EditInfo();
 }
 
 void Seller::DeleteProduct(string _ProductID)

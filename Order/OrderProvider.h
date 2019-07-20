@@ -19,6 +19,6 @@ class OrderProvider
 		void WriteFile();
 		void Add(Order _Order);
 		void Delete(string _ID);
-		Order* GetByID(string _ID);
+		Order* GetByID(string _OrderID);
 		list<Order> Search(string _AccountID);
 };
