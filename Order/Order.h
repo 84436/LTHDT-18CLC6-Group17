@@ -28,6 +28,7 @@ class Order {
 		Date _ShippingDate = { 1,1,1 };
 		int8_t _Status = 0;
 		string _Note;
+		int32_t _Quantity = 0;
 
 	public:
 		Order() {}
@@ -55,7 +56,9 @@ class Order {
 		void    Status			(int8_t _Status)		{ this->_Status = _Status; }
 		string  Note			()						{ return this->_Note; }
 		void    Note			(string _Note)			{ this->_Note = _Note; }
-
+		int32_t Quantity		()						{ return this->_Quantity; }
+		void	Quantity		(int32_t _Quantity)		{ this->_Quantity = _Quantity; }
+		
 		string Status_String();
 
 		int64_t TotalPrice();

@@ -91,8 +91,9 @@ void ProductProvider::WriteFile()
 
 void ProductProvider::Add(Product _Product)
 {
-	_Product.ID(GenerateNewProductID());
-	Products.push_back(_Product);
+	Product x = _Product;
+	x.ID(ProductProvider::GenerateNewProductID());
+	Products.push_back(x);
 }
 
 void ProductProvider::Delete(string _ID)

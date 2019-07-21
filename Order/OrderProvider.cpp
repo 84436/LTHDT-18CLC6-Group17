@@ -95,7 +95,9 @@ void OrderProvider::WriteFile()
 
 void OrderProvider::Add(Order _Order)
 {
-	Orders.push_back(_Order);
+	Order x = _Order;
+	x.ID(OrderProvider::GenerateNewOrderID());
+	Orders.push_back(x);
 }
 
 void OrderProvider::Delete(string _ID)
