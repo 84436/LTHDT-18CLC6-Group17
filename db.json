@@ -1,61 +1,66 @@
 {
-  "COUNTERS": {
-    "BUYER": 6,
-    "SELLER": 6,
-    "SHIPPER": 3,
-    "PRODUCT": 9,
-    "ORDER": 5
-  },
-  "HASHES": {
-    "B00000001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
   "ACCOUNTS": {
     "B00000001": {
-      "Name": "Louis",
-      "WalletBalance": 0,
-      "YearOfBirth": 1975,
       "Address": "1 Buyers' Street, District 8, HCM City",
+      "Balance": 0,
       "Email": "buyer1@project.banana",
-      "Phone": "+1-800-18213-1"
+      "Name": "Louis",
+      "Phone": "+1-800-18213-1",
+      "YOB": 1975
     },
     "B00000002": {
-      "Name": "David",
-      "WalletBalance": 0,
-      "YearOfBirth": 2002,
       "Address": "2 Buyers' Street, District 10, HCM City",
+      "Balance": 0,
       "Email": "buyer2@project.banana",
-      "Phone": "+1-800-09182-2"
+      "Name": "David",
+      "Phone": "+1-800-09182-2",
+      "YOB": 2002
     },
     "B00000003": {
-      "Name": "Jenni ",
-      "WalletBalance": 0,
-      "YearOfBirth": 1998,
       "Address": "3 Buyers' Street, District 8, HCM City",
+      "Balance": 0,
       "Email": "buyer3@project.banana",
-      "Phone": "+1-800-18273-3"
+      "Name": "Jenni ",
+      "Phone": "+1-800-18273-3",
+      "YOB": 1998
     },
     "B00000004": {
-      "Name": "Liss",
-      "WalletBalance": 0,
-      "YearOfBirth": 1995,
       "Address": "4 Buyers' Street, District 11, HCM City",
+      "Balance": 0,
       "Email": "buyer3@project.banana",
-      "Phone": "+1-800-98743-3"
+      "Name": "Liss",
+      "Phone": "+1-800-98743-3",
+      "YOB": 1995
     },
     "B00000005": {
-      "Name": "Jenni ",
-      "WalletBalance": 0,
-      "YearOfBirth": 1998,
       "Address": "2 Buyers' Street, District 12, HCM City",
+      "Balance": 0,
       "Email": "buyer3@project.banana",
-      "Phone": "+1-800-12812-3"
+      "Name": "Jenni ",
+      "Phone": "+1-800-12812-3",
+      "YOB": 1998
+    },
+    "H00000001": {
+      "Address": "1 Shippers' Street, Thu Duc District, City",
+      "Balance": 0,
+      "Email": "shipper@project.banana",
+      "Name": "Lien Vo",
+      "Phone": "+1-800-3473843",
+      "YOB": 2000
+    },
+    "H00000002": {
+      "Address": "2 Shippers' Street, District 7, HCM City",
+      "Balance": 0,
+      "Email": "shipper@project.banana",
+      "Name": "Steven",
+      "Phone": "+1-800-524753",
+      "YOB": 1979
     },
     "S00000001": {
-      "Name": "Perk",
-      "WalletBalance": 0,
-      "YearOfBirth": 1990,
       "Address": "1 Sellers' Street, District 10, HCM City",
+      "Balance": 0,
       "Email": "seller@project.banana",
+      "Name": "Perk",
       "Phone": "+1-800-129138",
       "Rating": [
         0,
@@ -63,14 +68,14 @@
         1,
         3,
         4
-      ]
+      ],
+      "YOB": 1990
     },
     "S00000002": {
-      "Name": "Soobin",
-      "WalletBalance": 0,
-      "YearOfBirth": 2005,
       "Address": "2 Sellers' Street, District 3, HCM City",
+      "Balance": 0,
       "Email": "seller@project.banana",
+      "Name": "Soobin",
       "Phone": "+1-800-192990",
       "Rating": [
         0,
@@ -78,14 +83,14 @@
         0,
         2,
         3
-      ]
+      ],
+      "YOB": 2005
     },
     "S00000003": {
-      "Name": "Alex",
-      "WalletBalance": 0,
-      "YearOfBirth": 1980,
       "Address": "3 Sellers' Street, District 8, HCM City",
+      "Balance": 0,
       "Email": "seller@project.banana",
+      "Name": "Alex",
       "Phone": "+1-800-972477",
       "Rating": [
         0,
@@ -93,14 +98,14 @@
         0,
         1,
         6
-      ]
+      ],
+      "YOB": 1980
     },
     "S00000004": {
-      "Name": "Jone",
-      "WalletBalance": 0,
-      "YearOfBirth": 1993,
       "Address": "4 Sellers' Street, District 5, HCM City",
+      "Balance": 0,
       "Email": "seller@project.banana",
+      "Name": "Jone",
       "Phone": "+1-800-324475",
       "Rating": [
         0,
@@ -108,14 +113,14 @@
         3,
         3,
         1
-      ]
+      ],
+      "YOB": 1993
     },
     "S00000005": {
-      "Name": "Han",
-      "WalletBalance": 0,
-      "YearOfBirth": 1999,
       "Address": "5 Sellers' Street, District 2, HCM City",
+      "Balance": 0,
       "Email": "seller@project.banana",
+      "Name": "Han",
       "Phone": "+1-800-090902",
       "Rating": [
         0,
@@ -123,203 +128,189 @@
         0,
         2,
         4
-      ]
+      ],
+      "YOB": 1999
+    }
+  },
+  "COUNTERS": {
+    "BUYER": 6,
+    "ORDER": 5,
+    "PRODUCT": 9,
+    "SELLER": 6,
+    "SHIPPER": 3
+  },
+  "HASHES": {
+    "B00000001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "B00000002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "B00000003": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "B00000004": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "B00000005": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "S00000001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "S00000002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "S00000003": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "S00000004": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "S00000005": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "H00000001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "H00000002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ORDERS": {
+    "O20190717-0001": {
+      "BuyerID": "B00000002",
+      "Note": "",
+      "OrderDate": [
+        2019,
+        7,
+        17
+      ],
+      "PriceCoeff": 0.5,
+      "ProductID": "",
+      "Quantity": 0,
+      "SellerID": "S00000001",
+      "ShipperID": "H00000001",
+      "ShippingDate": [
+        2019,
+        7,
+        18
+      ],
+      "ShippingFee": 0,
+      "Status": 0
     },
-    "H00000001": {
-      "Name": "Lien Vo",
-      "WalletBalance": 0,
-      "YearOfBirth": 2000,
-      "Address": "1 Shippers' Street, Thu Duc District, City",
-      "Email": "shipper@project.banana",
-      "Phone": "+1-800-3473843"
+    "O20190717-0002": {
+      "BuyerID": "B00000004",
+      "Note": "",
+      "OrderDate": [
+        2019,
+        7,
+        17
+      ],
+      "PriceCoeff": 0.5,
+      "ProductID": "",
+      "Quantity": 0,
+      "SellerID": "S00000003",
+      "ShipperID": "H00000001",
+      "ShippingDate": [
+        2019,
+        6,
+        24
+      ],
+      "ShippingFee": 0,
+      "Status": 0
     },
-    "H00000002": {
-      "Name": "Steven",
-      "WalletBalance": 0,
-      "YearOfBirth": 1979,
-      "Address": "2 Shippers' Street, District 7, HCM City",
-      "Email": "shipper@project.banana",
-      "Phone": "+1-800-524753"
+    "O20190717-0003": {
+      "BuyerID": "B00000002",
+      "Note": "",
+      "OrderDate": [
+        2019,
+        6,
+        31
+      ],
+      "PriceCoeff": 0.5,
+      "ProductID": "",
+      "Quantity": 0,
+      "SellerID": "S00000001",
+      "ShipperID": "H00000002",
+      "ShippingDate": [
+        2019,
+        7,
+        18
+      ],
+      "ShippingFee": 0,
+      "Status": 0
+    },
+    "O20190717-0004": {
+      "BuyerID": "B00000002",
+      "Note": "",
+      "OrderDate": [
+        2019,
+        5,
+        17
+      ],
+      "PriceCoeff": 0.5,
+      "ProductID": "",
+      "Quantity": 0,
+      "SellerID": "S00000001",
+      "ShipperID": "H00000002",
+      "ShippingDate": [
+        2019,
+        7,
+        18
+      ],
+      "ShippingFee": 0,
+      "Status": 0
     }
   },
   "PRODUCTS": {
     "P00000001": {
-      "SellerID": "S00000001",
-      "isR18": true,
-      "Name": "Duc's Premium Sextay",
       "Category": "Adult",
-      "Description": "Premium sextay from Duc's, now available on HaiLua's Farm (Generic Seller)",
-      "Stock": 7,
+      "Description": "Adult",
+      "Name": "Duc's Premium Sextay",
       "Price": 6900000,
-      "Rating": [
-        5,
-        2,
-        0,
-        0,
-        0
-      ]
+      "SellerID": "S00000001",
+      "Stock": 7,
+      "isR18": false
     },
     "P00000002": {
-      "SellerID": "S00000001",
-      "isR18": false,
-      "Name": "Banana",
       "Category": "Food/Produce",
-      "Description": "Fresh bananas from HaiLua's Farm",
-      "Stock": 100,
+      "Description": "Food/Produce",
+      "Name": "Banana",
       "Price": 10000,
-      "Rating": [
-        0,
-        0,
-        0,
-        3,
-        2
-      ]
+      "SellerID": "S00000001",
+      "Stock": 100,
+      "isR18": false
     },
     "P00000003": {
-      "SellerID": "S00000005",
-      "isR18": false,
-      "Name": "Bed",
       "Category": "Furniture",
-      "Description": "Good for sleep",
-      "Stock": 3,
+      "Description": "Furniture",
+      "Name": "Bed",
       "Price": 1000000,
-      "Rating": [
-        0,
-        0,
-        1,
-        2,
-        5
-      ]
+      "SellerID": "S00000005",
+      "Stock": 3,
+      "isR18": false
     },
     "P00000004": {
-      "SellerID": "S00000001",
-      "isR18": false,
-      "Name": "Beef",
       "Category": "Food/Produce",
-      "Description": "from HaiLua's Farm",
-      "Stock": 10,
+      "Description": "Food/Produce",
+      "Name": "Beef",
       "Price": 50000,
-      "Rating": [
-        0,
-        0,
-        0,
-        1,
-        4
-      ]
+      "SellerID": "S00000001",
+      "Stock": 10,
+      "isR18": false
     },
     "P00000005": {
-      "SellerID": "S00000001",
-      "isR18": false,
-      "Name": "Cherry",
       "Category": "Food/Produce",
-      "Description": "from HaiLua's Farm",
-      "Stock": 1,
+      "Description": "Food/Produce",
+      "Name": "Cherry",
       "Price": 30000,
-      "Rating": [
-        0,
-        0,
-        0,
-        0,
-        3
-      ]
+      "SellerID": "S00000001",
+      "Stock": 1,
+      "isR18": false
     },
     "P00000006": {
-      "SellerID": "S00000004",
-      "isR18": false,
-      "Name": "Shampoo",
       "Category": "Neccessary",
-      "Description": "Sweet",
-      "Stock": 20,
+      "Description": "Neccessary",
+      "Name": "Shampoo",
       "Price": 120000,
-      "Rating": [
-        0,
-        0,
-        0,
-        3,
-        1
-      ]
+      "SellerID": "S00000004",
+      "Stock": 20,
+      "isR18": false
     },
     "P00000007": {
-      "SellerID": "S00000005",
-      "isR18": false,
-      "Name": "Glasses",
       "Category": "Fashion",
-      "Description": "Beautiful",
-      "Stock": 10,
+      "Description": "Fashion",
+      "Name": "Glasses",
       "Price": 100000,
-      "Rating": [
-        0,
-        0,
-        0,
-        1,
-        5
-      ]
+      "SellerID": "S00000005",
+      "Stock": 10,
+      "isR18": false
     },
     "P00000008": {
-      "SellerID": "S00000002",
-      "isR18": false,
-      "Name": "Coconut",
       "Category": "Food/Produce",
-      "Description": "VoThiLien's Farm",
-      "Stock": 1,
+      "Description": "Food/Produce",
+      "Name": "Coconut",
       "Price": 12000,
-      "Rating": [
-        0,
-        0,
-        1,
-        4,
-        1
-      ]
-    }
-  },
-  "ORDERS": {
-    "O20190717-0001": {
-      "ProductID": "P00000002",
-      "SellerID": "S00000001",
-      "BuyerID": "B00000002",
-      "ShipperID": "H00000001",
-      "PriceCoeff": 0.5,
-      "ShippingFee": 5000,
-      "OrderDate": "2019-07-17",
-      "ShippingDate": "2019-07-18",
-      "Status": 0,
-      "Note": ""
-    },
-    "O20190717-0002": {
-      "ProductID": "P00000001",
-      "SellerID": "S00000003",
-      "BuyerID": "B00000004",
-      "ShipperID": "H00000001",
-      "PriceCoeff": 0.5,
-      "ShippingFee": 22000,
-      "OrderDate": "2019-07-17",
-      "ShippingDate": "2019-06-24",
-      "Status": 0,
-      "Note": ""
-    },
-    "O20190717-0003": {
-      "ProductID": "P00000005",
-      "SellerID": "S00000001",
-      "BuyerID": "B00000002",
-      "ShipperID": "H00000002",
-      "PriceCoeff": 0.5,
-      "ShippingFee": 15000,
-      "OrderDate": "2019-06-31",
-      "ShippingDate": "2019-07-18",
-      "Status": 0,
-      "Note": ""
-    },
-    "O20190717-0004": {
-      "ProductID": "P00000003",
-      "SellerID": "S00000001",
-      "BuyerID": "B00000002",
-      "ShipperID": "H00000002",
-      "PriceCoeff": 0.5,
-      "ShippingFee": 30000,
-      "OrderDate": "2019-05-17",
-      "ShippingDate": "2019-07-18",
-      "Status": 0,
-      "Note": ""
+      "SellerID": "S00000002",
+      "Stock": 1,
+      "isR18": false
     }
   }
 }
