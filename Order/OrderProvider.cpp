@@ -49,11 +49,12 @@ void OrderProvider::ReadFile()
 		o.BuyerID((*i)["BuyerID"]);
 		o.ShipperID((*i)["ShipperID"]);
 		o.PriceCoeff((*i)["PriceCoeff"]);
-		o.ShippingFee((*i)["PriceCoeff"]);
-		// o.OrderDate((*i) ...);
-		// o.ShippingDate((*i) ...);
+		o.ShippingFee((*i)["ShippingFee"]);
+		o.OrderDate({ (*i)["OrderDate"][0], (*i)["OrderDate"][1], (*i)["OrderDate"][2] });
+		o.ShippingDate({ (*i)["ShippingDate"][0], (*i)["ShippingDate"][1], (*i)["ShippingDate"][2] });
 		o.Status((*i)["Status"]);
 		o.Note((*i)["Note"]);
+		o.Quantity((*i)["Quantity"]);
 		Orders.push_back(o);
 	}
 
@@ -92,8 +93,20 @@ void OrderProvider::WriteFile()
 					{"ShipperID", i->ShipperID()},
 					{"PriceCoeff", i->PriceCoeff()},
 					{"ShippingFee", i->ShippingFee()},
-					//{"OrderDate", i->()},
-					//{"ShippingDate", i->()},
+					{"OrderDate",
+						{
+							{i->OrderDate().Day},
+							{i->OrderDate().Month},
+							{i->OrderDate().Year}
+						}
+					},
+					{"ShippingDate",
+						{
+							{i->ShippingDate().Day},
+							{i->ShippingDate().Month},
+							{i->ShippingDate().Year}
+						}
+					},
 					{"Status", i->Status()},
 					{"Note", i->Note()},
 					{"Quantity", i->Quantity()},
