@@ -71,8 +71,8 @@ void AccountProvider::ReadFile()
 
 		a->ID(i.key());
 		a->Name((*i)["Name"]);
-		a->Balance((*i)["WalletBalance"]);
-		a->YOB((*i)["YearOfBirth"]);
+		a->Balance((*i)["Balance"]);
+		a->YOB((*i)["YOB"]);
 		a->Address((*i)["Address"]);
 		a->Email((*i)["Email"]);
 		a->Phone((*i)["Phone"]);
@@ -136,7 +136,6 @@ void AccountProvider::WriteFile()
 						{"Address", (*i)->Address()},
 						{"Email", (*i)->Email()},
 						{"Phone", (*i)->Phone()},
-						{"Rating", {0, 0, 0, 0, 0}}
 					}
 				}
 			));
@@ -178,19 +177,13 @@ void AccountProvider::WriteFile()
 	}
 
 	// Re-write relevant keys
-	File["COUNTER"]["BUYER"] = NewBuyerIDCounter;
-	File["COUNTER"]["SELLER"] = NewSellerIDCounter;
-	File["COUNTER"]["SHIPPER"] = NewShipperIDCounter;
+	File["COUNTERS"]["BUYER"] = NewBuyerIDCounter;
+	File["COUNTERS"]["SELLER"] = NewSellerIDCounter;
+	File["COUNTERS"]["SHIPPER"] = NewShipperIDCounter;
 
 	// Re-write the file
 	f.close();
 	f.open(DATABASE_PATH, fstream::out | fstream::trunc);
-	if (
-		!f.is_open()
-		|| f.peek() == fstream::traits_type::eof()
-		) {
-		return;
-	}
 	f << File;
 
 	f.close();
@@ -219,8 +212,8 @@ void AccountProvider::Add(Account* _Account, char AccountType)
 		default:
 			return;
 	}
-	x->ID(AccountProvider::GetInstance().GenerateNewAccountID(AccountType));
-	ChangePassword(x->ID(), sha256(""));
+	x->ID(GenerateNewAccountID(AccountType));
+	PasswordHashes.push_back({x->ID(), sha256("")});
 
 	cout << "New account ID = " << x->ID() << endl;
 	Accounts.push_back(x);

@@ -6,6 +6,7 @@ class OrderProvider
 {
 	private:
 		OrderProvider();
+		~OrderProvider() {}
 	public:
 		static OrderProvider& GetInstance();
 

@@ -15,6 +15,7 @@ class AccountProvider
 {
 	private:
 		AccountProvider();
+		~AccountProvider() {}
 	public:
 		static AccountProvider& GetInstance();
 

@@ -7,11 +7,23 @@ Shell& Shell::GetInstance()
 	return Instance;
 }
 
-void Shell::Loop()
+Shell::Shell()
 {
 	AccountProvider::GetInstance();
 	ProductProvider::GetInstance();
 	OrderProvider::GetInstance();
+}
+
+Shell::~Shell()
+{
+	AccountProvider::GetInstance().WriteFile();
+	ProductProvider::GetInstance().WriteFile();
+	OrderProvider::GetInstance().WriteFile();
+	exit(0);
+}
+
+void Shell::Loop()
+{
 
 	// Login
 	while (true)
@@ -67,8 +79,7 @@ void Shell::LogIn()
 
 	if (_CurrentAccountID == "exit")
 	{
-		AccountProvider::GetInstance().WriteFile();
-		exit(0);
+		this->~Shell();
 	}
 
 	cout << "Password : ";
@@ -128,7 +139,9 @@ enum class Shell::c
 {
 	_NOT_DEFINED_,
 	help,
-	info
+	info,
+	editinfo,
+	passwd
 };
 
 // Command aliases
@@ -138,6 +151,9 @@ void Shell::cMapper_Init()
 	cMapper["help"] = c::help;
 	cMapper["info"] = c::info;
 	cMapper["whoami"] = c::info;
+	cMapper["editinfo"] = c::editinfo;
+	cMapper["passwd"] = c::passwd;
+	cMapper["password"] = c::passwd;
 }
 
 // Command actions
@@ -148,16 +164,24 @@ void Shell::Interpret(string _Command)
 
 	switch (cMapper[_Command])
 	{
-	case c::help:
-		ShowHelp();
-		break;
+		case c::help:
+			ShowHelp();
+			break;
 
-	case c::info:
-		ShowInfo();
-		break;
+		case c::info:
+			ShowInfo();
+			break;
 
-	default:
-		cout << "Invalid command." << endl;
+		case c::editinfo:
+			EditInfo();
+			break;
+
+		case c::passwd:
+			ChangePassword();
+			break;
+
+		default:
+			cout << "Invalid command." << endl;
 	}
 }
 
@@ -236,5 +260,21 @@ void Shell::ChangePassword()
 	else
 	{
 		cout << "Passwords do not match. Operation aborted." << endl;
+	}
+}
+
+void Shell::EditInfo()
+{
+	switch (_AccountID[0])
+	{
+		case 'B':
+			AccountProvider::GetInstance().FindBuyer(_AccountID)->EditInfo();
+			break;
+		case 'S':
+			AccountProvider::GetInstance().FindSeller(_AccountID)->EditInfo();
+			break;
+		case 'H':
+			AccountProvider::GetInstance().FindShipper(_AccountID)->EditInfo();
+			break;
 	}
 }

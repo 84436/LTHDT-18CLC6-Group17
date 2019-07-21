@@ -51,6 +51,12 @@ void ProductProvider::ReadFile()
 		p.Description((*i)["Description"]);
 		p.Stock((*i)["Stock"]);
 		p.Price((*i)["Price"]);
+		for (int j = 0; j < 5; j++)
+		{
+			for (int k = 0; k < (*i)["Rating"][j]; ++k) {
+				p.Rate(j+1);
+			}
+		}	
 		Products.push_back(p);
 	}
 
@@ -90,6 +96,7 @@ void ProductProvider::WriteFile()
 				{"Description", i->Description()},
 				{"Stock", i->Stock()},
 				{"Price", i->Price()}
+				// Rating
 			}
 		}
 		));
@@ -101,12 +108,6 @@ void ProductProvider::WriteFile()
 	// Re-write the file
 	f.close();
 	f.open(DATABASE_PATH, fstream::out | fstream::trunc);
-	if (
-		!f.is_open()
-		|| f.peek() == fstream::traits_type::eof()
-		) {
-		return;
-	}
 	f << File;
 
 	f.close();

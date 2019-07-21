@@ -13,7 +13,7 @@ class Product {
 		string _Description;
 		int32_t _Stock = 0;
 		int64_t _Price = 0;
-		vector<int> _Rating = {0};
+		vector<int> _Rating = {0, 0, 0, 0, 0};
 
 	public:
 		Product() {}

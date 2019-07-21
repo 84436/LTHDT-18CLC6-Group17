@@ -37,7 +37,7 @@ auto constexpr DATABASE_PATH = "D:/db.json";
 // Inline string helpers
 inline bool isEmptyString(const string& s)
 {
-	return (s.empty() || s.find_first_not_of(' ') != string::npos);
+	return (s.empty() || s.find_first_not_of(' ') == string::npos);
 }
 inline string ToLower(const string& s)
 {

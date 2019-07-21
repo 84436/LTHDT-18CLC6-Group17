@@ -50,8 +50,8 @@ void OrderProvider::ReadFile()
 		o.ShipperID((*i)["ShipperID"]);
 		o.PriceCoeff((*i)["PriceCoeff"]);
 		o.ShippingFee((*i)["ShippingFee"]);
-		o.OrderDate({ (*i)["OrderDate"][0], (*i)["OrderDate"][1], (*i)["OrderDate"][2] });
-		o.ShippingDate({ (*i)["ShippingDate"][0], (*i)["ShippingDate"][1], (*i)["ShippingDate"][2] });
+		o.OrderDate(Date{ (*i)["OrderDate"][0], (*i)["OrderDate"][1], (*i)["OrderDate"][2] });
+		o.ShippingDate(Date{ (*i)["ShippingDate"][0], (*i)["ShippingDate"][1], (*i)["ShippingDate"][2] });
 		o.Status((*i)["Status"]);
 		o.Note((*i)["Note"]);
 		o.Quantity((*i)["Quantity"]);
@@ -95,16 +95,16 @@ void OrderProvider::WriteFile()
 					{"ShippingFee", i->ShippingFee()},
 					{"OrderDate",
 						{
-							{i->OrderDate().Day},
-							{i->OrderDate().Month},
-							{i->OrderDate().Year}
+							i->OrderDate().Day,
+							i->OrderDate().Month,
+							i->OrderDate().Year
 						}
 					},
 					{"ShippingDate",
 						{
-							{i->ShippingDate().Day},
-							{i->ShippingDate().Month},
-							{i->ShippingDate().Year}
+							i->ShippingDate().Day,
+							i->ShippingDate().Month,
+							i->ShippingDate().Year
 						}
 					},
 					{"Status", i->Status()},
@@ -121,12 +121,6 @@ void OrderProvider::WriteFile()
 	// Re-write the file
 	f.close();
 	f.open(DATABASE_PATH, fstream::out | fstream::trunc);
-	if (
-		!f.is_open()
-		|| f.peek() == fstream::traits_type::eof()
-		) {
-		return;
-	}
 	f << File;
 
 	f.close();

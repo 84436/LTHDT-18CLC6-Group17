@@ -5,8 +5,8 @@ class Shell
 {
 	// Singleton
 	private:
-		Shell() {}
-		~Shell() {}
+		Shell();
+		~Shell();
 	public:
 		static Shell& GetInstance();
 
@@ -26,6 +26,7 @@ class Shell
 		void Greeter();
 		void ShowHelp();
 		void ShowInfo();
+		void EditInfo();
 
 	public:
 		void Loop();

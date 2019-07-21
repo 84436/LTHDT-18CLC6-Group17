@@ -6,6 +6,7 @@ class ProductProvider
 {
 	private:
 		ProductProvider();
+		~ProductProvider() {}
 	public:
 		static ProductProvider& GetInstance();
 
