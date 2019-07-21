@@ -27,7 +27,8 @@ string OrderProvider::GenerateNewOrderID()
 
 void OrderProvider::ReadFile()
 {
-	fstream f(DATABASE_PATH, fstream::in);
+	fstream f;
+	f.open(DATABASE_PATH, fstream::in);
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
@@ -58,18 +59,26 @@ void OrderProvider::ReadFile()
 
 	// New ID counter
 	NewOrderIDCounter = File["COUNTERS"]["ORDER"];
+
+	f.close();
 }
 
 void OrderProvider::WriteFile()
 {
-	fstream f(DATABASE_PATH, fstream::out | fstream::trunc);
+	// Parse existing file
+	fstream f;
+	f.open(DATABASE_PATH, fstream::in);
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
-		) {
+		)
+	{
+		cout << "Database does not exist." << endl;
 		return;
 	}
 	json File = json::parse(f);
+
+	// Re-write the relevant object
 	File["ORDERS"].clear();
 	for (auto i = Orders.begin(); i != Orders.end(); ++i)
 	{
@@ -77,20 +86,37 @@ void OrderProvider::WriteFile()
 			{
 				i->ID(),
 				{
-					{"BuyerID", i->BuyerID()}
-					//{"SellerID", (i->SellerID() == nullptr ? "NULL" : i->SellerID()},
-					//{"isR18", i->isR18()},
-					//{"Name", i->Name()},
-					//{"Category", i->Category()},
-					//{"Description", i->Description()},
-					//{"Stock", i->Stock()},
-					//{"Price", i->Price()}
+					{"ProductID", i->ProductID()},
+					{"BuyerID", i->BuyerID()},
+					{"SellerID", i->SellerID()},
+					{"ShipperID", i->ShipperID()},
+					{"PriceCoeff", i->PriceCoeff()},
+					{"ShippingFee", i->ShippingFee()},
+					//{"OrderDate", i->()},
+					//{"ShippingDate", i->()},
+					{"Status", i->Status()},
+					{"Note", i->Note()},
+					{"Quantity", i->Quantity()},
 				}
 			}
 		));
 	}
+
+	// Re-write relevant keys
+	File["COUNTERS"]["ORDER"] = NewOrderIDCounter;
+	
+	// Re-write the file
+	f.close();
+	f.open(DATABASE_PATH, fstream::out | fstream::trunc);
+	if (
+		!f.is_open()
+		|| f.peek() == fstream::traits_type::eof()
+		) {
+		return;
+	}
 	f << File;
-	ReadFile();
+
+	f.close();
 }
 
 void OrderProvider::Add(Order _Order)

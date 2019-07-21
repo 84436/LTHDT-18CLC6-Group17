@@ -48,7 +48,8 @@ string AccountProvider::GenerateNewAccountID(char AccountType)
 
 void AccountProvider::ReadFile()
 {
-	fstream f(DATABASE_PATH, fstream::in);
+	fstream f;
+	f.open(DATABASE_PATH, fstream::in);
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
@@ -99,19 +100,26 @@ void AccountProvider::ReadFile()
 		if (i.key() == "SELLER") { NewSellerIDCounter = i.value(); continue; }
 		if (i.key() == "SHIPPER") { NewShipperIDCounter = i.value(); continue; }
 	}
+
+	f.close();
 }
 
 void AccountProvider::WriteFile()
 {
-	fstream f(DATABASE_PATH, fstream::out);
+	// Parse existing file
+	fstream f;
+	f.open(DATABASE_PATH, fstream::in);
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
-		) {
+		)
+	{
+		cout << "Database does not exist." << endl;
 		return;
 	}
 	json File = json::parse(f);
 
+	// Re-write the relevant object
 	File["ACCOUNTS"].clear();
 	for (auto i = Accounts.begin(); i != Accounts.end(); ++i)
 	{
@@ -160,6 +168,7 @@ void AccountProvider::WriteFile()
 		}
 	}
 
+	// Re-write password-hashes
 	File["HASHES"].clear();
 	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
 	{
@@ -168,8 +177,23 @@ void AccountProvider::WriteFile()
 		));
 	}
 
+	// Re-write relevant keys
+	File["COUNTER"]["BUYER"] = NewBuyerIDCounter;
+	File["COUNTER"]["SELLER"] = NewSellerIDCounter;
+	File["COUNTER"]["SHIPPER"] = NewShipperIDCounter;
+
+	// Re-write the file
+	f.close();
+	f.open(DATABASE_PATH, fstream::out | fstream::trunc);
+	if (
+		!f.is_open()
+		|| f.peek() == fstream::traits_type::eof()
+		) {
+		return;
+	}
 	f << File;
-	ReadFile();
+
+	f.close();
 }
 
 char MaskingChar()

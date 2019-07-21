@@ -27,7 +27,8 @@ string ProductProvider::GenerateNewProductID()
 
 void ProductProvider::ReadFile()
 {
-	fstream f(DATABASE_PATH, fstream::in);
+	fstream f;
+	f.open(DATABASE_PATH, fstream::in);
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
@@ -55,18 +56,26 @@ void ProductProvider::ReadFile()
 
 	// New ID counter
 	NewProductIDCounter = File["COUNTERS"]["PRODUCT"];
+
+	f.close();
 }
 
 void ProductProvider::WriteFile()
 {
-	fstream f(DATABASE_PATH, fstream::out | fstream::trunc);
+	// Parse existing file
+	fstream f;
+	f.open(DATABASE_PATH, fstream::in);
 	if (
 		!f.is_open()
 		|| f.peek() == fstream::traits_type::eof()
-		) {
+		)
+	{
+		cout << "Database does not exist." << endl;
 		return;
 	}
 	json File = json::parse(f);
+
+	// Re-write the relevant object
 	File["PRODUCTS"].clear();
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{
@@ -85,8 +94,22 @@ void ProductProvider::WriteFile()
 		}
 		));
 	}
+
+	// Re-write relevant keys
+	File["COUNTERS"]["PRODUCT"] = NewProductIDCounter;
+
+	// Re-write the file
+	f.close();
+	f.open(DATABASE_PATH, fstream::out | fstream::trunc);
+	if (
+		!f.is_open()
+		|| f.peek() == fstream::traits_type::eof()
+		) {
+		return;
+	}
 	f << File;
-	ReadFile();
+
+	f.close();
 }
 
 void ProductProvider::Add(Product _Product)
