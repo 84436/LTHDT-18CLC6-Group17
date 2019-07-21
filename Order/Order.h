@@ -13,6 +13,17 @@ struct Date {
 	int Day;
 	int Month;
 	int Year;
+	
+	Date Today() {
+		Date x;
+		struct tm newtime;
+		time_t now = time(0);
+		localtime_s(&newtime, &now);
+		x.Year = newtime.tm_year + 1900;
+		x.Month = newtime.tm_mon + 1;
+		x.Day = newtime.tm_mday;
+		return x;
+	}
 };
 
 class Order {

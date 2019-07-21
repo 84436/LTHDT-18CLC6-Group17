@@ -14,10 +14,10 @@ Account::Account(const Account& a)
 
 int64_t Account::GetAge()
 {
-	struct tm buffer;
+	struct tm newtime;
 	time_t now = time(0);
-	localtime_s(&buffer, &now);
-	return localtime_s(&buffer, &now) + 1900 - this->YOB();
+	localtime_s(&newtime, &now);
+	return newtime.tm_year + 1900 - this->YOB();
 }
 
 void Account::EditInfo()

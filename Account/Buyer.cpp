@@ -21,21 +21,64 @@ void Buyer::SearchProductByName(string _ProductName)
 
 void Buyer::CreateOrder()
 {
-	// Tạo order (hỏi Product ID, số lượng)
-	// Xét ví của Buyer
-		// OrderProvider: lấy các order chưa hoàn thành của mình
-		// Cộng dồn số tiền trước khi xét ví
-	// OrderProvider: lấy order Add() vào
+	Order newOrder;
+	string s;
+	cout << "Product ID: ";
+	getline(cin, s);
+	Product* x = ProductProvider::GetInstance().GetByID(s);
+	if (x == nullptr) {
+		cout << "Product does not exist." << endl;
+		return;
+	}
+	
+	int amount;
+	cin >> amount;
+	if (x->Stock() < amount) {
+		cout << "There are not enough stock in the storage." << endl;
+		return;
+	}
+	newOrder.Quantity(amount);
+
+	list<Order> FilteredOrder = OrderProvider::GetInstance().Search(this->ID());
+	int64_t MoneytoPay = 0;
+	for (auto i = FilteredOrder.begin(); i != FilteredOrder.end(); ++i) {
+		MoneytoPay += (*i).TotalPrice();
+	}
+	MoneytoPay += newOrder.TotalPrice();
+
+	if (MoneytoPay > this->Balance()) {
+		cout << "There is not enough money for you to create this order." << endl;
+		return;
+	}
+
+	newOrder.ProductID(s);
+	newOrder.BuyerID(this->ID());
+	newOrder.SellerID(x->SellerID());
+	newOrder.Status(SELLER_PENDING);
+
+	Date today;
+	today.Today();
+	newOrder.OrderDate(today);
+
+	OrderProvider::GetInstance().Add(newOrder);
 }
 
 void Buyer::CancelOrder(string _OrderID)
 {
-	// OrderProvider: ID -> Order*
-	// Order*: xét status
-		// Nếu status đang là "Chờ Seller chấp nhận"
-			// Order*: đổi status thành "Buyer hủy"
-		// Nếu status đang là "Chờ Shipper giao"
-			// Nope, quá trễ rồi.
+	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
+
+	if (_Order == nullptr) {
+		cout << "Order does not exist." << endl;
+		return;
+	}
+
+	if (_Order->Status() == SELLER_PENDING) {
+		_Order->Status(BUYER_CANCELLED);
+	}
+	else {
+		cout << "Can not cancel order now" << endl;
+		return;
+	}
 }
 
 void Buyer::Rate(string _OrderID)
