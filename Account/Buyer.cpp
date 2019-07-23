@@ -19,13 +19,11 @@ void Buyer::SearchProductByName(string _ProductName)
 	}
 }
 
-void Buyer::CreateOrder()
+void Buyer::CreateOrder(string _ProductID)
 {
 	Order newOrder;
-	string s;
-	cout << "Product ID: ";
-	getline(cin, s);
-	Product* x = ProductProvider::GetInstance().GetByID(s);
+	
+	Product* x = ProductProvider::GetInstance().GetByID(_ProductID);
 	if (x == nullptr) {
 		cout << "Product does not exist." << endl;
 		return;
@@ -51,7 +49,7 @@ void Buyer::CreateOrder()
 		return;
 	}
 
-	newOrder.ProductID(s);
+	newOrder.ProductID(_ProductID);
 	newOrder.BuyerID(this->ID());
 	newOrder.SellerID(x->SellerID());
 	newOrder.Status(SELLER_PENDING);

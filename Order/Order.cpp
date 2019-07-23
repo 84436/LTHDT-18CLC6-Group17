@@ -35,7 +35,7 @@ string Order::Status_String()
 int64_t Order::TotalPrice()
 {
 	ProductProvider& _ProductProvider = ProductProvider::GetInstance();
-	return _PriceCoeff * _ProductProvider.GetByID(_ProductID)->Price() + _ShippingFee;
+	return _PriceCoeff * _ProductProvider.GetByID(_ProductID)->Price() * _Quantity + _ShippingFee;
 }
 
 void Order::GetInfo()

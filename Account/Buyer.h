@@ -10,7 +10,7 @@ class Buyer : public Account
 
 		void SearchProductByID(string _ProductID);
 		void SearchProductByName(string _ProductName);
-		void CreateOrder();
+		void CreateOrder(string _ProductID);
 		void CancelOrder(string _OrderID);
 		void Rate(string _OrderID);
 };

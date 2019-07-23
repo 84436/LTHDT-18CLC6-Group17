@@ -138,22 +138,57 @@ void Shell::NewAccount()
 enum class Shell::c
 {
 	_NOT_DEFINED_,
+
 	help,
 	info,
 	editinfo,
-	passwd
+	passwd,
+	// deleteaccount,
+
+	olistall,
+	olistpend,
+	olookup,
+	onew,
+	oaccept,
+	oreject,
+	ostats,
+	orate,
+
+	plist,
+	plisttop,
+	plookup,
+	psearch,
+	pnew,
+	pedit,
+	pdelete,
+	paddstock,
+
+	sfinish
 };
 
 // Command aliases
 void Shell::cMapper_Init()
 {
 	cMapper.clear();
+
 	cMapper["help"] = c::help;
 	cMapper["info"] = c::info;
-	cMapper["whoami"] = c::info;
 	cMapper["editinfo"] = c::editinfo;
 	cMapper["passwd"] = c::passwd;
-	cMapper["password"] = c::passwd;
+
+	cMapper["olistall"] = c::olistall;
+	cMapper["olistpend"] = c::olistpend;
+	cMapper["olookup"] = c::olookup;
+	cMapper["onew"] = c::onew;
+	cMapper["oaccept"] = c::oaccept;
+	cMapper["oreject"] = c::oreject;
+
+	cMapper["plist"] = c::plist;
+	cMapper["psearch"] = c::psearch;
+	cMapper["pnew"] = c::pnew;
+	cMapper["pedit"] = c::pedit;
+	cMapper["pdelete"] = c::pdelete;
+	cMapper["paddstock"] = c::paddstock;
 }
 
 // Command actions
@@ -164,24 +199,24 @@ void Shell::Interpret(string _Command)
 
 	switch (cMapper[_Command])
 	{
-		case c::help:
-			ShowHelp();
-			break;
+		case c::help:		ShowHelp();	break;
+		case c::info:		ShowInfo();	break;
+		case c::editinfo:	EditInfo(); break;
+		case c::passwd:		ChangePassword(); break;
+		case c::olistall:	ListOrder();  break;
+		case c::olistpend:	ListPendingOrder();  break;
+		case c::olookup:	LookupOrder(); break;
+		case c::onew:		CreateOrder(); break;
+		case c::oaccept:	AcceptOrder(); break;
+		case c::oreject:	RejectOrder(); break;
+		case c::plist:		break;
+		case c::psearch:	break;
+		case c::pnew:		break;
+		case c::pedit:		break;
+		case c::pdelete:	break;
+		case c::paddstock:	break;
 
-		case c::info:
-			ShowInfo();
-			break;
-
-		case c::editinfo:
-			EditInfo();
-			break;
-
-		case c::passwd:
-			ChangePassword();
-			break;
-
-		default:
-			cout << "Invalid command." << endl;
+		default: cout << "Invalid command." << endl;
 	}
 }
 
@@ -277,4 +312,112 @@ void Shell::EditInfo()
 			AccountProvider::GetInstance().FindShipper(_AccountID)->EditInfo();
 			break;
 	}
+}
+
+void Shell::ListOrder()
+{
+	list<Order> Results = OrderProvider::GetInstance().Search(_AccountID);
+	cout << "Total order count: " << Results.size() << endl;
+	for (auto i = Results.begin(); i != Results.end(); ++i)
+	{
+		(*i).GetInfo();
+		cout << endl;
+	}
+}
+
+void Shell::ListPendingOrder()
+{
+	list<Order> Results = OrderProvider::GetInstance().Search(_AccountID);
+	
+	switch (_AccountID[0])
+	{
+		case 'B':
+			for (auto i = Results.begin(); i != Results.end(); ++i)
+			{
+				if (i->Status() != COMPLETED)
+					Results.erase(i);
+			}
+			break;
+
+		case 'S':
+			for (auto i = Results.begin(); i != Results.end(); ++i)
+			{
+				if (i->Status() != SELLER_PENDING)
+					Results.erase(i);
+			}
+			break;
+
+		case 'H':
+			for (auto i = Results.begin(); i != Results.end(); ++i)
+			{
+				if (i->Status() != SHIPPING_PENDING)
+					Results.erase(i);
+			}
+			break;
+	}
+
+	for (auto i = Results.begin(); i != Results.end(); ++i)
+	{
+		(*i).GetInfo();
+		cout << endl;
+	}
+}
+
+void Shell::LookupOrder()
+{
+	string _OrderID;
+	cout << "Order ID: "; getline(cin, _OrderID);
+	OrderProvider::GetInstance().GetByID(_OrderID)->GetInfo();
+}
+
+void Shell::CreateOrder()
+{
+	string _ProductID;
+	cout << "Product ID: "; getline(cin, _ProductID);
+	AccountProvider::GetInstance().FindBuyer(_AccountID)->CreateOrder(_ProductID);
+}
+
+void Shell::AcceptOrder()
+{
+	string _OrderID;
+	cout << "Order ID: "; getline(cin, _OrderID);
+	AccountProvider::GetInstance().FindSeller(_AccountID)->AcceptOrder(_OrderID);
+}
+
+void Shell::RejectOrder()
+{
+	string _OrderID;
+	cout << "Order ID: "; getline(cin, _OrderID);
+	switch (_AccountID[0]) {
+	case 'B':
+		AccountProvider::GetInstance().FindBuyer(_AccountID)->CancelOrder(_OrderID);
+		break;
+	case 'S':
+		AccountProvider::GetInstance().FindSeller(_AccountID)->RejectOrder(_OrderID);
+		break;
+	}
+}
+
+void Shell::ListProduct()
+{
+}
+
+void Shell::SearchProduct()
+{
+}
+
+void Shell::AddProduct()
+{
+}
+
+void Shell::EditProduct()
+{
+}
+
+void Shell::DeleteProduct()
+{
+}
+
+void Shell::AddStock()
+{
 }

@@ -28,6 +28,20 @@ class Shell
 		void ShowInfo();
 		void EditInfo();
 
+		void ListOrder();
+		void ListPendingOrder();
+		void LookupOrder();
+		void CreateOrder();
+		void AcceptOrder();
+		void RejectOrder();
+
+		void ListProduct();
+		void SearchProduct();
+		void AddProduct();
+		void EditProduct();
+		void DeleteProduct();
+		void AddStock();
+
 	public:
 		void Loop();
 };
