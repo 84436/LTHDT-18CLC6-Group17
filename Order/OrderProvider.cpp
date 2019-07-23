@@ -2,6 +2,21 @@
 
 int32_t OrderProvider::NewOrderIDCounter = 0;
 
+bool OrderProvider::isCompleted(Order o)
+{
+	return OrderProvider::GetInstance().GetByID(o.ID())->Status() == COMPLETED;
+}
+
+bool OrderProvider::isNotSellerPending(Order o)
+{
+	return OrderProvider::GetInstance().GetByID(o.ID())->Status() != SELLER_PENDING;
+}
+
+bool OrderProvider::isNotShipperPending(Order o)
+{
+	return OrderProvider::GetInstance().GetByID(o.ID())->Status() != SHIPPING_PENDING;
+}
+
 OrderProvider::OrderProvider()
 {
 	ReadFile();
@@ -121,7 +136,7 @@ void OrderProvider::WriteFile()
 	// Re-write the file
 	f.close();
 	f.open(DATABASE_PATH, fstream::out | fstream::trunc);
-	f << File;
+	f << setw(4) << File;
 
 	f.close();
 }
@@ -157,7 +172,7 @@ Order* OrderProvider::GetByID(string _OrderID)
 	return _Order;
 }
 
-list<Order> OrderProvider::Search(string _AccountID)
+list<Order> OrderProvider::ListByAccountID(string _AccountID)
 {
 	list<Order> FilteredOrders;
 

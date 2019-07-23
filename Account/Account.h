@@ -2,7 +2,8 @@
 #include "../_INCLUDES_.h"
 #include "Wallet.h"
 
-class Account {
+class Account
+{
 	protected:
 		string _ID;
 		string _Name;
@@ -36,9 +37,9 @@ class Account {
 		void Withdraw(int64_t _Balance);
 
 		int64_t GetAge();
+		virtual void GetInfo();
 		void EditInfo();
-		virtual void OutputInfo();
 
-		void ListOrder();
-		void GetOrderInfo(string _OrderID);
+		void ListOrder_All();
+		virtual void ListOrder_Pending() = 0;
 };

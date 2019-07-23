@@ -1,4 +1,5 @@
 #include "Shell.h"
+#include "../Login/LoginProvider.h"
 #include "../Order/OrderProvider.h"
 
 Shell& Shell::GetInstance()
@@ -83,9 +84,9 @@ void Shell::LogIn()
 	}
 
 	cout << "Password : ";
-	string _CurrentPassword = AccountProvider::GetInstance().GetPassword();
+	string _CurrentPassword = LoginProvider::GetInstance().GetPassword();
 
-	if (AccountProvider::GetInstance().Login(_CurrentAccountID, _CurrentPassword))
+	if (LoginProvider::GetInstance().Login(_CurrentAccountID, _CurrentPassword))
 	{
 		this->_AccountID = _CurrentAccountID;
 		system("CLS");
@@ -228,13 +229,13 @@ void Shell::Greeter()
 	switch (_AccountID[0])
 	{
 	case 'B':
-		cout << AccountProvider::GetInstance().FindBuyer(_AccountID)->Name();
+		cout << AccountProvider::GetInstance().GetBuyer(_AccountID)->Name();
 		break;
 	case 'S':
-		cout << AccountProvider::GetInstance().FindSeller(_AccountID)->Name();
+		cout << AccountProvider::GetInstance().GetSeller(_AccountID)->Name();
 		break;
 	case 'H':
-		cout << AccountProvider::GetInstance().FindShipper(_AccountID)->Name();
+		cout << AccountProvider::GetInstance().GetShipper(_AccountID)->Name();
 		break;
 	}
 	cout << "." << endl << endl;
@@ -268,15 +269,15 @@ void Shell::ShowInfo()
 {
 	switch (_AccountID[0])
 	{
-	case 'B':
-		AccountProvider::GetInstance().FindBuyer(_AccountID)->OutputInfo();
-		break;
-	case 'S':
-		AccountProvider::GetInstance().FindSeller(_AccountID)->OutputInfo();
-		break;
-	case 'H':
-		AccountProvider::GetInstance().FindShipper(_AccountID)->OutputInfo();
-		break;
+		case 'B':
+			AccountProvider::GetInstance().GetBuyer(_AccountID)->GetInfo();
+			break;
+		case 'S':
+			AccountProvider::GetInstance().GetSeller(_AccountID)->GetInfo();
+			break;
+		case 'H':
+			AccountProvider::GetInstance().GetShipper(_AccountID)->GetInfo();
+			break;
 	}
 }
 
@@ -284,12 +285,12 @@ void Shell::ChangePassword()
 {
 
 	cout << "Enter password    : ";
-	string Password1 = AccountProvider::GetInstance().GetPassword();
+	string Password1 = LoginProvider::GetInstance().GetPassword();
 	cout << "Re-enter password : ";
-	string Password2 = AccountProvider::GetInstance().GetPassword();
+	string Password2 = LoginProvider::GetInstance().GetPassword();
 	if (Password1 == Password2)
 	{
-		AccountProvider::GetInstance().ChangePassword(this->_AccountID, Password1);
+		LoginProvider::GetInstance().ChangePassword(this->_AccountID, Password1);
 		cout << "Password changed." << endl;
 	}
 	else
@@ -303,63 +304,50 @@ void Shell::EditInfo()
 	switch (_AccountID[0])
 	{
 		case 'B':
-			AccountProvider::GetInstance().FindBuyer(_AccountID)->EditInfo();
+			AccountProvider::GetInstance().GetBuyer(_AccountID)->EditInfo();
 			break;
 		case 'S':
-			AccountProvider::GetInstance().FindSeller(_AccountID)->EditInfo();
+			AccountProvider::GetInstance().GetSeller(_AccountID)->EditInfo();
 			break;
 		case 'H':
-			AccountProvider::GetInstance().FindShipper(_AccountID)->EditInfo();
+			AccountProvider::GetInstance().GetShipper(_AccountID)->EditInfo();
 			break;
 	}
 }
 
 void Shell::ListOrder()
 {
-	list<Order> Results = OrderProvider::GetInstance().Search(_AccountID);
-	cout << "Total order count: " << Results.size() << endl;
-	for (auto i = Results.begin(); i != Results.end(); ++i)
+	switch (_AccountID[0])
 	{
-		(*i).GetInfo();
-		cout << endl;
+	case 'B':
+		AccountProvider::GetInstance().GetBuyer(_AccountID)->ListOrder_All();
+		break;
+
+	case 'S':
+		AccountProvider::GetInstance().GetSeller(_AccountID)->ListOrder_All();
+		break;
+
+	case 'H':
+		AccountProvider::GetInstance().GetShipper(_AccountID)->ListOrder_All();
+		break;
 	}
 }
 
 void Shell::ListPendingOrder()
 {
-	list<Order> Results = OrderProvider::GetInstance().Search(_AccountID);
-	
 	switch (_AccountID[0])
 	{
 		case 'B':
-			for (auto i = Results.begin(); i != Results.end(); ++i)
-			{
-				if (i->Status() != COMPLETED)
-					Results.erase(i);
-			}
+			AccountProvider::GetInstance().GetBuyer(_AccountID)->ListOrder_Pending();
 			break;
 
 		case 'S':
-			for (auto i = Results.begin(); i != Results.end(); ++i)
-			{
-				if (i->Status() != SELLER_PENDING)
-					Results.erase(i);
-			}
+			AccountProvider::GetInstance().GetSeller(_AccountID)->ListOrder_Pending();
 			break;
 
 		case 'H':
-			for (auto i = Results.begin(); i != Results.end(); ++i)
-			{
-				if (i->Status() != SHIPPING_PENDING)
-					Results.erase(i);
-			}
+			AccountProvider::GetInstance().GetShipper(_AccountID)->ListOrder_Pending();
 			break;
-	}
-
-	for (auto i = Results.begin(); i != Results.end(); ++i)
-	{
-		(*i).GetInfo();
-		cout << endl;
 	}
 }
 
@@ -367,21 +355,25 @@ void Shell::LookupOrder()
 {
 	string _OrderID;
 	cout << "Order ID: "; getline(cin, _OrderID);
-	OrderProvider::GetInstance().GetByID(_OrderID)->GetInfo();
+	Order* Result = OrderProvider::GetInstance().GetByID(_OrderID);
+	if (Result != nullptr)
+		Result->GetInfo();
+	else
+		cout << "Order not found" << endl;
 }
 
 void Shell::CreateOrder()
 {
 	string _ProductID;
 	cout << "Product ID: "; getline(cin, _ProductID);
-	AccountProvider::GetInstance().FindBuyer(_AccountID)->CreateOrder(_ProductID);
+	AccountProvider::GetInstance().GetBuyer(_AccountID)->AddOrder(_ProductID);
 }
 
 void Shell::AcceptOrder()
 {
 	string _OrderID;
 	cout << "Order ID: "; getline(cin, _OrderID);
-	AccountProvider::GetInstance().FindSeller(_AccountID)->AcceptOrder(_OrderID);
+	AccountProvider::GetInstance().GetSeller(_AccountID)->AcceptOrder(_OrderID);
 }
 
 void Shell::RejectOrder()
@@ -390,16 +382,17 @@ void Shell::RejectOrder()
 	cout << "Order ID: "; getline(cin, _OrderID);
 	switch (_AccountID[0]) {
 	case 'B':
-		AccountProvider::GetInstance().FindBuyer(_AccountID)->CancelOrder(_OrderID);
+		AccountProvider::GetInstance().GetBuyer(_AccountID)->CancelOrder(_OrderID);
 		break;
 	case 'S':
-		AccountProvider::GetInstance().FindSeller(_AccountID)->RejectOrder(_OrderID);
+		AccountProvider::GetInstance().GetSeller(_AccountID)->RejectOrder(_OrderID);
 		break;
 	}
 }
 
 void Shell::ListProduct()
 {
+	
 }
 
 void Shell::SearchProduct()

@@ -19,7 +19,7 @@ void Product::GetInfo()
 {
 	cout << "Name       : " << _Name << endl;
 	cout << "ID         : " << _ID << endl;
-	cout << "Seller     : " << AccountProvider::GetInstance().FindSeller(_SellerID)->Name() << " (ID: " << _SellerID << ")" << endl;
+	cout << "Seller     : " << AccountProvider::GetInstance().GetSeller(_SellerID)->Name() << " (ID: " << _SellerID << ")" << endl;
 	cout << "Is R18?    : " << (_isR18 ? "true" : "false") << endl;
 	cout << "Category   : " << _Category << endl;
 	cout << "Decription : " << _Description << endl;
@@ -38,9 +38,23 @@ void Product::EditInfo()
 	cout << "Price [" << this->Price() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Price(stoi(s)); s.clear();
 }
 
+vector<int16_t> Product::RatingArray()
+{
+	return _Rating;
+}
+
+void Product::RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_t _5)
+{
+	this->_Rating[0] = _1;
+	this->_Rating[1] = _2;
+	this->_Rating[2] = _3;
+	this->_Rating[3] = _4;
+	this->_Rating[4] = _5;
+}
+
 float Product::Rate()
 {
-	return (1 * _Rating[0] + 2 * _Rating[1] + 3 * _Rating[2] + 4 * _Rating[3] + 5 * _Rating[4]) / (_Rating[0] + _Rating[1] + _Rating[2] + _Rating[3] + _Rating[4]);
+	return (float)(1 * _Rating[0] + 2 * _Rating[1] + 3 * _Rating[2] + 4 * _Rating[3] + 5 * _Rating[4]) / (float)(_Rating[0] + _Rating[1] + _Rating[2] + _Rating[3] + _Rating[4]);
 }
 
 void Product::Rate(int _Rate)

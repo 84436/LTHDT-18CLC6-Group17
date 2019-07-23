@@ -21,6 +21,6 @@ class ProductProvider
 		void Add(Product _Product);
 		void Delete(string _ID);
 		Product* GetByID(string _ID); 
-		list<Product> SearchByName(string _Name, bool _isR18);
-		list<Product> SearchBySeller(string _SellerID, bool _isR18);
+		list<Product> ListBySellerID(string _SellerID, bool _isR18);
+		list<Product> Search(string _Query, bool _isR18);
 };

@@ -17,7 +17,7 @@ int64_t Account::GetAge()
 	struct tm newtime;
 	time_t now = time(0);
 	localtime_s(&newtime, &now);
-	return newtime.tm_year + 1900 - this->YOB();
+	return (int64_t)newtime.tm_year + 1900 - this->YOB();
 }
 
 void Account::EditInfo()
@@ -30,7 +30,17 @@ void Account::EditInfo()
 	cout << "Phone [" << this->Phone() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Phone(s); s.clear();
 }
 
-void Account::OutputInfo(){
+void Account::ListOrder_All()
+{
+	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
+	cout << "Total order count: " << FilteredOrders.size() << endl;
+	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
+	{
+		cout << (*i).ID() << " : " << (*i).Status_String() << endl;
+	}
+}
+
+void Account::GetInfo(){
 	cout << "ID            : " << ID() << endl;
 	cout << "Name          : " << Name() << endl;
 	cout << "Year of Birth : " << YOB() << endl;
@@ -38,7 +48,6 @@ void Account::OutputInfo(){
 	cout << "Email         : " << Email() << endl;
 	cout << "Phone         : " << Phone() << endl;
 }
-
 
 void Account::CheckBalance()
 {
@@ -53,23 +62,4 @@ void Account::Deposit(int64_t _Balance)
 void Account::Withdraw(int64_t _Balance)
 {
 	this->_Wallet.Withdraw(_Balance);
-}
-
-void Account::ListOrder()
-{
-	list<Order> FilteredOrders = OrderProvider::GetInstance().Search(this->ID());
-	if (FilteredOrders.size() == 0)
-	{
-		cout << "No orders." << endl;
-		return;
-	}
-	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
-	{
-		cout << (*i).ID() << ": " << (*i).Status_String() << endl;
-	}
-}
-
-void Account::GetOrderInfo(string _OrderID)
-{
-	OrderProvider::GetInstance().GetByID(_OrderID)->GetInfo();
 }

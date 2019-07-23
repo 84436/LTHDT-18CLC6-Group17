@@ -3,6 +3,34 @@
 #include "../Product/ProductProvider.h"
 #include "../Order/OrderProvider.h"
 
+void Seller::ListOrder_Pending()
+{
+	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
+
+	FilteredOrders.remove_if(OrderProvider::isNotSellerPending);
+
+	cout << "Total pending order count: " << FilteredOrders.size() << endl;
+	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
+	{
+		cout << (*i).ID() << " : " << (*i).Status_String() << endl;
+	}
+}
+
+void Seller::GetInfo()
+{
+	Account::GetInfo();
+	cout << "Rating        : " << this->GetRate() << endl;
+}
+
+void Seller::ListProduct()
+{
+	list<Product> FilteredProducts = ProductProvider::GetInstance().ListBySellerID(this->ID(), true);
+	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
+	{
+		cout << (*i).ID() << ": Name = " << (*i).Name() << endl;
+	}
+}
+
 void Seller::AddProduct()
 {
 	Product p;
@@ -30,7 +58,9 @@ void Seller::DeleteProduct(string _ProductID)
 
 void Seller::AcceptOrder(string _OrderID)
 {
+	// Set price coeff
 	// Set shipping fee
+	// Set note (optional)
 	OrderProvider::GetInstance().GetByID(_OrderID)->Status(SHIPPING_PENDING);
 }
 
@@ -57,4 +87,38 @@ void Seller::RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_t
 void Seller::Rate(int _score)
 {
 	Rating[_score - 1]++;
+}
+
+float Seller::GetRate()
+{
+	return (float)(1*Rating[0] + 2*Rating[1] + 3*Rating[2] + 4*Rating[3] + 5*Rating[4]) / (float)(Rating[0] + Rating[1] + Rating[2] + Rating[3] + Rating[4]);
+}
+
+void Seller::StatsByMonth(uint8_t _Month)
+{
+	if (_Month < 1 || _Month > 12)
+	{
+		cout << "Invalid month" << endl;
+		return;
+	}
+
+	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
+	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
+	{
+		if ((*i).ShippingDate().Month != _Month) FilteredOrders.erase(i);
+	}
+
+	// What month is it?
+
+	// Total $
+	int64_t Total = 0;
+	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
+	{
+		Total += ((*i).TotalPrice() - (*i).ShippingFee());
+	}
+	cout << "Total $ = " << Total << endl;
+
+	// Product count : std::map
+
+	// Best seller
 }

@@ -3,23 +3,44 @@
 #include "../Product/ProductProvider.h"
 #include "../Order/OrderProvider.h"
 
+void Buyer::ListOrder_Pending()
+{
+	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
+
+	FilteredOrders.remove_if(OrderProvider::isCompleted);
+
+	cout << "Total pending order count: " << FilteredOrders.size() << endl;
+	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
+	{
+		cout << (*i).ID() << " : " << (*i).Status_String() << endl;
+	}
+}
+
 void Buyer::SearchProductByID(string _ProductID)
 {
 	Product* p = ProductProvider::GetInstance().GetByID(_ProductID);
 	if (p != nullptr) p->GetInfo();
 }
 
-void Buyer::SearchProductByName(string _ProductName)
+void Buyer::SearchProductBySellerID(string _SellerID)
 {
-	list<Product> FilteredProduct = ProductProvider::GetInstance().SearchByName(_ProductName, ((this->GetAge()) >= 18));
-	for (auto i = FilteredProduct.begin(); i != FilteredProduct.end(); ++i)
+	list<Product> FilteredProducts = ProductProvider::GetInstance().ListBySellerID(_SellerID, ((this->GetAge()) >= 18));
+	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
-		(*i).GetInfo();
-		cout << endl;
+		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << endl;
 	}
 }
 
-void Buyer::CreateOrder(string _ProductID)
+void Buyer::SearchProductByQuery(string _ProductName)
+{
+	list<Product> FilteredProducts = ProductProvider::GetInstance().Search(_ProductName, ((this->GetAge()) >= 18));
+	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
+	{
+		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << endl;
+	}
+}
+
+void Buyer::AddOrder(string _ProductID)
 {
 	Order newOrder;
 	
@@ -37,7 +58,7 @@ void Buyer::CreateOrder(string _ProductID)
 	}
 	newOrder.Quantity(amount);
 
-	list<Order> FilteredOrder = OrderProvider::GetInstance().Search(this->ID());
+	list<Order> FilteredOrder = OrderProvider::GetInstance().ListByAccountID(this->ID());
 	int64_t MoneytoPay = 0;
 	for (auto i = FilteredOrder.begin(); i != FilteredOrder.end(); ++i) {
 		MoneytoPay += (*i).TotalPrice();
@@ -54,9 +75,7 @@ void Buyer::CreateOrder(string _ProductID)
 	newOrder.SellerID(x->SellerID());
 	newOrder.Status(SELLER_PENDING);
 
-	Date today;
-	today.Today();
-	newOrder.OrderDate(today);
+	newOrder.OrderDate(Date::Today());
 
 	OrderProvider::GetInstance().Add(newOrder);
 }
@@ -109,7 +128,7 @@ void Buyer::Rate(string _OrderID)
 		(stoi(_Rate) < 1 || stoi(_Rate) > 5)
 		&& (cout << "Invalid range." << endl)
 	);
-	AccountProvider::GetInstance().FindSeller(_Order->SellerID())->Rate(stoi(_Rate));
+	AccountProvider::GetInstance().GetSeller(_Order->SellerID())->Rate(stoi(_Rate));
 	
 	cout << "Thanks for your choices" << endl;
 }

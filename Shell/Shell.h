@@ -20,14 +20,20 @@ class Shell
 		void cMapper_Init();
 
 		void Interpret(string _Command);
+
+		// Native: Login
 		void NewAccount();
 		void LogIn();
 		void ChangePassword();
 		void Greeter();
 		void ShowHelp();
+
+		// Callbacks: Account
 		void ShowInfo();
 		void EditInfo();
+		// void DeleteAccount();
 
+		// Callbacks: Order
 		void ListOrder();
 		void ListPendingOrder();
 		void LookupOrder();
@@ -35,6 +41,7 @@ class Shell
 		void AcceptOrder();
 		void RejectOrder();
 
+		// Callbacks: Product
 		void ListProduct();
 		void SearchProduct();
 		void AddProduct();

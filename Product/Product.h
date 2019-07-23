@@ -13,7 +13,7 @@ class Product {
 		string _Description;
 		int32_t _Stock = 0;
 		int64_t _Price = 0;
-		vector<int> _Rating = {0, 0, 0, 0, 0};
+		vector<int16_t> _Rating = {0, 0, 0, 0, 0};
 
 	public:
 		Product() {}
@@ -38,8 +38,11 @@ class Product {
 
 		void GetInfo();
 		void EditInfo();
+
+		vector<int16_t> RatingArray();
+		void RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_t _5);
+
 		float Rate();
 		void Rate(int _Rate);
-
 		void AddStock(int32_t amount);
 };

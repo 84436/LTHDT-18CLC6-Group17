@@ -9,5 +9,9 @@ class Shipper : public Account
 		Shipper() : Account() {}
 		Shipper(const Shipper& h) : Account(h) {}
 
+		void ListOrder_Pending();
+
 		void FinishOrder(string _OrderID);
+
+		void StatsByMonth(uint8_t _Month);
 };

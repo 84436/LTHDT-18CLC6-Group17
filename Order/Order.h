@@ -14,7 +14,7 @@ struct Date {
 	int Month;
 	int Year;
 	
-	Date Today() {
+	static Date Today() {
 		Date x;
 		struct tm newtime;
 		time_t now = time(0);

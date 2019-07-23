@@ -5,12 +5,16 @@
 class Buyer : public Account
 {
 	public:
-		Buyer() : Account() {};
-		Buyer(const Buyer& b) : Account(b) {};
+		Buyer() : Account() {}
+		Buyer(const Buyer& b) : Account(b) {}
+
+		void ListOrder_Pending();
+		void AddOrder(string _ProductID);
+		void CancelOrder(string _OrderID);
 
 		void SearchProductByID(string _ProductID);
-		void SearchProductByName(string _ProductName);
-		void CreateOrder(string _ProductID);
-		void CancelOrder(string _OrderID);
+		void SearchProductBySellerID(string _SellerID);
+		void SearchProductByQuery(string _ProductName);
+		
 		void Rate(string _OrderID);
 };

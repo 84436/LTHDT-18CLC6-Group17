@@ -10,15 +10,24 @@ class Seller : public Account
 	public:
 		Seller() : Account() {}
 		Seller(const Seller& s) : Account(s) { this->Rating = s.Rating; }
-		
+
+		void GetInfo();
+
+		void ListOrder_Pending();
+		void AcceptOrder(string _OrderID); //
+		void RejectOrder(string _OrderID); //
+
+		void ListProduct();
 		void AddProduct();
 		void EditProduct(string _ProductID);
 		void DeleteProduct(string _ProductID);
 
-		void AcceptOrder(string _OrderID); //
-		void RejectOrder(string _OrderID); //
-
 		vector<int16_t> RatingArray();
 		void RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_t _5);
+
 		void Rate(int _score);
+		float GetRate();
+
+		// Statistics
+		void StatsByMonth(uint8_t _Month);
 };

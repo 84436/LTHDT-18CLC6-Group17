@@ -86,20 +86,24 @@ void ProductProvider::WriteFile()
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{
 		File["PRODUCTS"].push_back(json::object_t::value_type(
-		{
-			i->ID(),
 			{
-				{"SellerID", i->SellerID()},
-				{"isR18", i->isR18()},
-				{"Name", i->Name()},
-				{"Category", i->Category()},
-				{"Description", i->Description()},
-				{"Stock", i->Stock()},
-				{"Price", i->Price()}
-				// Rating
+				i->ID(),
+				{
+					{"SellerID", i->SellerID()},
+					{"isR18", i->isR18()},
+					{"Name", i->Name()},
+					{"Category", i->Category()},
+					{"Description", i->Description()},
+					{"Stock", i->Stock()},
+					{"Price", i->Price()}
+				}
 			}
-		}
 		));
+		vector<int16_t> Rating = i->RatingArray();
+		for (int r = 0; r < 5; r++)
+		{
+			File["PRODUCTS"][i->ID()]["Rating"][r] = Rating[r];
+		}
 	}
 
 	// Re-write relevant keys
@@ -144,12 +148,19 @@ Product* ProductProvider::GetByID(string _ID)
 	return _Product;
 }
 
-list<Product> ProductProvider::SearchByName(string _Name, bool _isR18)
+list<Product> ProductProvider::Search(string _Query, bool _isR18)
 {
 	list<Product> _Products;
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{
-		if ((ToLower(i->Name()).find(ToLower(_Name)) != string::npos) && (i->isR18() == _isR18 ))
+		if
+			(
+				(i->isR18() == _isR18)
+				&& (
+					   (ToLower(i->Name()).find(ToLower(_Query)) != string::npos)
+					|| (ToLower(i->Category()).find(ToLower(_Query)) != string::npos)
+					) 
+			)
 		{
 			_Products.push_back((*i));
 		}
@@ -157,7 +168,7 @@ list<Product> ProductProvider::SearchByName(string _Name, bool _isR18)
 	return _Products;
 }
 
-list<Product> ProductProvider::SearchBySeller(string _SellerID, bool _isR18)
+list<Product> ProductProvider::ListBySellerID(string _SellerID, bool _isR18)
 {
 	list<Product> _Products;
 	for (auto i = Products.begin(); i != Products.end(); ++i)

@@ -86,13 +86,6 @@ void AccountProvider::ReadFile()
 		Accounts.push_back(a);
 	}
 
-	// Password hashes
-	for (auto i = File["HASHES"].begin(); i != File["HASHES"].end(); ++i)
-	{
-		PasswordHash x = { i.key(), i.value() };
-		PasswordHashes.push_back(x);
-	}
-
 	// New ID counters
 	for (auto i = File["COUNTERS"].begin(); i != File["COUNTERS"].end(); ++i)
 	{
@@ -167,15 +160,6 @@ void AccountProvider::WriteFile()
 		}
 	}
 
-	// Re-write password-hashes
-	File["HASHES"].clear();
-	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
-	{
-		File["HASHES"].push_back(json::object_t::value_type(
-			{ i->ID, i->Hash }
-		));
-	}
-
 	// Re-write relevant keys
 	File["COUNTERS"]["BUYER"] = NewBuyerIDCounter;
 	File["COUNTERS"]["SELLER"] = NewSellerIDCounter;
@@ -187,12 +171,6 @@ void AccountProvider::WriteFile()
 	f << File;
 
 	f.close();
-}
-
-char MaskingChar()
-{
-	string Random = "!@#$%^&*";
-	return Random[rand() % Random.length()];
 }
 
 void AccountProvider::Add(Account* _Account, char AccountType)
@@ -213,81 +191,10 @@ void AccountProvider::Add(Account* _Account, char AccountType)
 			return;
 	}
 	x->ID(GenerateNewAccountID(AccountType));
-	PasswordHashes.push_back({x->ID(), sha256("")});
+	LoginProvider::GetInstance().Add(x->ID(), sha256(""));
 
 	cout << "New account ID = " << x->ID() << endl;
 	Accounts.push_back(x);
-	WriteFile();
-}
-
-string AccountProvider::GetPassword()
-{
-	srand(time(NULL));
-
-	string _HASHED;
-	char c = 0;
-	while (c = _getch())
-	{
-		if (c == 8) // BKSP
-		{
-			if (_HASHED.size() == 0)
-				continue;
-			else if (_HASHED.size() == 1)
-			{
-				_HASHED.pop_back();
-				cout << "\b \b";
-			}
-			else
-			{
-				_HASHED.pop_back();
-				cout << "\b \b\b" << MaskingChar() << " \b";
-			}
-		}
-		else if (c == 13) // RETURN
-		{
-			if (_HASHED.size() > 0) cout << "\b \b";
-			break;
-		}
-		else if (c == 0 || c == 224) // CTRL
-		{
-			_getch();
-		}
-		else
-		{
-			_HASHED.push_back(c);
-			if (_HASHED.size() - 1 == 0) cout << MaskingChar();
-			else cout << "\b " << MaskingChar();
-		}
-	}
-	cout << endl;
-
-	_HASHED = sha256(_HASHED);
-	return _HASHED;
-}
-
-bool AccountProvider::Login(string _ID, string _HashedPassword)
-{
-	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
-	{
-		if (ToLower(i->ID) == ToLower(_ID))
-		{
-			return (i->Hash == _HashedPassword);
-		}
-	}
-	return false;
-}
-
-void AccountProvider::ChangePassword(string _ID, string _HashedPassword)
-{
-	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
-	{
-		if (ToLower(i->ID) == ToLower(_ID))
-		{
-			i->Hash = _HashedPassword;
-			WriteFile();
-			return;
-		}
-	}
 }
 
 void AccountProvider::Delete(string _ID)
@@ -304,9 +211,12 @@ void AccountProvider::Delete(string _ID)
 			break;
 		}
 	}
+
+	// Delete password hash
 }
 
-Seller* AccountProvider::FindSeller(string ID) {
+Seller* AccountProvider::GetSeller(string ID)
+{
 	for (auto i = Accounts.begin(); i != Accounts.end(); ++i) {
 		if ((*i)->ID() == ID)
 			return (Seller*)(*i);
@@ -314,7 +224,8 @@ Seller* AccountProvider::FindSeller(string ID) {
 	return nullptr;
 }
 
-Buyer* AccountProvider::FindBuyer(string ID) {
+Buyer* AccountProvider::GetBuyer(string ID)
+{
 	for (auto i = Accounts.begin(); i != Accounts.end(); ++i) {
 		if ((*i)->ID() == ID)
 			return (Buyer*)(*i);
@@ -322,7 +233,8 @@ Buyer* AccountProvider::FindBuyer(string ID) {
 	return nullptr;
 }
 
-Shipper* AccountProvider::FindShipper(string ID) {
+Shipper* AccountProvider::GetShipper(string ID)
+{
 	for (auto i = Accounts.begin(); i != Accounts.end(); ++i) {
 		if ((*i)->ID() == ID)
 			return (Shipper*)(*i);
