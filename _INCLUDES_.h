@@ -3,6 +3,7 @@
 // C++ STL
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include <list>
 #include <vector>
 #include <string>
@@ -27,6 +28,7 @@ class Seller;
 class Shipper;
 class Product;
 class Order;
+class LoginProvider;
 class AccountProvider;
 class ProductProvider;
 class OrderProvider;
