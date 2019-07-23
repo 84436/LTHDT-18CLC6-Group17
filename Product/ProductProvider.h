@@ -17,6 +17,7 @@ class ProductProvider
 
 	public:
 		void ReadFile();
+		list<Product> GetListProduct();
 		void WriteFile();
 		void Add(Product _Product);
 		void Delete(string _ID);
@@ -24,3 +25,4 @@ class ProductProvider
 		list<Product> ListBySellerID(string _SellerID, bool _isR18);
 		list<Product> Search(string _Query, bool _isR18);
 };
+

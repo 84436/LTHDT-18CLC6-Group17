@@ -66,6 +66,11 @@ void ProductProvider::ReadFile()
 	f.close();
 }
 
+list<Product> ProductProvider::GetListProduct()
+{
+	return Products;
+}
+
 void ProductProvider::WriteFile()
 {
 	// Parse existing file

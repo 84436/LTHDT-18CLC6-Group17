@@ -27,7 +27,9 @@ class Seller : public Account
 
 		void Rate(int _score);
 		float GetRate();
+		void CancelOrder(string _OrderID);
 
 		// Statistics
 		void StatsByMonth(uint8_t _Month);
+		
 };

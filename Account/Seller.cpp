@@ -59,15 +59,38 @@ void Seller::DeleteProduct(string _ProductID)
 void Seller::AcceptOrder(string _OrderID)
 {
 	// Set price coeff
+	double _PriceCoeff;
 	// Set shipping fee
+	int64_t _ShippingFee;
 	// Set note (optional)
-	OrderProvider::GetInstance().GetByID(_OrderID)->Status(SHIPPING_PENDING);
+	//Order * _Order = OrderProvider::GetInstance().GetByID(_OrderID)->Status(SHIPPING_PENDING);
+	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
+	if (_Order == nullptr) {
+		cout << "Order does not exist." << endl;
+		return;
+	}
+	if (_Order->Status() == SELLER_PENDING) {
+		cout << "Shipping Fee ? : ";
+		cin >> _ShippingFee;
+		_Order->ShippingFee(_ShippingFee);
+		fflush(stdin); //cin.ignore();
+		cout << "% Sale (0.0 - 1.0) : ";
+		cin >> _PriceCoeff;
+		_Order->PriceCoeff(_PriceCoeff);
+		fflush(stdin); //cin.ignore();
+		_Order->Status(SHIPPING_PENDING);
+	}
 }
 
 void Seller::RejectOrder(string _OrderID)
 {
 	// Hỏi lý do tại sao (ghi vào Note)
-	OrderProvider::GetInstance().GetByID(_OrderID)->Status(SELLER_CANCELLED);
+	//OrderProvider::GetInstance().GetByID(_OrderID)->Status(SELLER_CANCELLED);
+	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
+	string _Note;
+	cout << "The Reason Reject Order : ";
+	getline(cin,_Note);
+	_Order->Note(_Note);
 }
 
 vector<int16_t> Seller::RatingArray()
@@ -121,4 +144,20 @@ void Seller::StatsByMonth(uint8_t _Month)
 	// Product count : std::map
 
 	// Best seller
+}
+
+void Seller::CancelOrder(string _OrderID)
+{
+	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
+	if (_Order == nullptr) {
+		cout << "Order does not exist." << endl;
+		return;
+	}
+	if (_Order->Status() == SELLER_PENDING) {
+		_Order->Status(SELLER_CANCELLED);
+	}
+	else {
+		cout << "Can not cancel order now" << endl;
+		return;
+	}
 }
