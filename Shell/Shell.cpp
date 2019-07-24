@@ -392,68 +392,10 @@ void Shell::RejectOrder()
 
 void Shell::ListProduct()
 {
-	int choice;
-	switch (_AccountID[0])
-	{
-	case 'S':
-		cout << "1 : List My Products\n"
-			<< "2 : List ALL Products \n";
-		cout << "Search Product by (1-3) : "; cin >> choice; fflush(stdin);
-		switch (choice)
-		{
-		case 1:
-			cout << "1 : List My Products\n";
-			AccountProvider::GetInstance().GetSeller(_AccountID)->ListProduct();
-			break;
-		case 2:
-			cout << "2 : List All Products \n";
-			AccountProvider::GetInstance().GetSeller(_AccountID)->ListProduct_All();
-			break;
-		}
-		break;
-	case 'B':
-		//break;
-	case 'H':
-		//break;
-	}
-
 }
 
 void Shell::SearchProduct()
 {
-	string _ProductID, _SellerID, _ProductName;
-	int choice;
-	switch (_AccountID[0])
-	{
-	case 'B':
-		cout << "1 : Search Product by Product ID \n"
-			<< "2 : Search Product by Seller ID \n"
-			<< "3 : Search Product by Product Name \n ";
-		cout << "Search Product by (1-3) : "; cin >> choice; fflush(stdin);
-		switch (choice)
-		{
-		case 1:
-			cout << "1 : Search Product by Product ID \n";
-			getline(cin, _ProductID);
-			AccountProvider::GetInstance().GetBuyer(_AccountID)->SearchProductByID(_ProductID);
-			break;
-		case 2:
-			cout << "2 : Search Product by Seller ID \n";
-			getline(cin, _SellerID);
-			AccountProvider::GetInstance().GetBuyer(_AccountID)->SearchProductBySellerID(_SellerID);
-			break;
-		case 3:
-			cout << "3 : Search Product by Seller ID \n";
-			getline(cin, _ProductName);
-			AccountProvider::GetInstance().GetBuyer(_AccountID)->SearchProductByQuery(_ProductName);
-			break;
-		}
-	case 'S':
-		//break;
-	case 'H':
-		//break;
-	}
-
 }
 
 void Shell::AddProduct()

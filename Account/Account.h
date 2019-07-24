@@ -41,6 +41,5 @@ class Account
 		void EditInfo();
 
 		void ListOrder_All();
-		void ListProduct_All();
 		virtual void ListOrder_Pending() = 0;
 };

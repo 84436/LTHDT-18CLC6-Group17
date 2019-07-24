@@ -73,11 +73,13 @@ void Seller::AcceptOrder(string _OrderID)
 		cout << "Shipping Fee ? : ";
 		cin >> _ShippingFee;
 		_Order->ShippingFee(_ShippingFee);
-		fflush(stdin); //cin.ignore();
-		cout << "% Sale (0.0 - 1.0) : ";
+		cin.ignore();
+
+		cout << "% Sale (0 - 100) : ";
 		cin >> _PriceCoeff;
-		_Order->PriceCoeff(_PriceCoeff);
-		fflush(stdin); //cin.ignore();
+		_Order->PriceCoeff(1 - _PriceCoeff/100);
+		cin.ignore();
+
 		_Order->Status(SHIPPING_PENDING);
 	}
 }
