@@ -17,24 +17,27 @@ void Shipper::ListOrder_Pending()
 
 void Shipper::FinishOrder(string _OrderID)
 {
-	Order* o = OrderProvider::GetInstance().GetByID(_OrderID);
-	if (o == nullptr)
+	if (!OrderProvider::isRelated(this->ID(), _OrderID))
 	{
-		cout << "Order " << _OrderID << " does not exist." << endl;
+		cout << "Order not found." << endl;
+		return;
 	}
-	if (o->Status() != SHIPPING_PENDING)
+
+	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
+	
+	if (_Order->Status() != SHIPPING_PENDING)
 	{
 		cout << "This order was already completed." << endl;
 	}
-	o->Status(COMPLETED);
+	_Order->Status(COMPLETED);
 
-	o->ShippingDate(Date::Today());
+	_Order->ShippingDate(Date::Today());
 
-	AccountProvider::GetInstance().GetBuyer(o->BuyerID())->Withdraw(o->TotalPrice());
+	AccountProvider::GetInstance().GetBuyer(_Order->BuyerID())->Withdraw(_Order->TotalPrice());
 
-	AccountProvider::GetInstance().GetSeller(o->SellerID())->Deposit(o->TotalPrice() - o->ShippingFee());
+	AccountProvider::GetInstance().GetSeller(_Order->SellerID())->Deposit(_Order->TotalPrice() - _Order->ShippingFee());
 
-	AccountProvider::GetInstance().GetShipper(this->ID())->Deposit(o->ShippingFee());
+	AccountProvider::GetInstance().GetShipper(this->ID())->Deposit(_Order->ShippingFee());
 }
 
 void Shipper::StatsByMonth(uint8_t _Month)

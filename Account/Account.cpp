@@ -30,7 +30,7 @@ void Account::EditInfo()
 	cout << "Phone [" << this->Phone() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Phone(s); s.clear();
 }
 
-void Account::LookupOrder(string _OrderID)
+void Account::GetOrderByID(string _OrderID)
 {
 	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
 

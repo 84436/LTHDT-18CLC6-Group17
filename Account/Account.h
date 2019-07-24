@@ -40,7 +40,7 @@ class Account
 		virtual void GetInfo();
 		void EditInfo();
 
-		void LookupOrder(string _OrderID);
+		void GetOrderByID(string _OrderID);
 		void ListOrder_All();
 		virtual void ListOrder_Pending() = 0;
 };

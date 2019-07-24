@@ -1,17 +1,18 @@
 #include "Product.h"
 
-Product::Product(const Product& p)
+Product::Product(const Product& _Product)
 {
-	this->_SellerID = p._SellerID;
-	this->_ID = p._ID;
-	this->_Name = p._Name;
-	this->_Category = p._Category;
-	this->_Description = p._Description;
-	this->_Stock = p._Stock;
-	this->_Price = p._Price;
+	this->_SellerID = _Product._SellerID;
+	this->_ID = _Product._ID;
+	this->_isR18 = _Product._isR18;
+	this->_Name = _Product._Name;
+	this->_Category = _Product._Category;
+	this->_Description = _Product._Description;
+	this->_Stock = _Product._Stock;
+	this->_Price = _Product._Price;
 
 	for (int i = 0; i < 5; i++) {
-		this->_Rating[i] = p._Rating[i];
+		this->_Rating[i] = _Product._Rating[i];
 	}
 }
 
@@ -54,6 +55,9 @@ void Product::RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_
 
 float Product::Rate()
 {
+	// No rating
+	if (_Rating[0] + _Rating[1] + _Rating[2] + _Rating[3] + _Rating[4] == 0) return 0;
+	// Normal case
 	return (float)(1 * _Rating[0] + 2 * _Rating[1] + 3 * _Rating[2] + 4 * _Rating[3] + 5 * _Rating[4]) / (float)(_Rating[0] + _Rating[1] + _Rating[2] + _Rating[3] + _Rating[4]);
 }
 

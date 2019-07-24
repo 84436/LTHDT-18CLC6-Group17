@@ -14,13 +14,15 @@ class Seller : public Account
 		void GetInfo();
 
 		void ListOrder_Pending();
-		void AcceptOrder(string _OrderID); //
-		void RejectOrder(string _OrderID); //
+		void AcceptOrder(string _OrderID); 
+		void RejectOrder(string _OrderID); 
 
 		void ListProduct();
+		void GetProductByID(string _ProductID);
 		void AddProduct();
 		void EditProduct(string _ProductID);
 		void DeleteProduct(string _ProductID);
+		void AddStock(string _ProductID, int32_t _Amount);
 
 		vector<int16_t> RatingArray();
 		void RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_t _5);

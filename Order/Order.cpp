@@ -1,19 +1,19 @@
 ﻿#include "Order.h"
 
-Order::Order(const Order& o)
+Order::Order(const Order& _Order)
 {
-	this->_ID = o._ID;
-	this->_ProductID = o._ProductID;
-	this->_SellerID = o._SellerID;
-	this->_BuyerID = o._BuyerID;
-	this->_ShipperID = o._ShipperID;
-	this->_PriceCoeff = o._PriceCoeff;
-	this->_OrderDate = o._OrderDate;
-	this->_ShippingDate = o._ShippingDate;
-	this->_ShippingFee = o._ShippingFee;
-	this->_Status= o._Status;
-	this->_Note = o._Note;
-	this->_Quantity = o._Quantity;
+	this->_ID = _Order._ID;
+	this->_ProductID = _Order._ProductID;
+	this->_SellerID = _Order._SellerID;
+	this->_BuyerID = _Order._BuyerID;
+	this->_ShipperID = _Order._ShipperID;
+	this->_PriceCoeff = _Order._PriceCoeff;
+	this->_OrderDate = _Order._OrderDate;
+	this->_ShippingDate = _Order._ShippingDate;
+	this->_ShippingFee = _Order._ShippingFee;
+	this->_Status= _Order._Status;
+	this->_Note = _Order._Note;
+	this->_Quantity = _Order._Quantity;
 }
 
 string Order::Status_String()

@@ -2,19 +2,34 @@
 
 int32_t OrderProvider::NewOrderIDCounter = 0;
 
-bool OrderProvider::isCompleted(Order o)
+bool OrderProvider::isCompleted(Order _Order)
 {
-	return OrderProvider::GetInstance().GetByID(o.ID())->Status() == COMPLETED;
+	return OrderProvider::GetInstance().GetByID(_Order.ID())->Status() == COMPLETED;
 }
 
-bool OrderProvider::isNotSellerPending(Order o)
+bool OrderProvider::isNotSellerPending(Order _Order)
 {
-	return OrderProvider::GetInstance().GetByID(o.ID())->Status() != SELLER_PENDING;
+	return OrderProvider::GetInstance().GetByID(_Order.ID())->Status() != SELLER_PENDING;
 }
 
-bool OrderProvider::isNotShipperPending(Order o)
+bool OrderProvider::isNotShipperPending(Order _Order)
 {
-	return OrderProvider::GetInstance().GetByID(o.ID())->Status() != SHIPPING_PENDING;
+	return OrderProvider::GetInstance().GetByID(_Order.ID())->Status() != SHIPPING_PENDING;
+}
+
+bool OrderProvider::isRelated(string _AccountID, string _OrderID)
+{
+	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(_AccountID);
+	bool MatchFound = false;
+	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
+	{
+		if (i->ID() == _OrderID)
+		{
+			MatchFound = true;
+			break;
+		}
+	}
+	return MatchFound;
 }
 
 OrderProvider::OrderProvider()
@@ -57,20 +72,20 @@ void OrderProvider::ReadFile()
 	// Orders
 	for (auto i = File["ORDERS"].begin(); i != File["ORDERS"].end(); ++i)
 	{
-		Order o;
-		o.ID(i.key());
-		o.ProductID((*i)["ProductID"]);
-		o.SellerID((*i)["SellerID"]);
-		o.BuyerID((*i)["BuyerID"]);
-		o.ShipperID((*i)["ShipperID"]);
-		o.PriceCoeff((*i)["PriceCoeff"]);
-		o.ShippingFee((*i)["ShippingFee"]);
-		o.OrderDate(Date{ (*i)["OrderDate"][0], (*i)["OrderDate"][1], (*i)["OrderDate"][2] });
-		o.ShippingDate(Date{ (*i)["ShippingDate"][0], (*i)["ShippingDate"][1], (*i)["ShippingDate"][2] });
-		o.Status((*i)["Status"]);
-		o.Note((*i)["Note"]);
-		o.Quantity((*i)["Quantity"]);
-		Orders.push_back(o);
+		Order _Order;
+		_Order.ID(i.key());
+		_Order.ProductID((*i)["ProductID"]);
+		_Order.SellerID((*i)["SellerID"]);
+		_Order.BuyerID((*i)["BuyerID"]);
+		_Order.ShipperID((*i)["ShipperID"]);
+		_Order.PriceCoeff((*i)["PriceCoeff"]);
+		_Order.ShippingFee((*i)["ShippingFee"]);
+		_Order.OrderDate(Date{ (*i)["OrderDate"][0], (*i)["OrderDate"][1], (*i)["OrderDate"][2] });
+		_Order.ShippingDate(Date{ (*i)["ShippingDate"][0], (*i)["ShippingDate"][1], (*i)["ShippingDate"][2] });
+		_Order.Status((*i)["Status"]);
+		_Order.Note((*i)["Note"]);
+		_Order.Quantity((*i)["Quantity"]);
+		Orders.push_back(_Order);
 	}
 
 	// New ID counter

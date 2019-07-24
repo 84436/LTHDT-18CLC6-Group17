@@ -33,7 +33,7 @@ class Order {
 		string _SellerID;
 		string _BuyerID;
 		string _ShipperID;
-		double _PriceCoeff = 0;
+		double _PriceCoeff = 1;
 		int64_t _ShippingFee = 0;
 		Date _OrderDate = { 1,1,1 };
 		Date _ShippingDate = { 1,1,1 };
@@ -43,7 +43,7 @@ class Order {
 
 	public:
 		Order() {}
-		Order(const Order& o);
+		Order(const Order& _Order);
 
 		string  ID				()						{ return this->_ID; }
 		void    ID				(string _ID)			{ this->_ID = _ID; }

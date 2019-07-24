@@ -144,7 +144,11 @@ enum class Shell::c
 	info,
 	editinfo,
 	passwd,
-	// deleteaccount,
+	deleteaccount,
+
+	wcheck,
+	wdeposit,
+	wwithdraw,
 
 	olistall,
 	olistpend,
@@ -156,7 +160,7 @@ enum class Shell::c
 	orate,
 
 	plist,
-	plisttop,
+	plistbyseller,
 	plookup,
 	psearch,
 	pnew,
@@ -167,29 +171,59 @@ enum class Shell::c
 	sfinish
 };
 
-// Command aliases
+// Command "mapper"
 void Shell::cMapper_Init()
 {
 	cMapper.clear();
 
+	// ALL - Account info
 	cMapper["help"] = c::help;
 	cMapper["info"] = c::info;
 	cMapper["editinfo"] = c::editinfo;
 	cMapper["passwd"] = c::passwd;
+	cMapper["deleteaccount"] = c::deleteaccount;
+	cMapper["balance"] = c::wcheck;
 
+	// ALL - Orders
 	cMapper["olistall"] = c::olistall;
 	cMapper["olistpend"] = c::olistpend;
 	cMapper["olookup"] = c::olookup;
-	cMapper["onew"] = c::onew;
-	cMapper["oaccept"] = c::oaccept;
-	cMapper["oreject"] = c::oreject;
 
-	cMapper["plist"] = c::plist;
-	cMapper["psearch"] = c::psearch;
-	cMapper["pnew"] = c::pnew;
-	cMapper["pedit"] = c::pedit;
-	cMapper["pdelete"] = c::pdelete;
-	cMapper["paddstock"] = c::paddstock;
+	switch (_AccountID[0])
+	{
+		case 'B':
+			// BUYER - Products
+			cMapper["plookup"] = c::plookup;
+			cMapper["psearch"] = c::psearch;
+			cMapper["plistbyseller"] = c::plistbyseller;
+			// BUYER - Orders
+			cMapper["onew"] = c::onew;
+			cMapper["oreject"] = c::oreject;
+			cMapper["topup"] = c::wdeposit;
+			break;
+
+		case 'S':
+			// SELLER - Account
+			cMapper["withdraw"] = c::wwithdraw;
+			// SELLER - Products
+			cMapper["plookup"] = c::plookup;
+			cMapper["plist"] = c::plist;
+			cMapper["pnew"] = c::pnew;
+			cMapper["pedit"] = c::pedit;
+			cMapper["pdelete"] = c::pdelete;
+			cMapper["paddstock"] = c::paddstock;
+			// SELLER - Orders
+			cMapper["oaccept"] = c::oaccept;
+			cMapper["oreject"] = c::oreject;
+			break;
+
+		case 'H':
+			// SHIPPER - Account
+			cMapper["withdraw"] = c::wwithdraw;
+			// SHIPPER - Orders
+			cMapper["sfinish"] = c::sfinish;
+			break;
+	}
 }
 
 // Command actions
@@ -200,22 +234,27 @@ void Shell::Interpret(string _Command)
 
 	switch (cMapper[_Command])
 	{
-		case c::help:		ShowHelp();	break;
-		case c::info:		ShowInfo();	break;
-		case c::editinfo:	EditInfo(); break;
-		case c::passwd:		ChangePassword(); break;
-		case c::olistall:	ListOrder();  break;
-		case c::olistpend:	ListPendingOrder();  break;
-		case c::olookup:	LookupOrder(); break;
-		case c::onew:		CreateOrder(); break;
-		case c::oaccept:	AcceptOrder(); break;
-		case c::oreject:	RejectOrder(); break;
-		case c::plist:		break;
-		case c::psearch:	break;
-		case c::pnew:		break;
-		case c::pedit:		break;
-		case c::pdelete:	break;
-		case c::paddstock:	break;
+		case c::help:			ShowHelp();	break;
+		case c::info:			ShowInfo();	break;
+		case c::editinfo:		EditInfo(); break;
+		case c::passwd:			ChangePassword(); break;
+		case c::olistall:		ListOrder();  break;
+		case c::olistpend:		ListPendingOrder();  break;
+		case c::olookup:		LookupOrder(); break;
+		case c::onew:			CreateOrder(); break;
+		case c::oaccept:		AcceptOrder(); break;
+		case c::oreject:		RejectOrder(); break;
+		case c::plist:			ListProduct(); break;
+		case c::plistbyseller:	SearchProductBySeller(); break;
+		case c::plookup:		LookupProduct(); break;
+		case c::psearch:		SearchProduct(); break;
+		case c::pnew:			AddProduct(); break;
+		case c::pedit:			EditProduct(); break;
+		case c::pdelete:		DeleteProduct(); break;
+		case c::paddstock:		AddStock(); break;
+		case c::wdeposit:		WalletTopUp(); break;
+		case c::wwithdraw:		WalletWithdraw(); break;
+		case c::wcheck:			WalletCheck(); break;
 
 		default: cout << "Invalid command." << endl;
 	}
@@ -315,6 +354,48 @@ void Shell::EditInfo()
 	}
 }
 
+void Shell::WalletCheck()
+{
+	switch (_AccountID[0])
+	{
+		case 'B':
+			AccountProvider::GetInstance().GetBuyer(_AccountID)->CheckBalance();
+			break;
+
+		case 'S':
+			AccountProvider::GetInstance().GetSeller(_AccountID)->CheckBalance();
+			break;
+
+		case 'H':
+			AccountProvider::GetInstance().GetShipper(_AccountID)->CheckBalance();
+			break;
+	}
+}
+
+void Shell::WalletWithdraw()
+{
+	string _Amount;
+	do
+	{
+		cout << "Amount: ";
+		getline(cin, _Amount);
+	} while
+	(
+		(stoll(_Amount) <= 0)
+		&& (cout << "Invalid amount" << endl)
+	);
+	switch (_AccountID[0])
+	{
+		case 'S':
+			AccountProvider::GetInstance().GetSeller(_AccountID)->Withdraw(stoll(_Amount));
+			break;
+
+		case 'H':
+			AccountProvider::GetInstance().GetShipper(_AccountID)->Withdraw(stoll(_Amount));
+			break;
+	}
+}
+
 void Shell::ListOrder()
 {
 	switch (_AccountID[0])
@@ -358,15 +439,15 @@ void Shell::LookupOrder()
 	switch (_AccountID[0])
 	{
 	case 'B':
-		AccountProvider::GetInstance().GetBuyer(_AccountID)->LookupOrder(_OrderID);
+		AccountProvider::GetInstance().GetBuyer(_AccountID)->GetOrderByID(_OrderID);
 		break;
 
 	case 'S':
-		AccountProvider::GetInstance().GetSeller(_AccountID)->LookupOrder(_OrderID);
+		AccountProvider::GetInstance().GetSeller(_AccountID)->GetOrderByID(_OrderID);
 		break;
 
 	case 'H':
-		AccountProvider::GetInstance().GetShipper(_AccountID)->LookupOrder(_OrderID);
+		AccountProvider::GetInstance().GetShipper(_AccountID)->GetOrderByID(_OrderID);
 		break;
 	}
 }
@@ -399,26 +480,88 @@ void Shell::RejectOrder()
 	}
 }
 
+void Shell::WalletTopUp()
+{
+	string _Amount;
+	do
+	{
+		cout << "Amount: ";
+		getline(cin, _Amount);
+	} while
+	(
+		(stoll(_Amount) <= 0)
+		&& (cout << "Invalid amount" << endl)
+	);
+	AccountProvider::GetInstance().GetBuyer(_AccountID)->Deposit(stoll(_Amount));
+}
+
 void Shell::ListProduct()
 {
+	AccountProvider::GetInstance().GetSeller(_AccountID)->ListProduct();
+}
+
+void Shell::LookupProduct()
+{
+	string _ProductID;
+	cout << "Product ID: "; getline(cin, _ProductID);
+	switch (_AccountID[0]) {
+	case 'B':
+		AccountProvider::GetInstance().GetBuyer(_AccountID)->GetProductByID(_ProductID);
+		break;
+	case 'S':
+		AccountProvider::GetInstance().GetSeller(_AccountID)->GetProductByID(_ProductID);
+		break;
+	}
 }
 
 void Shell::SearchProduct()
 {
+	string _Query;
+	cout << "Query: "; getline(cin, _Query);
+	AccountProvider::GetInstance().GetBuyer(_AccountID)->ListProductByQuery(_Query);
+}
+
+void Shell::SearchProductBySeller()
+{
+	string _SellerID;
+	cout << "Seller ID: "; getline(cin, _SellerID);
+	AccountProvider::GetInstance().GetBuyer(_AccountID)->ListProductBySellerID(_SellerID);
 }
 
 void Shell::AddProduct()
 {
+	AccountProvider::GetInstance().GetSeller(_AccountID)->AddProduct();
 }
 
 void Shell::EditProduct()
 {
+	string _ProductID;
+	cout << "Product ID: "; getline(cin, _ProductID);
+	AccountProvider::GetInstance().GetSeller(_AccountID)->EditProduct(_ProductID);
 }
 
 void Shell::DeleteProduct()
 {
+	string _ProductID;
+	cout << "Product ID: "; getline(cin, _ProductID);
+	AccountProvider::GetInstance().GetSeller(_AccountID)->DeleteProduct(_ProductID);
 }
 
 void Shell::AddStock()
 {
+	string _ProductID;
+	cout << "Product ID: "; getline(cin, _ProductID);
+
+	string _Amount;
+	do
+	{
+		cout << "Amount: ";
+		getline(cin, _Amount);
+	} while
+	(
+		(stoi(_Amount) <= 0)
+		&& (cout << "Invalid amount" << endl)
+	);
+
+	AccountProvider::GetInstance().GetSeller(_AccountID)->AddStock(_ProductID, stoi(_Amount));
 }

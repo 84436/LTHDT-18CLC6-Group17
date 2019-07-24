@@ -31,7 +31,9 @@ class Shell
 		// Callbacks: Account
 		void ShowInfo();
 		void EditInfo();
-		// void DeleteAccount();
+		void WalletCheck();
+		void WalletWithdraw();
+		void WalletTopUp();
 
 		// Callbacks: Order
 		void ListOrder();
@@ -43,7 +45,9 @@ class Shell
 
 		// Callbacks: Product
 		void ListProduct();
+		void LookupProduct();
 		void SearchProduct();
+		void SearchProductBySeller();
 		void AddProduct();
 		void EditProduct();
 		void DeleteProduct();

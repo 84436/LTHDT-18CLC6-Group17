@@ -17,7 +17,7 @@ class Product {
 
 	public:
 		Product() {}
-		Product(const Product& p);
+		Product(const Product& _Product);
 
 		string  SellerID		()							{ return this->_SellerID; }
 		void	SellerID		(string _SellerID)			{ this->_SellerID = _SellerID; }

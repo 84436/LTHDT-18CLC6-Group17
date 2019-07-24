@@ -17,12 +17,14 @@ class ProductProvider
 
 	public:
 		void ReadFile();
-		list<Product> GetListProduct();
 		void WriteFile();
+
+		static bool isR18(Product _Product);
+		static bool isRelated(string _SellerID, string _ProductID);
+
 		void Add(Product _Product);
 		void Delete(string _ID);
 		Product* GetByID(string _ID); 
 		list<Product> ListBySellerID(string _SellerID, bool _isR18);
-		list<Product> Search(string _Query, bool _isR18);
+		list<Product> ListByQuery(string _Query, bool _isR18);
 };
-

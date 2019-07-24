@@ -16,13 +16,18 @@ void Buyer::ListOrder_Pending()
 	}
 }
 
-void Buyer::SearchProductByID(string _ProductID)
+void Buyer::GetProductByID(string _ProductID)
 {
-	Product* p = ProductProvider::GetInstance().GetByID(_ProductID);
-	if (p != nullptr) p->GetInfo();
+	Product* _Product = ProductProvider::GetInstance().GetByID(_ProductID);
+	if (_Product == nullptr)
+	{
+		cout << "Product not found." << endl;
+		return;
+	}
+	_Product->GetInfo();
 }
 
-void Buyer::SearchProductBySellerID(string _SellerID)
+void Buyer::ListProductBySellerID(string _SellerID)
 {
 	list<Product> FilteredProducts = ProductProvider::GetInstance().ListBySellerID(_SellerID, ((this->GetAge()) >= 18));
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
@@ -31,9 +36,9 @@ void Buyer::SearchProductBySellerID(string _SellerID)
 	}
 }
 
-void Buyer::SearchProductByQuery(string _ProductName)
+void Buyer::ListProductByQuery(string _ProductName)
 {
-	list<Product> FilteredProducts = ProductProvider::GetInstance().Search(_ProductName, ((this->GetAge()) >= 18));
+	list<Product> FilteredProducts = ProductProvider::GetInstance().ListByQuery(_ProductName, ((this->GetAge()) >= 18));
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
 		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << endl;
@@ -49,8 +54,13 @@ void Buyer::AddOrder(string _ProductID)
 		cout << "Product does not exist." << endl;
 		return;
 	}
+
+	newOrder.ProductID(_ProductID);
+	newOrder.BuyerID(this->ID());
+	newOrder.SellerID(x->SellerID());
 	
 	int amount;
+	cout << "Amount: ";
 	cin >> amount;
 	if (x->Stock() < amount) {
 		cout << "There are not enough stock in the storage." << endl;
@@ -61,7 +71,8 @@ void Buyer::AddOrder(string _ProductID)
 	list<Order> FilteredOrder = OrderProvider::GetInstance().ListByAccountID(this->ID());
 	int64_t MoneytoPay = 0;
 	for (auto i = FilteredOrder.begin(); i != FilteredOrder.end(); ++i) {
-		MoneytoPay += (*i).TotalPrice();
+		if ((*i).Status() != COMPLETED)
+			MoneytoPay += (*i).TotalPrice();
 	}
 	MoneytoPay += newOrder.TotalPrice();
 
@@ -70,9 +81,6 @@ void Buyer::AddOrder(string _ProductID)
 		return;
 	}
 
-	newOrder.ProductID(_ProductID);
-	newOrder.BuyerID(this->ID());
-	newOrder.SellerID(x->SellerID());
 	newOrder.Status(SELLER_PENDING);
 
 	newOrder.OrderDate(Date::Today());
@@ -82,12 +90,13 @@ void Buyer::AddOrder(string _ProductID)
 
 void Buyer::CancelOrder(string _OrderID)
 {
-	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
-
-	if (_Order == nullptr) {
-		cout << "Order does not exist." << endl;
+	if (!OrderProvider::isRelated(this->ID(), _OrderID))
+	{
+		cout << "Order not found." << endl;
 		return;
 	}
+
+	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
 
 	if (_Order->Status() == SELLER_PENDING) {
 		_Order->Status(BUYER_CANCELLED);
@@ -100,6 +109,12 @@ void Buyer::CancelOrder(string _OrderID)
 
 void Buyer::Rate(string _OrderID)
 {
+	if (!OrderProvider::isRelated(this->ID(), _OrderID))
+	{
+		cout << "Order not found." << endl;
+		return;
+	}
+	
 	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
 
 	if (_Order->Status() != COMPLETED)

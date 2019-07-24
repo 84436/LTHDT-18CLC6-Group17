@@ -30,4 +30,6 @@ class AccountProvider
 		Seller* GetSeller(string ID);
 		Buyer* GetBuyer(string ID);
 		Shipper* GetShipper(string ID);
+
+		list<Shipper*> ListShippers();
 };

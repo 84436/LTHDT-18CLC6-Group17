@@ -12,9 +12,9 @@ class Buyer : public Account
 		void AddOrder(string _ProductID);
 		void CancelOrder(string _OrderID);
 
-		void SearchProductByID(string _ProductID);
-		void SearchProductBySellerID(string _SellerID);
-		void SearchProductByQuery(string _ProductName);
+		void GetProductByID(string _ProductID);
+		void ListProductBySellerID(string _SellerID);
+		void ListProductByQuery(string _ProductName);
 		
 		void Rate(string _OrderID);
 };

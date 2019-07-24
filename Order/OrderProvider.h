@@ -16,12 +16,14 @@ class OrderProvider
 		string GenerateNewOrderID();
 
 	public:
-		static bool isCompleted(Order o);
-		static bool isNotSellerPending(Order o);
-		static bool isNotShipperPending(Order o);
+		static bool isCompleted(Order _Order);
+		static bool isNotSellerPending(Order _Order);
+		static bool isNotShipperPending(Order _Order);
+		static bool isRelated(string _AccountID, string _OrderID);
 
 		void ReadFile();
 		void WriteFile();
+
 		void Add(Order _Order);
 		void Delete(string _ID);
 		Order* GetByID(string _OrderID);

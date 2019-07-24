@@ -42,33 +42,28 @@ void ProductProvider::ReadFile()
 	// Products
 	for (auto i = File["PRODUCTS"].begin(); i != File["PRODUCTS"].end(); ++i)
 	{
-		Product p;
-		p.ID(i.key());
-		p.SellerID((*i)["SellerID"]);
-		p.isR18((*i)["isR18"]);
-		p.Name((*i)["Name"]);
-		p.Category((*i)["Category"]);
-		p.Description((*i)["Description"]);
-		p.Stock((*i)["Stock"]);
-		p.Price((*i)["Price"]);
+		Product _Product;
+		_Product.ID(i.key());
+		_Product.SellerID((*i)["SellerID"]);
+		_Product.isR18((*i)["isR18"]);
+		_Product.Name((*i)["Name"]);
+		_Product.Category((*i)["Category"]);
+		_Product.Description((*i)["Description"]);
+		_Product.Stock((*i)["Stock"]);
+		_Product.Price((*i)["Price"]);
 		for (int j = 0; j < 5; j++)
 		{
 			for (int k = 0; k < (*i)["Rating"][j]; ++k) {
-				p.Rate(j+1);
+				_Product.Rate(j+1);
 			}
 		}	
-		Products.push_back(p);
+		Products.push_back(_Product);
 	}
 
 	// New ID counter
 	NewProductIDCounter = File["COUNTERS"]["PRODUCT"];
 
 	f.close();
-}
-
-list<Product> ProductProvider::GetListProduct()
-{
-	return Products;
 }
 
 void ProductProvider::WriteFile()
@@ -122,6 +117,26 @@ void ProductProvider::WriteFile()
 	f.close();
 }
 
+bool ProductProvider::isR18(Product _Product)
+{
+	return _Product.isR18();
+}
+
+bool ProductProvider::isRelated(string _SellerID, string _ProductID)
+{
+	list<Product> FilteredProducts = ProductProvider::GetInstance().ListBySellerID(_SellerID, true);
+	bool MatchFound = false;
+	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
+	{
+		if (i->ID() == _ProductID)
+		{
+			MatchFound = true;
+			break;
+		}
+	}
+	return MatchFound;
+}
+
 void ProductProvider::Add(Product _Product)
 {
 	_Product.ID(ProductProvider::GenerateNewProductID());
@@ -153,23 +168,24 @@ Product* ProductProvider::GetByID(string _ID)
 	return _Product;
 }
 
-list<Product> ProductProvider::Search(string _Query, bool _isR18)
+list<Product> ProductProvider::ListByQuery(string _Query, bool _isR18)
 {
 	list<Product> _Products;
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{
 		if
 			(
-				(i->isR18() == _isR18)
-				&& (
-					   (ToLower(i->Name()).find(ToLower(_Query)) != string::npos)
-					|| (ToLower(i->Category()).find(ToLower(_Query)) != string::npos)
-					) 
+				   (ToLower(i->Name()).find(ToLower(_Query)) != string::npos)
+				|| (ToLower(i->Category()).find(ToLower(_Query)) != string::npos)
 			)
 		{
 			_Products.push_back((*i));
 		}
 	}
+
+	// Filter R-18 products
+	if (!_isR18) _Products.remove_if(ProductProvider::isR18);
+
 	return _Products;
 }
 

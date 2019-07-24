@@ -241,3 +241,17 @@ Shipper* AccountProvider::GetShipper(string ID)
 	}
 	return nullptr;
 }
+
+list<Shipper*> AccountProvider::ListShippers()
+{
+	list<Shipper*> Shippers;
+
+	for (auto i = Accounts.begin(); i != Accounts.end(); ++i) {
+		if ((**i).ID()[0] == 'H')
+		{
+			Shippers.push_back((Shipper*)(*i));
+		}
+	}
+
+	return Shippers;
+}

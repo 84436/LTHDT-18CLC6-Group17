@@ -31,68 +31,145 @@ void Seller::ListProduct()
 	}
 }
 
+void Seller::GetProductByID(string _ProductID)
+{
+	if (!ProductProvider::isRelated(this->ID(), _ProductID))
+	{
+		cout << "Product not found" << endl;
+		return;
+	}
+	ProductProvider::GetInstance().GetByID(_ProductID)->GetInfo();
+}
+
 void Seller::AddProduct()
 {
-	Product p;
-	p.SellerID(this->ID());
-	this->EditProduct(p.ID());
+	Product _Product;
+	_Product.SellerID(this->ID());
+	this->EditProduct(_Product.ID());
 	string amount;
-	cout << "Add stock: "; getline(cin, amount); p.AddStock(stoi(amount));
-	ProductProvider::GetInstance().Add(p);
+	cout << "Add stock: "; getline(cin, amount); _Product.AddStock(stoi(amount));
+	ProductProvider::GetInstance().Add(_Product);
 }
 
 void Seller::EditProduct(string _ProductID)
 {
-	Product* p = ProductProvider::GetInstance().GetByID(_ProductID);
-	if (p == nullptr) {
-		cout << "Product does not exist" << endl;
+	if (!ProductProvider::isRelated(this->ID(), _ProductID))
+	{
+		cout << "Product not found" << endl;
 		return;
 	}
-	p->EditInfo();
+
+	ProductProvider::GetInstance().GetByID(_ProductID)->EditInfo();
 }
 
 void Seller::DeleteProduct(string _ProductID)
 {
+	if (!ProductProvider::isRelated(this->ID(), _ProductID))
+	{
+		cout << "Product not found" << endl;
+		return;
+	}
+
 	ProductProvider::GetInstance().Delete(_ProductID);
+}
+
+void Seller::AddStock(string _ProductID, int32_t _Amount)
+{
+	if (!ProductProvider::isRelated(this->ID(), _ProductID))
+	{
+		cout << "Product not found" << endl;
+		return;
+	}
+
+	ProductProvider::GetInstance().GetByID(_ProductID)->AddStock(_Amount);
 }
 
 void Seller::AcceptOrder(string _OrderID)
 {
-	// Set price coeff
-	double _PriceCoeff;
-	// Set shipping fee
-	int64_t _ShippingFee;
-	// Set note (optional)
-	//Order * _Order = OrderProvider::GetInstance().GetByID(_OrderID)->Status(SHIPPING_PENDING);
-	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
-	if (_Order == nullptr) {
-		cout << "Order does not exist." << endl;
+	if (!OrderProvider::isRelated(this->ID(), _OrderID))
+	{
+		cout << "Order not found" << endl;
 		return;
 	}
-	if (_Order->Status() == SELLER_PENDING) {
-		cout << "Shipping Fee ? : ";
-		cin >> _ShippingFee;
-		_Order->ShippingFee(_ShippingFee);
-		cin.ignore();
 
-		cout << "% Sale (0 - 100) : ";
-		cin >> _PriceCoeff;
-		_Order->PriceCoeff(1 - _PriceCoeff/100);
-		cin.ignore();
-
-		_Order->Status(SHIPPING_PENDING);
+	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
+	
+	if (_Order->Status() != SELLER_PENDING)
+	{
+		cout << "This order is waiting for delivery, completed or cancelled." << endl;
+		return;
 	}
+
+	list<Shipper*> AvailableShipper = AccountProvider::GetInstance().ListShippers();
+	for (auto i = AvailableShipper.begin(); i != AvailableShipper.end(); ++i)
+		cout << (**i).ID() << endl;
+
+	string _ShipperID; 
+	do
+	{
+		cout << "Enter shipper ID: ";
+		getline(cin, _ShipperID);
+	} while
+	(
+		(AccountProvider::GetInstance().GetShipper(_ShipperID) == nullptr)
+		&& (cout << "Invalid shipper ID." << endl)
+	);
+	_Order->ShipperID(_ShipperID);
+
+	string _ShippingFee;
+	do
+	{
+		cout << "Shipping fee: ";
+		getline(cin, _ShippingFee);
+	} while
+	(
+		(stoll(_ShippingFee) < 0)
+		&& (cout << "Invalid shipping fee." << endl)
+	);
+	_Order->ShippingFee(stoll(_ShippingFee));
+
+	string _PriceCoeff;
+	do
+	{
+		cout << "% Sale (0 - 100): ";
+		getline(cin, _PriceCoeff);
+	} while
+	(
+		(stod(_PriceCoeff) < 0 || stod(_PriceCoeff) > 100)
+		&& (cout << "Invalid price coefficient." << endl)
+	);
+	_Order->PriceCoeff(1 - stod(_PriceCoeff) / 100);
+
+	string _Note;
+	cout << "Note (optional): ";
+	getline(cin, _Note);
+	_Order->Note(_Note);
+
+	_Order->Status(SHIPPING_PENDING);
 }
 
 void Seller::RejectOrder(string _OrderID)
 {
-	// Hỏi lý do tại sao (ghi vào Note)
-	//OrderProvider::GetInstance().GetByID(_OrderID)->Status(SELLER_CANCELLED);
+	if (!OrderProvider::isRelated(this->ID(), _OrderID))
+	{
+		cout << "Order not found." << endl;
+		return;
+	}
+
 	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
+
+	if (_Order->Status() != SELLER_PENDING)
+	{
+		cout << "This order is waiting for delivery, completed or cancelled." << endl;
+		return;
+	}
+
 	string _Note;
-	cout << "The Reason Reject Order : ";
+	cout << "Note (i.e. why you've rejected this order): ";
 	getline(cin,_Note);
 	_Order->Note(_Note);
+
+	_Order->Status(SELLER_CANCELLED);
 }
 
 vector<int16_t> Seller::RatingArray()
