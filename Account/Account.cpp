@@ -30,6 +30,21 @@ void Account::EditInfo()
 	cout << "Phone [" << this->Phone() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Phone(s); s.clear();
 }
 
+void Account::LookupOrder(string _OrderID)
+{
+	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
+
+	if (FilteredOrders.size() == 0) {
+		cout << "No orders found." << endl;
+		return;
+	}
+
+	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i) {
+		if ((*i).ID() == _OrderID)
+			(*i).GetInfo();
+	}
+}
+
 void Account::ListOrder_All()
 {
 	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());

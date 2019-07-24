@@ -355,11 +355,20 @@ void Shell::LookupOrder()
 {
 	string _OrderID;
 	cout << "Order ID: "; getline(cin, _OrderID);
-	Order* Result = OrderProvider::GetInstance().GetByID(_OrderID);
-	if (Result != nullptr)
-		Result->GetInfo();
-	else
-		cout << "Order not found" << endl;
+	switch (_AccountID[0])
+	{
+	case 'B':
+		AccountProvider::GetInstance().GetBuyer(_AccountID)->LookupOrder(_OrderID);
+		break;
+
+	case 'S':
+		AccountProvider::GetInstance().GetSeller(_AccountID)->LookupOrder(_OrderID);
+		break;
+
+	case 'H':
+		AccountProvider::GetInstance().GetShipper(_AccountID)->LookupOrder(_OrderID);
+		break;
+	}
 }
 
 void Shell::CreateOrder()
