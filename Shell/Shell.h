@@ -42,16 +42,22 @@ class Shell
 		void CreateOrder();
 		void AcceptOrder();
 		void RejectOrder();
+		void RateOrder();
 
 		// Callbacks: Product
 		void ListProduct();
 		void LookupProduct();
 		void SearchProduct();
-		void SearchProductBySeller();
+		void ListProductBySeller();
 		void AddProduct();
 		void EditProduct();
 		void DeleteProduct();
 		void AddStock();
+
+		// Callbacks: Shippers/Stats
+		void ListShippers();
+		void Ship();
+		void Stats();
 
 	public:
 		void Loop();

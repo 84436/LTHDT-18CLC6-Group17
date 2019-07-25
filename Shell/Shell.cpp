@@ -138,37 +138,43 @@ void Shell::NewAccount()
 // Unique commands
 enum class Shell::c
 {
+	// Undefined command
 	_NOT_DEFINED_,
 
+	// Account
 	help,
 	info,
 	editinfo,
 	passwd,
-	deleteaccount,
-
 	wcheck,
 	wdeposit,
 	wwithdraw,
 
-	olistall,
-	olistpend,
-	olookup,
-	onew,
-	oaccept,
-	oreject,
-	ostats,
-	orate,
-
+	// Product
+	plookup,
 	plist,
 	plistbyseller,
-	plookup,
 	psearch,
 	pnew,
 	pedit,
 	pdelete,
 	paddstock,
 
-	sfinish
+	// Order
+	olookup,
+	olist,
+	olistpend,
+	onew,
+	oaccept,
+	oreject,
+	orate,
+
+	// Seller's/Shipper's stats
+	stats,
+
+	// Shipper-related
+	hlist,
+	ship
 };
 
 // Command "mapper"
@@ -181,11 +187,10 @@ void Shell::cMapper_Init()
 	cMapper["info"] = c::info;
 	cMapper["editinfo"] = c::editinfo;
 	cMapper["passwd"] = c::passwd;
-	cMapper["deleteaccount"] = c::deleteaccount;
 	cMapper["balance"] = c::wcheck;
 
 	// ALL - Orders
-	cMapper["olistall"] = c::olistall;
+	cMapper["olist"] = c::olist;
 	cMapper["olistpend"] = c::olistpend;
 	cMapper["olookup"] = c::olookup;
 
@@ -196,8 +201,10 @@ void Shell::cMapper_Init()
 			cMapper["plookup"] = c::plookup;
 			cMapper["psearch"] = c::psearch;
 			cMapper["plistbyseller"] = c::plistbyseller;
+
 			// BUYER - Orders
 			cMapper["onew"] = c::onew;
+			cMapper["oaccept"] = c::oaccept;
 			cMapper["oreject"] = c::oreject;
 			cMapper["topup"] = c::wdeposit;
 			break;
@@ -205,6 +212,8 @@ void Shell::cMapper_Init()
 		case 'S':
 			// SELLER - Account
 			cMapper["withdraw"] = c::wwithdraw;
+			cMapper["stats"] = c::stats;
+
 			// SELLER - Products
 			cMapper["plookup"] = c::plookup;
 			cMapper["plist"] = c::plist;
@@ -212,16 +221,20 @@ void Shell::cMapper_Init()
 			cMapper["pedit"] = c::pedit;
 			cMapper["pdelete"] = c::pdelete;
 			cMapper["paddstock"] = c::paddstock;
+
 			// SELLER - Orders
 			cMapper["oaccept"] = c::oaccept;
 			cMapper["oreject"] = c::oreject;
+			cMapper["hlist"] = c::hlist;
 			break;
 
 		case 'H':
 			// SHIPPER - Account
+			cMapper["stats"] = c::stats;
 			cMapper["withdraw"] = c::wwithdraw;
+
 			// SHIPPER - Orders
-			cMapper["sfinish"] = c::sfinish;
+			cMapper["ship"] = c::ship;
 			break;
 	}
 }
@@ -234,27 +247,34 @@ void Shell::Interpret(string _Command)
 
 	switch (cMapper[_Command])
 	{
-		case c::help:			ShowHelp();	break;
-		case c::info:			ShowInfo();	break;
-		case c::editinfo:		EditInfo(); break;
-		case c::passwd:			ChangePassword(); break;
-		case c::olistall:		ListOrder();  break;
-		case c::olistpend:		ListPendingOrder();  break;
-		case c::olookup:		LookupOrder(); break;
-		case c::onew:			CreateOrder(); break;
-		case c::oaccept:		AcceptOrder(); break;
-		case c::oreject:		RejectOrder(); break;
-		case c::plist:			ListProduct(); break;
-		case c::plistbyseller:	SearchProductBySeller(); break;
-		case c::plookup:		LookupProduct(); break;
-		case c::psearch:		SearchProduct(); break;
-		case c::pnew:			AddProduct(); break;
-		case c::pedit:			EditProduct(); break;
-		case c::pdelete:		DeleteProduct(); break;
-		case c::paddstock:		AddStock(); break;
-		case c::wdeposit:		WalletTopUp(); break;
-		case c::wwithdraw:		WalletWithdraw(); break;
-		case c::wcheck:			WalletCheck(); break;
+		case c::help:			ShowHelp();					break;
+		case c::info:			ShowInfo();					break;
+		case c::editinfo:		EditInfo();					break;
+		case c::passwd:			ChangePassword();			break;
+		case c::wdeposit:		WalletTopUp();				break;
+		case c::wwithdraw:		WalletWithdraw();			break;
+		case c::wcheck:			WalletCheck();				break;
+
+		case c::plist:			ListProduct();				break;
+		case c::plistbyseller:	ListProductBySeller();		break;
+		case c::plookup:		LookupProduct();			break;
+		case c::psearch:		SearchProduct();			break;
+		case c::pnew:			AddProduct();				break;
+		case c::pedit:			EditProduct();				break;
+		case c::pdelete:		DeleteProduct();			break;
+		case c::paddstock:		AddStock();					break;
+
+		case c::olist:			ListOrder();				break;
+		case c::olistpend:		ListPendingOrder();			break;
+		case c::olookup:		LookupOrder();				break;
+		case c::onew:			CreateOrder();				break;
+		case c::oaccept:		AcceptOrder();				break;
+		case c::oreject:		RejectOrder();				break;
+		case c::orate:			RateOrder();				break;
+
+		case c::hlist:			ListShippers();				break;
+		case c::ship:			Ship();						break;
+		case c::stats:			Stats();					break;
 
 		default: cout << "Invalid command." << endl;
 	}
@@ -283,24 +303,55 @@ void Shell::Greeter()
 void Shell::ShowHelp()
 {
 	// Shared
-	cout << "Available commands:" << endl;
-	cout << "logout : Log out" << endl;
-	cout << "help   : What you're reading now." << endl;
+	cout
+		<< "Available commands" << endl
+		<< "logout        : Log out" << endl
+		<< "help          : What you're reading now" << endl
+		<< "info          : View account info" << endl
+		<< "editinfo      : Edit account info" << endl
+		<< "passwd        : Change password" << endl
+		<< "balance       : Check wallet balance" << endl
+		<< "olookup       : Show details of an order" << endl
+		<< "olist         : List orders" << endl
+		<< "olistpend     : List pending orders" << endl
+		<< endl;
 
 	// Account-specific
 	switch (_AccountID[0])
 	{
-	case 'B':
-		cout << "Buyers' Commands: n/a" << endl;
-		break;
-	case 'S':
-		cout << "Sellers' Commands: n/a" << endl;
-		break;
-	case 'H':
-		cout << "Shippers' Commands: n/a" << endl;
-		break;
-	default:
-		cout << "!! Unknown account type !!" << endl;
+		case 'B':
+			cout
+				<< "psearch       : Search products" << endl
+				<< "plistbyseller : List products of a specific seller" << endl
+				<< "plookup       : Show details of a product" << endl
+				<< "onew          : Create a new order (Buy a product)" << endl
+				<< "oaccept       : Accept an order (after being quoted by seller)" << endl
+				<< "oreject       : Reject/Cancel an order" << endl
+				<< "orate         : Rate an order" << endl
+				<< endl;
+			break;
+		case 'S':
+			cout
+				<< "plist         : List all products that you own" << endl
+				<< "plookup       : Show details of a product that you own" << endl
+				<< "pnew          : Add a new product" << endl
+				<< "pedit         : Edit a product" << endl
+				<< "pdelete       : Remove a product" << endl
+				<< "paddstock     : Re-stock a product" << endl
+				<< "oaccept       : Accept an order from the buyers" << endl
+				<< "oreject       : Reject an order" << endl
+				<< "hlist         : List all shippers available" << endl
+				<< "stats         : Get statistics by month" << endl
+				<< endl;
+			break;
+		case 'H':
+			cout
+				<< "ship          : Ship a product" << endl
+				<< "stats         : Get statistics by month" << endl
+				<< endl;
+			break;
+		default:
+			cout << "!! Unknown account type !!" << endl;
 	}
 }
 
@@ -480,6 +531,10 @@ void Shell::RejectOrder()
 	}
 }
 
+void Shell::RateOrder()
+{
+}
+
 void Shell::WalletTopUp()
 {
 	string _Amount;
@@ -521,7 +576,7 @@ void Shell::SearchProduct()
 	AccountProvider::GetInstance().GetBuyer(_AccountID)->ListProductByQuery(_Query);
 }
 
-void Shell::SearchProductBySeller()
+void Shell::ListProductBySeller()
 {
 	string _SellerID;
 	cout << "Seller ID: "; getline(cin, _SellerID);
@@ -564,4 +619,16 @@ void Shell::AddStock()
 	);
 
 	AccountProvider::GetInstance().GetSeller(_AccountID)->AddStock(_ProductID, stoi(_Amount));
+}
+
+void Shell::ListShippers()
+{
+}
+
+void Shell::Ship()
+{
+}
+
+void Shell::Stats()
+{
 }
