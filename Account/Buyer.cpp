@@ -59,14 +59,20 @@ void Buyer::AddOrder(string _ProductID)
 	newOrder.BuyerID(this->ID());
 	newOrder.SellerID(x->SellerID());
 	
-	int amount;
-	cout << "Amount: ";
-	cin >> amount;
-	if (x->Stock() < amount) {
+	string amount;
+	do {
+		cout << "Amount: "; getline(cin, amount);
+	} while
+	(
+		(stoi(amount) <= 0)
+		&& (cout << "Invalid amount." << endl)
+	);
+
+	if (x->Stock() < stoi(amount)) {
 		cout << "There are not enough stock in the storage." << endl;
 		return;
 	}
-	newOrder.Quantity(amount);
+	newOrder.Quantity(stoi(amount));
 
 	list<Order> FilteredOrder = OrderProvider::GetInstance().ListByAccountID(this->ID());
 	int64_t MoneytoPay = 0;
@@ -86,6 +92,25 @@ void Buyer::AddOrder(string _ProductID)
 	newOrder.OrderDate(Date::Today());
 
 	OrderProvider::GetInstance().Add(newOrder);
+}
+
+void Buyer::AcceptOrder(string _OrderID)
+{
+	if (!OrderProvider::isRelated(this->ID(), _OrderID))
+	{
+		cout << "Order not found." << endl;
+		return;
+	}
+
+	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
+
+	if (_Order->Status() == BUYER_PENDING) {
+		_Order->Status(SHIPPING_PENDING);
+	}
+	else {
+		cout << "Can not accept order now" << endl;
+		return;
+	}
 }
 
 void Buyer::CancelOrder(string _OrderID)

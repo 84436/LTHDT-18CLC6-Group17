@@ -3,10 +3,11 @@
 #include "..///Product/ProductProvider.h"
 
 // Statuses
-auto constexpr BUYER_CANCELLED = 1;
-auto constexpr SELLER_CANCELLED = 2;
-auto constexpr SELLER_PENDING = 3;
-auto constexpr SHIPPING_PENDING = 4;
+auto constexpr BUYER_PENDING = 1;
+auto constexpr BUYER_CANCELLED = -1;
+auto constexpr SELLER_PENDING = 2;
+auto constexpr SELLER_CANCELLED = -2;
+auto constexpr SHIPPING_PENDING = 3;
 auto constexpr COMPLETED = 0;
 
 struct Date {

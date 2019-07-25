@@ -24,6 +24,8 @@ class Seller : public Account
 		void DeleteProduct(string _ProductID);
 		void AddStock(string _ProductID, int32_t _Amount);
 
+		void ListShippers();
+
 		vector<int16_t> RatingArray();
 		void RatingArray(int16_t _1, int16_t _2, int16_t _3, int16_t _4, int16_t _5);
 

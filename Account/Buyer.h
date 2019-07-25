@@ -10,6 +10,7 @@ class Buyer : public Account
 
 		void ListOrder_Pending();
 		void AddOrder(string _ProductID);
+		void AcceptOrder(string _OrderID);
 		void CancelOrder(string _OrderID);
 
 		void GetProductByID(string _ProductID);

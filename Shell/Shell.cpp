@@ -514,7 +514,14 @@ void Shell::AcceptOrder()
 {
 	string _OrderID;
 	cout << "Order ID: "; getline(cin, _OrderID);
-	AccountProvider::GetInstance().GetSeller(_AccountID)->AcceptOrder(_OrderID);
+	switch (_AccountID[0]) {
+	case 'B':
+		AccountProvider::GetInstance().GetBuyer(_AccountID)->AcceptOrder(_OrderID);
+		break;
+	case 'S':
+		AccountProvider::GetInstance().GetSeller(_AccountID)->AcceptOrder(_OrderID);
+		break;
+	}
 }
 
 void Shell::RejectOrder()
@@ -533,6 +540,9 @@ void Shell::RejectOrder()
 
 void Shell::RateOrder()
 {
+	string _OrderID;
+	cout << "Order ID: "; getline(cin, _OrderID);
+	AccountProvider::GetInstance().GetBuyer(_AccountID)->Rate(_OrderID);
 }
 
 void Shell::WalletTopUp()
@@ -623,12 +633,32 @@ void Shell::AddStock()
 
 void Shell::ListShippers()
 {
+	AccountProvider::GetInstance().GetSeller(_AccountID)->ListShippers();
 }
 
-void Shell::Ship()
+void Shell::Ship()		
 {
+	string _OrderID;
+	cout << "Order ID: "; getline(cin, _OrderID);
+	AccountProvider::GetInstance().GetShipper(_AccountID)->FinishOrder(_OrderID);
 }
 
 void Shell::Stats()
 {
+	string _Month;
+	do {
+		cout << "Month: "; getline(cin, _Month);
+	} while
+	(
+		(stoi(_Month) < 1 || stoi(_Month) > 12)
+			&& (cout << "Invalid month." << endl)
+	);
+	switch (_AccountID[0]) {
+	case 'S':
+		AccountProvider::GetInstance().GetSeller(_AccountID)->StatsByMonth(stoi(_Month));
+		break;
+	case 'H':
+		AccountProvider::GetInstance().GetShipper(_AccountID)->StatsByMonth(stoi(_Month));
+		break;
+	}
 }

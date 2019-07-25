@@ -84,6 +84,13 @@ void Seller::AddStock(string _ProductID, int32_t _Amount)
 	ProductProvider::GetInstance().GetByID(_ProductID)->AddStock(_Amount);
 }
 
+void Seller::ListShippers()
+{
+	list<Shipper*> AvailableShipper = AccountProvider::GetInstance().ListShippers();
+	for (auto i = AvailableShipper.begin(); i != AvailableShipper.end(); ++i)
+		cout << (**i).ID() << endl;
+}
+
 void Seller::AcceptOrder(string _OrderID)
 {
 	if (!OrderProvider::isRelated(this->ID(), _OrderID))
@@ -100,9 +107,7 @@ void Seller::AcceptOrder(string _OrderID)
 		return;
 	}
 
-	list<Shipper*> AvailableShipper = AccountProvider::GetInstance().ListShippers();
-	for (auto i = AvailableShipper.begin(); i != AvailableShipper.end(); ++i)
-		cout << (**i).ID() << endl;
+	ListShippers();
 
 	string _ShipperID; 
 	do
@@ -145,7 +150,7 @@ void Seller::AcceptOrder(string _OrderID)
 	getline(cin, _Note);
 	_Order->Note(_Note);
 
-	_Order->Status(SHIPPING_PENDING);
+	_Order->Status(BUYER_PENDING);
 }
 
 void Seller::RejectOrder(string _OrderID)
