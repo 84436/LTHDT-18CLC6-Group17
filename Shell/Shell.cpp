@@ -672,20 +672,34 @@ void Shell::Ship()
 
 void Shell::Stats()
 {
-	string _Month;
-	do {
-		cout << "Month: "; getline(cin, _Month);
+	string _Year;
+	do
+	{
+		cout << "Year: ";
+		getline(cin, _Year);
 	} while
 	(
-		(stoi(_Month) < 1 || stoi(_Month) > 12)
-			&& (cout << "Invalid month." << endl)
+		(stoi(_Year) < 1900 || stoi(_Year) > Date::Today().Year)
+		&& (cout << "Invalid year." << endl)
 	);
+
+	string _Month;
+	do
+	{
+		cout << "Month: "; getline(cin, _Month);
+	}
+	while
+	(
+		(stoi(_Month) < 1 || stoi(_Month) > 12)
+		&& (cout << "Invalid month." << endl)
+	);
+
 	switch (_AccountID[0]) {
-	case 'S':
-		AccountProvider::GetInstance().GetSeller(_AccountID)->StatsByMonth(stoi(_Month));
-		break;
-	case 'H':
-		AccountProvider::GetInstance().GetShipper(_AccountID)->StatsByMonth(stoi(_Month));
-		break;
+		case 'S':
+			AccountProvider::GetInstance().GetSeller(_AccountID)->StatsByMonth(stoi(_Year), stoi(_Month));
+			break;
+		case 'H':
+			// AccountProvider::GetInstance().GetShipper(_AccountID)->StatsByMonth(stoi(_Year), stoi(_Month));
+			break;
 	}
 }

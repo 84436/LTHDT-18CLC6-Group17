@@ -40,5 +40,5 @@ class Seller : public Account
 		void CancelOrder(string _OrderID);
 
 		// Statistics
-		void StatsByMonth(int8_t _Year, int8_t _Month);
+		void StatsByMonth(int16_t _Year, int8_t _Month);
 };

@@ -45,9 +45,13 @@ void Seller::AddProduct()
 {
 	Product _Product;
 	_Product.SellerID(this->ID());
-	this->EditProduct(_Product.ID());
-	string amount;
-	cout << "Add stock: "; getline(cin, amount); _Product.AddStock(stoi(amount));
+	string s;
+	cout << "Name                                         : ";	getline(cin, s); _Product.Name(s);
+	cout << "Is R18? [\"true\" = true, otherwise = false] : ";	getline(cin, s); _Product.isR18(s == "true" ? true : false);
+	cout << "Category                                     : ";	getline(cin, s); _Product.Category(s);
+	cout << "Description                                  : ";	getline(cin, s); _Product.Description(s);
+	cout << "Price                                        : ";	getline(cin, s); _Product.Price(stoi(s));
+	cout << "Base stock                                   : ";	getline(cin, s); _Product.AddStock(stoi(s));
 	ProductProvider::GetInstance().Add(_Product);
 }
 
@@ -206,7 +210,7 @@ float Seller::GetRate()
 	return (float)(1*Rating[0] + 2*Rating[1] + 3*Rating[2] + 4*Rating[3] + 5*Rating[4]) / (float)(Rating[0] + Rating[1] + Rating[2] + Rating[3] + Rating[4]);
 }
 
-void Seller::StatsByMonth(int8_t _Year, int8_t _Month)
+void Seller::StatsByMonth(int16_t _Year, int8_t _Month)
 {
 	if (_Year < 1900 || _Year > Date::Today().Year)
 	{
