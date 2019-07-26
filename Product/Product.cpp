@@ -70,3 +70,8 @@ void Product::AddStock(int32_t amount)
 {
 	this->_Stock += amount;
 }
+
+void Product::RemoveStock(int32_t amount)
+{
+	this->_Stock -= amount;
+}

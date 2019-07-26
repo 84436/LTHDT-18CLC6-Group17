@@ -11,11 +11,11 @@ class Seller : public Account
 			int32_t Quantity = 0;
 			int64_t TotalTotalPrice = 0;
 		};
-		vector<int16_t> Rating = { 0, 0, 0, 0, 0 };
+		vector<int16_t> _Rating = { 0, 0, 0, 0, 0 };
 
 	public:
 		Seller() : Account() {}
-		Seller(const Seller& s) : Account(s) { this->Rating = s.Rating; }
+		Seller(const Seller& s) : Account(s) { this->_Rating = s._Rating; }
 
 		void GetInfo();
 

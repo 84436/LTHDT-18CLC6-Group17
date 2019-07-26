@@ -38,6 +38,8 @@ void Shipper::FinishOrder(string _OrderID)
 	AccountProvider::GetInstance().GetSeller(_Order->SellerID())->Deposit(_Order->TotalPrice() - _Order->ShippingFee());
 
 	AccountProvider::GetInstance().GetShipper(this->ID())->Deposit(_Order->ShippingFee());
+
+	ProductProvider::GetInstance().GetByID(_Order->ProductID())->RemoveStock(_Order->Quantity());
 }
 
 void Shipper::StatsByMonth(uint8_t _Month)

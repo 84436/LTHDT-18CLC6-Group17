@@ -45,4 +45,5 @@ class Product {
 		float Rate();
 		void Rate(int _Rate);
 		void AddStock(int32_t amount);
+		void RemoveStock(int32_t amount);
 };

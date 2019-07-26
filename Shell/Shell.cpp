@@ -307,6 +307,7 @@ void Shell::cMapper_Init()
 			cMapper["oaccept"] = c::oaccept;
 			cMapper["oreject"] = c::oreject;
 			cMapper["topup"] = c::wdeposit;
+			cMapper["orate"] = c::orate;
 			break;
 
 		case 'S':

@@ -36,6 +36,7 @@ void Account::GetOrderByID(string _OrderID)
 	if (_Order == nullptr)
 	{
 		cout << "Order not found." << endl;
+		return;
 	}
 	_Order->GetInfo();
 }

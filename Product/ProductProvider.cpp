@@ -193,10 +193,12 @@ list<Product> ProductProvider::ListBySellerID(string _SellerID, bool _isR18)
 	list<Product> _Products;
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{
-		if (i->SellerID() == _SellerID && (i->isR18() == _isR18))
+		if (i->SellerID() == _SellerID)
 		{
 			_Products.push_back((*i));
 		}
 	}
+	if (!_isR18) _Products.remove_if(ProductProvider::isR18);
+
 	return _Products;
 }

@@ -141,7 +141,7 @@ void Buyer::RejectOrder(string _OrderID)
 
 	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
 
-	if (_Order->Status() == SELLER_PENDING)
+	if (_Order->Status() == BUYER_PENDING)
 	{
 		string _Note;
 		cout << "Note (optional): ";
