@@ -30,13 +30,10 @@ void ProductProvider::ReadFile()
 {
 	fstream f;
 	f.open(DATABASE_PATH, fstream::in);
-	if (
-		!f.is_open()
-		|| f.peek() == fstream::traits_type::eof()
-		)
+	if (!f.is_open() || f.peek() == fstream::traits_type::eof())
 	{
-		cout << "Database does not exist." << endl;
-		return;
+		cout << "Database either is inaccessible or does not exist." << endl;
+		exit(-1);
 	}
 	json File = json::parse(f);
 
@@ -171,6 +168,11 @@ Product* ProductProvider::GetByID(string _ID)
 
 list<Product> ProductProvider::ListByQuery(string _Query, bool _isR18)
 {
+	if (isEmptyString(_Query))
+	{
+		return;
+	}
+
 	list<Product> _Products;
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{

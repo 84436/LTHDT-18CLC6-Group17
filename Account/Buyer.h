@@ -9,9 +9,10 @@ class Buyer : public Account
 		Buyer(const Buyer& b) : Account(b) {}
 
 		void ListOrder_Pending();
+
 		void AddOrder(string _ProductID);
 		void AcceptOrder(string _OrderID);
-		void CancelOrder(string _OrderID);
+		void RejectOrder(string _OrderID);
 
 		void GetProductByID(string _ProductID);
 		void ListProductBySellerID(string _SellerID);

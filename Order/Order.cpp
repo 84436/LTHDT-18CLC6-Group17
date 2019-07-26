@@ -20,18 +20,13 @@ string Order::Status_String()
 {
 	switch (this->Status())
 	{
-		case BUYER_CANCELLED:
-			return "Cancelled by buyer";
-		case SELLER_CANCELLED:
-			return "Cancelled by seller";
-		case SELLER_PENDING:
-			return "Waiting for seller approval";
-		case SHIPPING_PENDING:
-			return "Delivering";
-		case COMPLETED:
-			return "Completed";
-		default:
-			return "Unknown status";
+		case BUYER_CANCELLED:		return "Cancelled by buyer";
+		case SELLER_CANCELLED:		return "Cancelled by seller";
+		case BUYER_PENDING:			return "Waiting for buyer's approval";
+		case SELLER_PENDING:		return "Waiting for seller's approval";
+		case SHIPPING_PENDING:		return "Delivering";
+		case COMPLETED:				return "Completed";
+		default:					return "Unknown status";
 	}
 }
 

@@ -32,17 +32,12 @@ void Account::EditInfo()
 
 void Account::GetOrderByID(string _OrderID)
 {
-	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
-
-	if (FilteredOrders.size() == 0) {
-		cout << "No orders found." << endl;
-		return;
+	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
+	if (_Order == nullptr)
+	{
+		cout << "Order not found." << endl;
 	}
-
-	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i) {
-		if ((*i).ID() == _OrderID)
-			(*i).GetInfo();
-	}
+	_Order->GetInfo();
 }
 
 void Account::ListOrder_All()

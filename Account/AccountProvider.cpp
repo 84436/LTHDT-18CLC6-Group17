@@ -50,24 +50,24 @@ void AccountProvider::ReadFile()
 {
 	fstream f;
 	f.open(DATABASE_PATH, fstream::in);
-	if (
-		!f.is_open()
-		|| f.peek() == fstream::traits_type::eof()
-		)
+	if (!f.is_open() || f.peek() == fstream::traits_type::eof())
 	{
-		cout << "Database does not exist." << endl;
-		return;
+		cout << "Database either is inaccessible or does not exist." << endl;
+		exit(-1);
 	}
 	json File = json::parse(f);
 
 	// Accounts
 	for (auto i = File["ACCOUNTS"].begin(); i != File["ACCOUNTS"].end(); ++i)
 	{
-		Account* a;
+		Account* a = nullptr;
 
-		if (i.key()[0] == 'B') { a = new Buyer; }
-		else if (i.key()[0] == 'S') { a = new Seller; }
-		else { a = new Shipper; }
+		switch (i.key()[0])
+		{
+			case 'B': a = new Buyer; break;
+			case 'S': a = new Seller; break;
+			case 'H': a = new Shipper; break;
+		}
 
 		a->ID(i.key());
 		a->Name((*i)["Name"]);

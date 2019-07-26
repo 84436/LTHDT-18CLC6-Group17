@@ -16,9 +16,9 @@ class OrderProvider
 		string GenerateNewOrderID();
 
 	public:
-		static bool isCompleted(Order _Order);
-		static bool isNotSellerPending(Order _Order);
-		static bool isNotShipperPending(Order _Order);
+		static bool isNotPending_Buyer(Order _Order);
+		static bool isNotPending_Seller(Order _Order);
+		static bool isNotPending_Shipper(Order _Order);
 		static bool isRelated(string _AccountID, string _OrderID);
 
 		void ReadFile();

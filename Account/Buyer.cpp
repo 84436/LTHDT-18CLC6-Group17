@@ -7,7 +7,7 @@ void Buyer::ListOrder_Pending()
 {
 	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
 
-	FilteredOrders.remove_if(OrderProvider::isCompleted);
+	FilteredOrders.remove_if(OrderProvider::isNotPending_Buyer);
 
 	cout << "Total pending order count: " << FilteredOrders.size() << endl;
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
@@ -52,51 +52,60 @@ void Buyer::ListProductByQuery(string _ProductName)
 
 void Buyer::AddOrder(string _ProductID)
 {
-	Order newOrder;
-	
 	Product* x = ProductProvider::GetInstance().GetByID(_ProductID);
-	if (x == nullptr) {
+	if (x == nullptr)
+	{
 		cout << "Product does not exist." << endl;
 		return;
 	}
 
-	newOrder.ProductID(_ProductID);
-	newOrder.BuyerID(this->ID());
-	newOrder.SellerID(x->SellerID());
+	Order NewOrder;
+
+	NewOrder.ProductID(_ProductID);
+	NewOrder.BuyerID(this->ID());
+	NewOrder.SellerID(x->SellerID());
+	NewOrder.OrderDate(Date::Today());
+	NewOrder.Status(SELLER_PENDING);
 	
-	string amount;
-	do {
-		cout << "Amount: "; getline(cin, amount);
-	} while
-	(
-		(stoi(amount) <= 0)
-		&& (cout << "Invalid amount." << endl)
-	);
-
-	if (x->Stock() < stoi(amount)) {
-		cout << "There are not enough stock in the storage." << endl;
-		return;
+	string _Quantity;
+	while (true)
+	{
+		cout << "Quantity: ";
+		getline(cin, _Quantity);
+		if (stoi(_Quantity) <= 0)
+		{
+			cout << "Invalid amount." << endl;
+			continue;
+		}
+		if (stoi(_Quantity) > x->Stock())
+		{
+			cout << "Not enough stock." << endl;
+			continue;
+		}
+		break;
 	}
-	newOrder.Quantity(stoi(amount));
+	NewOrder.Quantity(stoi(_Quantity));
 
-	list<Order> FilteredOrder = OrderProvider::GetInstance().ListByAccountID(this->ID());
 	int64_t MoneytoPay = 0;
-	for (auto i = FilteredOrder.begin(); i != FilteredOrder.end(); ++i) {
-		if ((*i).Status() != COMPLETED)
-			MoneytoPay += (*i).TotalPrice();
+	list<Order> FilteredOrder = OrderProvider::GetInstance().ListByAccountID(this->ID());
+	FilteredOrder.remove_if(OrderProvider::isNotPending_Buyer);
+	for (auto i = FilteredOrder.begin(); i != FilteredOrder.end(); ++i)
+	{
+		MoneytoPay += (*i).TotalPrice();
 	}
-	MoneytoPay += newOrder.TotalPrice();
-
-	if (MoneytoPay > this->Balance()) {
+	MoneytoPay += NewOrder.TotalPrice();
+	if (MoneytoPay > this->Balance())
+	{
 		cout << "There is not enough money for you to create this order." << endl;
 		return;
 	}
 
-	newOrder.Status(SELLER_PENDING);
+	string _Note;
+	cout << "Note (optional): ";
+	getline(cin, _Note);
+	NewOrder.Note(_Note);
 
-	newOrder.OrderDate(Date::Today());
-
-	OrderProvider::GetInstance().Add(newOrder);
+	OrderProvider::GetInstance().Add(NewOrder);
 }
 
 void Buyer::AcceptOrder(string _OrderID)
@@ -109,16 +118,20 @@ void Buyer::AcceptOrder(string _OrderID)
 
 	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
 
-	if (_Order->Status() == BUYER_PENDING) {
+	if (_Order->Status() == BUYER_PENDING)
+	{
 		_Order->Status(SHIPPING_PENDING);
 	}
-	else {
-		cout << "Can not accept order now" << endl;
+	else
+	{
+		cout << "You cannot accept an order in the following conditions:" << endl;
+		cout << "  - The order was previously rejected by the seller or yourself." << endl;
+		cout << "  - The order has already been completed." << endl;
 		return;
 	}
 }
 
-void Buyer::CancelOrder(string _OrderID)
+void Buyer::RejectOrder(string _OrderID)
 {
 	if (!OrderProvider::isRelated(this->ID(), _OrderID))
 	{
@@ -128,11 +141,20 @@ void Buyer::CancelOrder(string _OrderID)
 
 	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
 
-	if (_Order->Status() == SELLER_PENDING) {
+	if (_Order->Status() == SELLER_PENDING)
+	{
+		string _Note;
+		cout << "Note (optional): ";
+		getline(cin, _Note);
+		_Order->Note(_Note);
+
 		_Order->Status(BUYER_CANCELLED);
 	}
 	else {
-		cout << "Can not cancel order now" << endl;
+		cout << "You cannot reject an order in the following conditions:" << endl;
+		cout << "  - The order was previously rejected by the seller or yourself." << endl;
+		cout << "  - The order is waiting for delivery." << endl;
+		cout << "  - The order has already been completed." << endl;
 		return;
 	}
 }
@@ -149,7 +171,7 @@ void Buyer::Rate(string _OrderID)
 
 	if (_Order->Status() != COMPLETED)
 	{
-		cout << "Your Order Is Processing" << endl;
+		cout << "You can only rate an order once it has been completed." << endl;
 		return;
 	}
 
@@ -159,7 +181,9 @@ void Buyer::Rate(string _OrderID)
 	{
 		cout << "How satisfied are you with this product? (1-5) : ";
 		getline(cin, _Rate);
-	} while (
+	}
+	while
+	(
 		(stoi(_Rate) < 1 || stoi(_Rate) > 5)
 		&& (cout << "Invalid range." << endl)
 	);
@@ -169,11 +193,13 @@ void Buyer::Rate(string _OrderID)
 	{
 		cout << "How satisfied are you with this seller? (1-5) : ";
 		getline(cin, _Rate);
-	} while (
+	}
+	while
+	(
 		(stoi(_Rate) < 1 || stoi(_Rate) > 5)
 		&& (cout << "Invalid range." << endl)
 	);
 	AccountProvider::GetInstance().GetSeller(_Order->SellerID())->Rate(stoi(_Rate));
 	
-	cout << "Thanks for your choices" << endl;
+	cout << "Thank you for rating." << endl;
 }

@@ -22,10 +22,11 @@ class Shell
 		void Interpret(string _Command);
 
 		// Native: Login
-		void NewAccount();
+		void LoginGreeter();
+		void CommandGreeter();
+		void NewAccount(char AccountType);
 		void LogIn();
 		void ChangePassword();
-		void Greeter();
 		void ShowHelp();
 
 		// Callbacks: Account

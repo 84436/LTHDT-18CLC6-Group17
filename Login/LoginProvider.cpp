@@ -92,13 +92,20 @@ char LoginProvider::MaskingChar()
 
 string LoginProvider::GetPassword()
 {
+	auto constexpr BACKSPACE = 8;
+	auto constexpr RETURN = 13;
+	auto constexpr CONTROL1 = 0;
+	auto constexpr CONTROL2 = 224;
+	auto constexpr TAB = 9;
+	auto constexpr ESCAPE = 7;
+
 	srand((unsigned int)time(nullptr));
 
 	string _HASHED;
-	char c = 0;
-	while (c = _getch())
+	char c;
+	while ((c = _getch()) != RETURN)
 	{
-		if (c == 8) // BKSP
+		if (c == BACKSPACE)
 		{
 			if (_HASHED.size() == 0)
 				continue;
@@ -113,13 +120,13 @@ string LoginProvider::GetPassword()
 				cout << "\b \b\b" << MaskingChar() << " \b";
 			}
 		}
-		else if (c == 13) // RETURN
+		else if (c == TAB || c == ESCAPE)
 		{
-			if (_HASHED.size() > 0) cout << "\b \b";
-			break;
+			// Do nothing
 		}
-		else if (c == 0 || c == 224) // CTRL
+		else if (c <= CONTROL1 || c == CONTROL2)
 		{
+			// Discard the following char
 			_getch();
 		}
 		else
@@ -129,6 +136,7 @@ string LoginProvider::GetPassword()
 			else cout << "\b " << MaskingChar();
 		}
 	}
+	if (_HASHED.size() > 0) cout << "\b \b";
 	cout << endl;
 
 	_HASHED = sha256(_HASHED);

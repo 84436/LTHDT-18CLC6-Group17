@@ -7,7 +7,7 @@ void Seller::ListOrder_Pending()
 {
 	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
 
-	FilteredOrders.remove_if(OrderProvider::isNotSellerPending);
+	FilteredOrders.remove_if(OrderProvider::isNotPending_Seller);
 
 	cout << "Total pending order count: " << FilteredOrders.size() << endl;
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
@@ -107,6 +107,8 @@ void Seller::AcceptOrder(string _OrderID)
 		return;
 	}
 
+	cout << endl;
+	cout << "Available shippers:" << endl;
 	ListShippers();
 
 	string _ShipperID; 
@@ -114,7 +116,8 @@ void Seller::AcceptOrder(string _OrderID)
 	{
 		cout << "Enter shipper ID: ";
 		getline(cin, _ShipperID);
-	} while
+	}
+	while
 	(
 		(AccountProvider::GetInstance().GetShipper(_ShipperID) == nullptr)
 		&& (cout << "Invalid shipper ID." << endl)
@@ -126,7 +129,8 @@ void Seller::AcceptOrder(string _OrderID)
 	{
 		cout << "Shipping fee: ";
 		getline(cin, _ShippingFee);
-	} while
+	}
+	while
 	(
 		(stoll(_ShippingFee) < 0)
 		&& (cout << "Invalid shipping fee." << endl)
@@ -138,7 +142,8 @@ void Seller::AcceptOrder(string _OrderID)
 	{
 		cout << "% Sale (0 - 100): ";
 		getline(cin, _PriceCoeff);
-	} while
+	}
+	while
 	(
 		(stod(_PriceCoeff) < 0 || stod(_PriceCoeff) > 100)
 		&& (cout << "Invalid price coefficient." << endl)

@@ -10,6 +10,7 @@ Shell& Shell::GetInstance()
 
 Shell::Shell()
 {
+	LoginProvider::GetInstance();
 	AccountProvider::GetInstance();
 	ProductProvider::GetInstance();
 	OrderProvider::GetInstance();
@@ -17,6 +18,7 @@ Shell::Shell()
 
 Shell::~Shell()
 {
+	LoginProvider::GetInstance().WriteFile();
 	AccountProvider::GetInstance().WriteFile();
 	ProductProvider::GetInstance().WriteFile();
 	OrderProvider::GetInstance().WriteFile();
@@ -25,16 +27,25 @@ Shell::~Shell()
 
 void Shell::Loop()
 {
+	bool ShowLoginGreeter = true;
 
 	// Login
 	while (true)
 	{
+		// Show login greeter on first login prompt
+		if (ShowLoginGreeter)
+		{
+			LoginGreeter();
+			ShowLoginGreeter = false;
+		}
+
 		LogIn();
 
 		// Login successfully
 		if (!_AccountID.empty())
 		{
-			Greeter();
+			CommandGreeter();
+
 			while (true) {
 				string _Command;
 				cout << "(" << _AccountID << ")> ";
@@ -60,8 +71,19 @@ void Shell::Loop()
 
 				cout << endl;
 			}
+
+			// Re-show login greeter after logout
+			ShowLoginGreeter = true;
 		}
 	}
+}
+
+void Shell::LoginGreeter()
+{
+	cout << "Group 19: project-banana (ALPHA/BETA/GAMMA)" << endl;
+	cout << "\"Sao nhieu bug qua vay :<\" -- Phung 2k19" << endl;
+	cout << "newbuyer | newseller | newshipper | exit, or alternatively enter your login." << endl;
+	cout << endl;
 }
 
 void Shell::LogIn()
@@ -70,9 +92,25 @@ void Shell::LogIn()
 	string _CurrentAccountID;
 	getline(cin, _CurrentAccountID);
 
-	if (_CurrentAccountID == "new")
+	if (_CurrentAccountID == "newbuyer")
 	{
-		NewAccount();
+		NewAccount('B');
+		system("PAUSE");
+		system("CLS");
+		return;
+	}
+
+	if (_CurrentAccountID == "newseller")
+	{
+		NewAccount('S');
+		system("PAUSE");
+		system("CLS");
+		return;
+	}
+
+	if (_CurrentAccountID == "newshipper")
+	{
+		NewAccount('H');
 		system("PAUSE");
 		system("CLS");
 		return;
@@ -97,35 +135,97 @@ void Shell::LogIn()
 	}
 }
 
-void Shell::NewAccount()
+void Shell::CommandGreeter()
 {
-	string type;
-
-	do
+	cout << "Welcome back ";
+	switch (_AccountID[0])
 	{
-		cout << "Type of account? [1=Buyer, 2=Seller, 3=Shipper] : ";
-		getline(cin, type);
-	} while
-	(
-		(stoi(type) != 1 && stoi(type) != 2 && stoi(type) != 3)
-		&& (cout << "Invalid type." << endl)
-	);
+		case 'B':
+			cout << AccountProvider::GetInstance().GetBuyer(_AccountID)->Name();
+			break;
+		case 'S':
+			cout << AccountProvider::GetInstance().GetSeller(_AccountID)->Name();
+			break;
+		case 'H':
+			cout << AccountProvider::GetInstance().GetShipper(_AccountID)->Name();
+			break;
+	}
+	cout << "." << endl;
+	cout << "Remeber to check your pending orders periodically with \"olistpend\"." << endl;
+	cout << endl;
+}
 
+void Shell::ShowHelp()
+{
+	// Shared
+	cout
+		<< "Available commands" << endl
+		<< "logout        : Log out" << endl
+		<< "help          : What you're reading now" << endl
+		<< "info          : View account info" << endl
+		<< "editinfo      : Edit account info" << endl
+		<< "passwd        : Change password" << endl
+		<< "balance       : Check wallet balance" << endl
+		<< "olookup       : Show details of an order" << endl
+		<< "olist         : List orders" << endl
+		<< "olistpend     : List pending orders" << endl
+		<< endl;
+
+	// Account-specific
+	switch (_AccountID[0])
+	{
+	case 'B':
+		cout
+			<< "psearch       : Search products" << endl
+			<< "plistbyseller : List products of a specific seller" << endl
+			<< "plookup       : Show details of a product" << endl
+			<< "onew          : Create a new order (Buy a product)" << endl
+			<< "oaccept       : Accept an order (after being quoted by seller)" << endl
+			<< "oreject       : Reject/Cancel an order" << endl
+			<< "orate         : Rate an order" << endl
+			<< endl;
+		break;
+	case 'S':
+		cout
+			<< "plist         : List all products that you own" << endl
+			<< "plookup       : Show details of a product that you own" << endl
+			<< "pnew          : Add a new product" << endl
+			<< "pedit         : Edit a product" << endl
+			<< "pdelete       : Remove a product" << endl
+			<< "paddstock     : Re-stock a product" << endl
+			<< "oaccept       : Accept an order from the buyers" << endl
+			<< "oreject       : Reject an order" << endl
+			<< "hlist         : List all shippers available" << endl
+			<< "stats         : Get statistics by month" << endl
+			<< endl;
+		break;
+	case 'H':
+		cout
+			<< "ship          : Ship a product" << endl
+			<< "stats         : Get statistics by month" << endl
+			<< endl;
+		break;
+	default:
+		cout << "!! Unknown account type !!" << endl;
+	}
+}
+
+void Shell::NewAccount(char AccountType)
+{
 	Account* a;
-
-	switch (stoi(type))
+	switch (AccountType)
 	{
-		case 1:
+		case 'B':
 			a = new Buyer;
 			a->EditInfo();
 			AccountProvider::GetInstance().Add(a, 'B');
 			break;
-		case 2:
+		case 'S':
 			a = new Seller;
 			a->EditInfo();
 			AccountProvider::GetInstance().Add(a, 'S');
 			break;
-		case 3:
+		case 'H':
 			a = new Shipper;
 			a->EditInfo();
 			AccountProvider::GetInstance().Add(a, 'H');
@@ -281,79 +381,6 @@ void Shell::Interpret(string _Command)
 }
 
 //////////////////////////////////////////////////
-
-void Shell::Greeter()
-{
-	cout << "Welcome back ";
-	switch (_AccountID[0])
-	{
-	case 'B':
-		cout << AccountProvider::GetInstance().GetBuyer(_AccountID)->Name();
-		break;
-	case 'S':
-		cout << AccountProvider::GetInstance().GetSeller(_AccountID)->Name();
-		break;
-	case 'H':
-		cout << AccountProvider::GetInstance().GetShipper(_AccountID)->Name();
-		break;
-	}
-	cout << "." << endl << endl;
-}
-
-void Shell::ShowHelp()
-{
-	// Shared
-	cout
-		<< "Available commands" << endl
-		<< "logout        : Log out" << endl
-		<< "help          : What you're reading now" << endl
-		<< "info          : View account info" << endl
-		<< "editinfo      : Edit account info" << endl
-		<< "passwd        : Change password" << endl
-		<< "balance       : Check wallet balance" << endl
-		<< "olookup       : Show details of an order" << endl
-		<< "olist         : List orders" << endl
-		<< "olistpend     : List pending orders" << endl
-		<< endl;
-
-	// Account-specific
-	switch (_AccountID[0])
-	{
-		case 'B':
-			cout
-				<< "psearch       : Search products" << endl
-				<< "plistbyseller : List products of a specific seller" << endl
-				<< "plookup       : Show details of a product" << endl
-				<< "onew          : Create a new order (Buy a product)" << endl
-				<< "oaccept       : Accept an order (after being quoted by seller)" << endl
-				<< "oreject       : Reject/Cancel an order" << endl
-				<< "orate         : Rate an order" << endl
-				<< endl;
-			break;
-		case 'S':
-			cout
-				<< "plist         : List all products that you own" << endl
-				<< "plookup       : Show details of a product that you own" << endl
-				<< "pnew          : Add a new product" << endl
-				<< "pedit         : Edit a product" << endl
-				<< "pdelete       : Remove a product" << endl
-				<< "paddstock     : Re-stock a product" << endl
-				<< "oaccept       : Accept an order from the buyers" << endl
-				<< "oreject       : Reject an order" << endl
-				<< "hlist         : List all shippers available" << endl
-				<< "stats         : Get statistics by month" << endl
-				<< endl;
-			break;
-		case 'H':
-			cout
-				<< "ship          : Ship a product" << endl
-				<< "stats         : Get statistics by month" << endl
-				<< endl;
-			break;
-		default:
-			cout << "!! Unknown account type !!" << endl;
-	}
-}
 
 void Shell::ShowInfo()
 {

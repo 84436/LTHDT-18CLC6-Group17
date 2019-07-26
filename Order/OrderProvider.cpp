@@ -2,19 +2,22 @@
 
 int32_t OrderProvider::NewOrderIDCounter = 0;
 
-bool OrderProvider::isCompleted(Order _Order)
+bool OrderProvider::isNotPending_Buyer(Order _Order)
 {
-	return OrderProvider::GetInstance().GetByID(_Order.ID())->Status() == COMPLETED;
+	int8_t Status = OrderProvider::GetInstance().GetByID(_Order.ID())->Status();
+	return (Status == BUYER_CANCELLED) || (Status == SELLER_CANCELLED) || (Status == COMPLETED);
 }
 
-bool OrderProvider::isNotSellerPending(Order _Order)
+bool OrderProvider::isNotPending_Seller(Order _Order)
 {
-	return OrderProvider::GetInstance().GetByID(_Order.ID())->Status() != SELLER_PENDING;
+	int8_t Status = OrderProvider::GetInstance().GetByID(_Order.ID())->Status();
+	return (Status != SELLER_PENDING);
 }
 
-bool OrderProvider::isNotShipperPending(Order _Order)
+bool OrderProvider::isNotPending_Shipper(Order _Order)
 {
-	return OrderProvider::GetInstance().GetByID(_Order.ID())->Status() != SHIPPING_PENDING;
+	int8_t Status = OrderProvider::GetInstance().GetByID(_Order.ID())->Status();
+	return (Status != SHIPPING_PENDING);
 }
 
 bool OrderProvider::isRelated(string _AccountID, string _OrderID)
@@ -60,13 +63,10 @@ void OrderProvider::ReadFile()
 {
 	fstream f;
 	f.open(DATABASE_PATH, fstream::in);
-	if (
-		!f.is_open()
-		|| f.peek() == fstream::traits_type::eof()
-		)
+	if (!f.is_open() || f.peek() == fstream::traits_type::eof())
 	{
-		cout << "Database does not exist." << endl;
-		return;
+		cout << "Database either is inaccessible or does not exist." << endl;
+		exit(-1);
 	}
 	json File = json::parse(f);
 
