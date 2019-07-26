@@ -557,7 +557,7 @@ void Shell::RejectOrder()
 	cout << "Order ID: "; getline(cin, _OrderID);
 	switch (_AccountID[0]) {
 	case 'B':
-		AccountProvider::GetInstance().GetBuyer(_AccountID)->CancelOrder(_OrderID);
+		AccountProvider::GetInstance().GetBuyer(_AccountID)->RejectOrder(_OrderID);
 		break;
 	case 'S':
 		AccountProvider::GetInstance().GetSeller(_AccountID)->RejectOrder(_OrderID);

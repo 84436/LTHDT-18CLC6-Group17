@@ -168,11 +168,6 @@ Product* ProductProvider::GetByID(string _ID)
 
 list<Product> ProductProvider::ListByQuery(string _Query, bool _isR18)
 {
-	if (isEmptyString(_Query))
-	{
-		return;
-	}
-
 	list<Product> _Products;
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{
@@ -185,7 +180,7 @@ list<Product> ProductProvider::ListByQuery(string _Query, bool _isR18)
 			_Products.push_back((*i));
 		}
 	}
-
+		
 	// Filter R-18 products
 	if (!_isR18) _Products.remove_if(ProductProvider::isR18);
 
