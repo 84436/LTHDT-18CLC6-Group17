@@ -38,8 +38,8 @@ string AccountProvider::GenerateNewAccountID(char AccountType)
 
 	size_t NewID_CurrentLength = NewID.length();
 
-	if (NewID_CurrentLength < 8)
-		for (size_t i = 0; i < 8 - NewID_CurrentLength; i++)
+	if (NewID_CurrentLength < 4)
+		for (size_t i = 0; i < 4 - NewID_CurrentLength; i++)
 			NewID.insert(NewID.begin(), '0');
 	NewID.insert(NewID.begin(), AccountType);
 

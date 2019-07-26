@@ -46,9 +46,10 @@ OrderProvider& OrderProvider::GetInstance()
 string OrderProvider::GenerateNewOrderID()
 {
 	string NewID = to_string(NewOrderIDCounter);
+	size_t NewID_CurrentLength = NewID.length();
 
-	if (NewID.length() < 8)
-		for (size_t i = 0; i < 8 - NewID.length(); i++)
+	if (NewID_CurrentLength < 4)
+		for (size_t i = 0; i < 4 - NewID_CurrentLength; i++)
 			NewID.insert(NewID.begin(), '0');
 	NewID.insert(NewID.begin(), 'O');
 

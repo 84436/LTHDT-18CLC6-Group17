@@ -38,6 +38,11 @@ void Buyer::ListProductBySellerID(string _SellerID)
 
 void Buyer::ListProductByQuery(string _ProductName)
 {
+	if (isEmptyString(_ProductName))
+	{
+		cout << "Empty query." << endl;
+		return;
+	}
 	list<Product> FilteredProducts = ProductProvider::GetInstance().ListByQuery(_ProductName, ((this->GetAge()) >= 18));
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
