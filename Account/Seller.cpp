@@ -88,7 +88,7 @@ void Seller::ListShippers()
 {
 	list<Shipper*> AvailableShipper = AccountProvider::GetInstance().ListShippers();
 	for (auto i = AvailableShipper.begin(); i != AvailableShipper.end(); ++i)
-		cout << (**i).ID() << endl;
+		cout << (**i).ID() << " (" << (**i).Name() << ")" << endl;
 }
 
 void Seller::AcceptOrder(string _OrderID)

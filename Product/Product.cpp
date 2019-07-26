@@ -20,7 +20,7 @@ void Product::GetInfo()
 {
 	cout << "Name       : " << _Name << endl;
 	cout << "ID         : " << _ID << endl;
-	cout << "Seller     : " << AccountProvider::GetInstance().GetSeller(_SellerID)->Name() << " (ID: " << _SellerID << ")" << endl;
+	cout << "Seller     : " << (AccountProvider::GetInstance().GetSeller(this->SellerID()) == nullptr ? "n/a" : this->SellerID() + " (" + AccountProvider::GetInstance().GetSeller(this->SellerID())->Name() + ")") << endl;
 	cout << "Is R18?    : " << (_isR18 ? "true" : "false") << endl;
 	cout << "Category   : " << _Category << endl;
 	cout << "Decription : " << _Description << endl;
