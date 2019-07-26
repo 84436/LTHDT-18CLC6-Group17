@@ -206,33 +206,94 @@ float Seller::GetRate()
 	return (float)(1*Rating[0] + 2*Rating[1] + 3*Rating[2] + 4*Rating[3] + 5*Rating[4]) / (float)(Rating[0] + Rating[1] + Rating[2] + Rating[3] + Rating[4]);
 }
 
-void Seller::StatsByMonth(uint8_t _Month)
+void Seller::StatsByMonth(int8_t _Year, int8_t _Month)
 {
+	if (_Year < 1900 || _Year > Date::Today().Year)
+	{
+		cout << "Invalid year." << endl;
+		return;
+	}
+
 	if (_Month < 1 || _Month > 12)
 	{
-		cout << "Invalid month" << endl;
+		cout << "Invalid month." << endl;
 		return;
 	}
 
 	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
 	{
-		if ((*i).ShippingDate().Month != _Month) FilteredOrders.erase(i);
+		if ((*i).ShippingDate().Month != _Month)
+		{
+			FilteredOrders.erase(i);
+			i = FilteredOrders.begin();
+		}
 	}
 
-	// What month is it?
+	cout << "Overview for " << Date::Month_String(_Month) << ":" << endl;
+	if (FilteredOrders.size() == 0)
+	{
+		cout << "There are no orders for this month." << endl;
+		return;
+	}
+	cout << endl;
 
-	// Total $
-	int64_t Total = 0;
+	// Get stats
+	list<ProductStatItem> StatTable;
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
 	{
-		Total += ((*i).TotalPrice() - (*i).ShippingFee());
+		bool Found = false;
+		for (auto j = StatTable.begin(); j != StatTable.end(); ++j)
+		{
+			if ((*j).ProductID == (*i).ID())
+			{
+				Found = true;
+				(*j).Quantity += (*i).Quantity();
+				(*j).TotalTotalPrice += (*i).TotalPrice() - (*i).ShippingFee();
+				break;
+			}
+		}
+		if (!Found)
+		{
+			StatTable.insert(StatTable.end(), { (*i).ID(), (*i).Quantity(), (*i).TotalPrice() - (*i).ShippingFee() });
+		}
 	}
-	cout << "Total $ = " << Total << endl;
 
-	// Product count : std::map
+	// Show stats
+	for (auto i = StatTable.begin(); i != StatTable.end(); ++i)
+	{
+		cout << (*i).ProductID;
+		cout << " (" << ProductProvider::GetInstance().GetByID((*i).ProductID)->Name() << ") ";
+		cout << " : ";
+		cout << "Quantity = " << (*i).Quantity << "; ";
+		cout << "Revenue = " << (*i).TotalTotalPrice << endl;
+	}
+	cout << endl;
+
+	// Total revenue
+	int64_t Total = 0;
+	for (auto i = StatTable.begin(); i != StatTable.end(); ++i)
+	{
+		Total += (*i).TotalTotalPrice;
+	}
+	cout << "Total revenue = " << Total << endl;
+	cout << endl;
 
 	// Best seller
+	ProductStatItem BestSeller;
+	for (auto i = StatTable.begin(); i != StatTable.end(); ++i)
+	{
+		if ((*i).Quantity > BestSeller.Quantity)
+		{
+			BestSeller = (*i);
+		}
+	}
+	cout << "Best seller of the month:" << endl;
+	cout << BestSeller.ProductID;
+	cout << " (" << ProductProvider::GetInstance().GetByID(BestSeller.ProductID)->Name() << ") ";
+	cout << " : ";
+	cout << "Quantity = " << BestSeller.Quantity << "; ";
+	cout << "Revenue = " << BestSeller.TotalTotalPrice << endl;
 }
 
 void Seller::CancelOrder(string _OrderID)

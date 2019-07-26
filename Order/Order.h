@@ -11,11 +11,12 @@ auto constexpr SHIPPING_PENDING = 3;
 auto constexpr COMPLETED = 0;
 
 struct Date {
-	int Day;
-	int Month;
-	int Year;
+	int8_t Day;
+	int8_t Month;
+	int16_t Year;
 	
-	static Date Today() {
+	static Date Today()
+	{
 		Date x;
 		struct tm newtime;
 		time_t now = time(0);
@@ -24,6 +25,26 @@ struct Date {
 		x.Month = newtime.tm_mon + 1;
 		x.Day = newtime.tm_mday;
 		return x;
+	}
+
+	static string Month_String(int _Month)
+	{
+		switch (_Month)
+		{
+			case 1:  return "Janunary";
+			case 2:  return "February";
+			case 3:  return "March";
+			case 4:  return "April";
+			case 5:  return "May";
+			case 6:  return "June";
+			case 7:  return "July";
+			case 8:  return "August";
+			case 9:  return "September";
+			case 10: return "October";
+			case 11: return "November";
+			case 12: return "December";
+			default: return "";
+		}
 	}
 };
 

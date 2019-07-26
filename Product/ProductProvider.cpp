@@ -16,6 +16,7 @@ ProductProvider& ProductProvider::GetInstance()
 string ProductProvider::GenerateNewProductID()
 {
 	string NewID = to_string(NewProductIDCounter);
+	NewProductIDCounter++;
 	size_t NewID_CurrentLength = NewID.length();
 
 	if (NewID_CurrentLength < 4)
@@ -168,11 +169,6 @@ Product* ProductProvider::GetByID(string _ID)
 
 list<Product> ProductProvider::ListByQuery(string _Query, bool _isR18)
 {
-	if (isEmptyString(_Query))
-	{
-		return;
-	}
-
 	list<Product> _Products;
 	for (auto i = Products.begin(); i != Products.end(); ++i)
 	{

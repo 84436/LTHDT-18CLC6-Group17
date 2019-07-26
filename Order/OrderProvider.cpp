@@ -49,6 +49,7 @@ OrderProvider& OrderProvider::GetInstance()
 string OrderProvider::GenerateNewOrderID()
 {
 	string NewID = to_string(NewOrderIDCounter);
+	NewOrderIDCounter++;
 	size_t NewID_CurrentLength = NewID.length();
 
 	if (NewID_CurrentLength < 4)

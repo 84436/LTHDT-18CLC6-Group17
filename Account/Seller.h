@@ -5,6 +5,12 @@
 class Seller : public Account
 {
 	private:
+		struct ProductStatItem
+		{
+			string ProductID;
+			int32_t Quantity = 0;
+			int64_t TotalTotalPrice = 0;
+		};
 		vector<int16_t> Rating = { 0, 0, 0, 0, 0 };
 
 	public:
@@ -34,6 +40,5 @@ class Seller : public Account
 		void CancelOrder(string _OrderID);
 
 		// Statistics
-		void StatsByMonth(uint8_t _Month);
-		
+		void StatsByMonth(int8_t _Year, int8_t _Month);
 };
