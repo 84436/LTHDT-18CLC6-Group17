@@ -6,7 +6,7 @@ void Shipper::ListOrder_Pending()
 {
 	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
 
-	FilteredOrders.remove_if(OrderProvider::isNotShipperPending);
+	FilteredOrders.remove_if(OrderProvider::isNotPending_Shipper);
 
 	cout << "Total pending order count: " << FilteredOrders.size() << endl;
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)

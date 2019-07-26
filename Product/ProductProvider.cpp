@@ -181,7 +181,7 @@ list<Product> ProductProvider::ListByQuery(string _Query, bool _isR18)
 			_Products.push_back((*i));
 		}
 	}
-
+		
 	// Filter R-18 products
 	if (!_isR18) _Products.remove_if(ProductProvider::isR18);
 
