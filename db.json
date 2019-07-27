@@ -1,67 +1,43 @@
 {
   "ACCOUNTS": {
-    "B00000001": {
+    "B0001": {
       "Address": "1 Buyers' Street, District 8, HCM City",
-      "Balance": 0,
-      "Email": "buyer1@project.banana",
-      "Name": "Louis",
-      "Phone": "+1-800-18213-1",
+      "Balance": 1500000,
+      "Email": "ab.nguyen@project.banana",
+      "Name": "Nguyen Van AB",
+      "Phone": "+84-52-466-1968",
       "YOB": 1975
     },
-    "B00000002": {
+    "B0002": {
       "Address": "2 Buyers' Street, District 10, HCM City",
-      "Balance": 0,
-      "Email": "buyer2@project.banana",
-      "Name": "David",
-      "Phone": "+1-800-09182-2",
-      "YOB": 2002
+      "Balance": 2000000,
+      "Email": "cd.tran@project.banana",
+      "Name": "Tran Van CD",
+      "Phone": "+84-52-151-3245",
+      "YOB": 2005
     },
-    "B00000003": {
-      "Address": "3 Buyers' Street, District 8, HCM City",
-      "Balance": 0,
-      "Email": "buyer3@project.banana",
-      "Name": "Jenni ",
-      "Phone": "+1-800-18273-3",
-      "YOB": 1998
-    },
-    "B00000004": {
-      "Address": "4 Buyers' Street, District 11, HCM City",
-      "Balance": 0,
-      "Email": "buyer3@project.banana",
-      "Name": "Liss",
-      "Phone": "+1-800-98743-3",
-      "YOB": 1995
-    },
-    "B00000005": {
-      "Address": "2 Buyers' Street, District 12, HCM City",
-      "Balance": 0,
-      "Email": "buyer3@project.banana",
-      "Name": "Jenni ",
-      "Phone": "+1-800-12812-3",
-      "YOB": 1998
-    },
-    "H00000001": {
+    "H0001": {
       "Address": "1 Shippers' Street, Thu Duc District, City",
       "Balance": 0,
-      "Email": "shipper@project.banana",
+      "Email": "lien.vo@project.banana",
       "Name": "Lien Vo",
-      "Phone": "+1-800-3473843",
-      "YOB": 2000
-    },
-    "H00000002": {
-      "Address": "2 Shippers' Street, District 7, HCM City",
-      "Balance": 0,
-      "Email": "shipper@project.banana",
-      "Name": "Steven",
-      "Phone": "+1-800-524753",
+      "Phone": "+84-52-275-3157",
       "YOB": 1979
     },
-    "S00000001": {
+    "H0002": {
+      "Address": "2 Shippers' Street, District 7, HCM City",
+      "Balance": 0,
+      "Email": "ngo.phan@project.banana",
+      "Name": "Phan Dang Quang Ngo",
+      "Phone": "+84-52-937-5300",
+      "YOB": 2000
+    },
+    "S0001": {
       "Address": "1 Sellers' Street, District 10, HCM City",
       "Balance": 0,
-      "Email": "seller@project.banana",
-      "Name": "Perk",
-      "Phone": "+1-800-129138",
+      "Email": "ef.le@project.banana",
+      "Name": "Le Thi EF",
+      "Phone": "+84-52-623-7511",
       "Rating": [
         0,
         0,
@@ -71,12 +47,12 @@
       ],
       "YOB": 1990
     },
-    "S00000002": {
+    "S0002": {
       "Address": "2 Sellers' Street, District 3, HCM City",
       "Balance": 0,
-      "Email": "seller@project.banana",
-      "Name": "Soobin",
-      "Phone": "+1-800-192990",
+      "Email": "not.soobin@project.banana",
+      "Name": "Khong phai Soobin Hoang Son",
+      "Phone": "+84-52-175-7068",
       "Rating": [
         0,
         2,
@@ -84,232 +60,152 @@
         2,
         3
       ],
-      "YOB": 2005
-    },
-    "S00000003": {
-      "Address": "3 Sellers' Street, District 8, HCM City",
-      "Balance": 0,
-      "Email": "seller@project.banana",
-      "Name": "Alex",
-      "Phone": "+1-800-972477",
-      "Rating": [
-        0,
-        0,
-        0,
-        1,
-        6
-      ],
       "YOB": 1980
-    },
-    "S00000004": {
-      "Address": "4 Sellers' Street, District 5, HCM City",
-      "Balance": 0,
-      "Email": "seller@project.banana",
-      "Name": "Jone",
-      "Phone": "+1-800-324475",
-      "Rating": [
-        0,
-        0,
-        3,
-        3,
-        1
-      ],
-      "YOB": 1993
-    },
-    "S00000005": {
-      "Address": "5 Sellers' Street, District 2, HCM City",
-      "Balance": 0,
-      "Email": "seller@project.banana",
-      "Name": "Han",
-      "Phone": "+1-800-090902",
-      "Rating": [
-        0,
-        0,
-        0,
-        2,
-        4
-      ],
-      "YOB": 1999
     }
   },
   "COUNTERS": {
-    "BUYER": 6,
-    "ORDER": 5,
+    "BUYER": 3,
+    "ORDER": 1,
     "PRODUCT": 9,
-    "SELLER": 6,
+    "SELLER": 3,
     "SHIPPER": 3
   },
   "HASHES": {
-    "B00000001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "B00000002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "B00000003": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "B00000004": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "B00000005": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "S00000001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "S00000002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "S00000003": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "S00000004": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "S00000005": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "H00000001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "H00000002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    "B0001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "B0002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "H0001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "H0002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "S0001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "S0002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
-  "ORDERS": {
-    "O20190717-0001": {
-      "BuyerID": "B00000002",
-      "Note": "",
-      "OrderDate": [
-        2019,
-        7,
-        17
-      ],
-      "PriceCoeff": 0.5,
-      "ProductID": "",
-      "Quantity": 0,
-      "SellerID": "S00000001",
-      "ShipperID": "H00000001",
-      "ShippingDate": [
-        2019,
-        7,
-        18
-      ],
-      "ShippingFee": 0,
-      "Status": 0
-    },
-    "O20190717-0002": {
-      "BuyerID": "B00000004",
-      "Note": "",
-      "OrderDate": [
-        2019,
-        7,
-        17
-      ],
-      "PriceCoeff": 0.5,
-      "ProductID": "",
-      "Quantity": 0,
-      "SellerID": "S00000003",
-      "ShipperID": "H00000001",
-      "ShippingDate": [
-        2019,
-        6,
-        24
-      ],
-      "ShippingFee": 0,
-      "Status": 0
-    },
-    "O20190717-0003": {
-      "BuyerID": "B00000002",
-      "Note": "",
-      "OrderDate": [
-        2019,
-        6,
-        31
-      ],
-      "PriceCoeff": 0.5,
-      "ProductID": "",
-      "Quantity": 0,
-      "SellerID": "S00000001",
-      "ShipperID": "H00000002",
-      "ShippingDate": [
-        2019,
-        7,
-        18
-      ],
-      "ShippingFee": 0,
-      "Status": 0
-    },
-    "O20190717-0004": {
-      "BuyerID": "B00000002",
-      "Note": "",
-      "OrderDate": [
-        2019,
-        5,
-        17
-      ],
-      "PriceCoeff": 0.5,
-      "ProductID": "",
-      "Quantity": 0,
-      "SellerID": "S00000001",
-      "ShipperID": "H00000002",
-      "ShippingDate": [
-        2019,
-        7,
-        18
-      ],
-      "ShippingFee": 0,
-      "Status": 0
-    }
-  },
+  "ORDERS": {},
   "PRODUCTS": {
-    "P00000001": {
+    "P0001": {
       "Category": "Adult",
-      "Description": "Adult",
+      "Description": "Premium sextay from Duc's",
       "Name": "Duc's Premium Sextay",
       "Price": 6900000,
-      "SellerID": "S00000001",
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "SellerID": "S0001",
       "Stock": 7,
       "isR18": false
     },
-    "P00000002": {
-      "Category": "Food/Produce",
-      "Description": "Food/Produce",
+    "P0002": {
+      "Category": "Food",
+      "Description": "Fresh bananas from HaiLua's",
       "Name": "Banana",
       "Price": 10000,
-      "SellerID": "S00000001",
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "SellerID": "S0002",
       "Stock": 100,
       "isR18": false
     },
-    "P00000003": {
+    "P0003": {
       "Category": "Furniture",
-      "Description": "Furniture",
+      "Description": "Comfy bed",
       "Name": "Bed",
       "Price": 1000000,
-      "SellerID": "S00000005",
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "SellerID": "S0001",
       "Stock": 3,
       "isR18": false
     },
-    "P00000004": {
-      "Category": "Food/Produce",
-      "Description": "Food/Produce",
-      "Name": "Beef",
+    "P0004": {
+      "Category": "Food",
+      "Description": "Japan's finest red meat (wait is it red meat?)",
+      "Name": "Kobe Beef",
       "Price": 50000,
-      "SellerID": "S00000001",
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "SellerID": "S0002",
       "Stock": 10,
       "isR18": false
     },
-    "P00000005": {
-      "Category": "Food/Produce",
-      "Description": "Food/Produce",
+    "P0005": {
+      "Category": "Food",
+      "Description": "Fresh cherries, imported daily from US farms",
       "Name": "Cherry",
-      "Price": 30000,
-      "SellerID": "S00000001",
-      "Stock": 1,
+      "Price": 300000,
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "SellerID": "S0002",
+      "Stock": 10,
       "isR18": false
     },
-    "P00000006": {
-      "Category": "Neccessary",
-      "Description": "Neccessary",
+    "P0006": {
+      "Category": "Grocery",
+      "Description": "Normal shampoo for Your Normal Hair",
       "Name": "Shampoo",
       "Price": 120000,
-      "SellerID": "S00000004",
-      "Stock": 20,
-      "isR18": false
-    },
-    "P00000007": {
-      "Category": "Fashion",
-      "Description": "Fashion",
-      "Name": "Glasses",
-      "Price": 100000,
-      "SellerID": "S00000005",
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "SellerID": "S0001",
       "Stock": 10,
       "isR18": false
     },
-    "P00000008": {
-      "Category": "Food/Produce",
-      "Description": "Food/Produce",
+    "P0007": {
+      "Category": "Fashion",
+      "Description": "Kinda-luxury glasses from nowhere",
+      "Name": "Glasses",
+      "Price": 150000,
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "SellerID": "S0001",
+      "Stock": 10,
+      "isR18": false
+    },
+    "P0008": {
+      "Category": "Food",
+      "Description": "Coconut from Ben Tre",
       "Name": "Coconut",
       "Price": 12000,
-      "SellerID": "S00000002",
-      "Stock": 1,
+      "Rating": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "SellerID": "S0002",
+      "Stock": 0,
       "isR18": false
     }
   }
