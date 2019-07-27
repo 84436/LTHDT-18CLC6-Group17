@@ -45,8 +45,8 @@ void Order::GetInfo()
 	cout << "Quantity      : " << this->Quantity() << endl;
 	cout << "Shipping fee  : " << (AccountProvider::GetInstance().GetShipper(this->ShipperID()) == nullptr ? "n/a" : to_string(this->ShippingFee())) << endl;
 	cout << "Total price   : " << (AccountProvider::GetInstance().GetShipper(this->ShipperID()) == nullptr ? "n/a" : to_string(this->TotalPrice())) << endl;
-	cout << "Ordered date  : " << this->OrderDate().Year << "-" << this->OrderDate().Month << "-" << this->OrderDate().Day << endl;
-	cout << "Shipping date : " << (this->Status() != COMPLETED ? "n/a" : to_string(this->ShippingDate().Year) + "-" + to_string(this->ShippingDate().Month) + "-" + to_string(this->ShippingDate().Day)) << endl;
+	cout << "Ordered date  : " << (int)this->OrderDate().Year << '-' << (int)this->OrderDate().Month << '-' << (int)this->OrderDate().Day << endl;
+	cout << "Shipping date : " << (this->Status() != COMPLETED ? "n/a" : to_string((int)this->ShippingDate().Year) + '-' + to_string((int)this->ShippingDate().Month) + '-' + to_string((int)this->ShippingDate().Day)) << endl;
 	cout << "Status        : " << this->Status_String() << endl;
 	cout << "Note          : " << (this->Note().length() == 0 ? "n/a" : this->Note()) << endl;
 }

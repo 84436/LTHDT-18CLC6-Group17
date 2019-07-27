@@ -24,12 +24,26 @@ void Buyer::GetProductByID(string _ProductID)
 		cout << "Product not found." << endl;
 		return;
 	}
+	if (!(this->GetAge() >= 18) && _Product->isR18())
+	{
+		cout << "This product is rated 18+ / Mature Only." << endl;
+		return;
+	}
 	_Product->GetInfo();
 }
 
 void Buyer::ListProductBySellerID(string _SellerID)
 {
-	list<Product> FilteredProducts = ProductProvider::GetInstance().ListBySellerID(_SellerID, ((this->GetAge()) >= 18));
+	list<Product> FilteredProducts = ProductProvider::GetInstance().ListBySellerID(_SellerID, (this->GetAge() >= 18));
+	if (FilteredProducts.empty())
+	{
+		cout << "No products found." << endl;
+		cout << "This can be because seller..." << endl;
+		cout << "  - does not exist." << endl;
+		cout << "  - has not added any product." << endl;
+		cout << "  - only sells rate 18+ / Mature Only products." << endl;
+		return;
+	}
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
 		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << endl;
@@ -44,6 +58,14 @@ void Buyer::ListProductByQuery(string _ProductName)
 		return;
 	}
 	list<Product> FilteredProducts = ProductProvider::GetInstance().ListByQuery(_ProductName, ((this->GetAge()) >= 18));
+	if (FilteredProducts.empty())
+	{
+		cout << "No products found." << endl;
+		cout << "This can be because..." << endl;
+		cout << "  - There are no products whose name or category (partially) match your query." << endl;
+		cout << "  - You are not allowed to view rate 18+ / Mature Only products." << endl;
+		return;
+	}
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
 		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << endl;
@@ -52,10 +74,15 @@ void Buyer::ListProductByQuery(string _ProductName)
 
 void Buyer::AddOrder(string _ProductID)
 {
-	Product* x = ProductProvider::GetInstance().GetByID(_ProductID);
-	if (x == nullptr)
+	Product* _Product = ProductProvider::GetInstance().GetByID(_ProductID);
+	if (_Product == nullptr)
 	{
 		cout << "Product does not exist." << endl;
+		return;
+	}
+	if (!(this->GetAge() >= 18) && _Product->isR18())
+	{
+		cout << "This product is rated 18+ / Mature Only." << endl;
 		return;
 	}
 
@@ -63,7 +90,7 @@ void Buyer::AddOrder(string _ProductID)
 
 	NewOrder.ProductID(_ProductID);
 	NewOrder.BuyerID(this->ID());
-	NewOrder.SellerID(x->SellerID());
+	NewOrder.SellerID(_Product->SellerID());
 	NewOrder.OrderDate(Date::Today());
 	NewOrder.Status(SELLER_PENDING);
 	
@@ -77,7 +104,7 @@ void Buyer::AddOrder(string _ProductID)
 			cout << "Invalid amount." << endl;
 			continue;
 		}
-		if (stoi(_Quantity) > x->Stock())
+		if (stoi(_Quantity) > _Product->Stock())
 		{
 			cout << "Not enough stock." << endl;
 			continue;

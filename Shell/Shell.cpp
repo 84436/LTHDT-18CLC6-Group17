@@ -27,8 +27,6 @@ Shell::~Shell()
 
 void Shell::Loop()
 {
-	bool ShowLoginGreeter = true;
-
 	// Login
 	while (true)
 	{
@@ -97,6 +95,7 @@ void Shell::LogIn()
 		NewAccount('B');
 		system("PAUSE");
 		system("CLS");
+		ShowLoginGreeter = true;
 		return;
 	}
 
@@ -105,6 +104,7 @@ void Shell::LogIn()
 		NewAccount('S');
 		system("PAUSE");
 		system("CLS");
+		ShowLoginGreeter = true;
 		return;
 	}
 
@@ -113,6 +113,7 @@ void Shell::LogIn()
 		NewAccount('H');
 		system("PAUSE");
 		system("CLS");
+		ShowLoginGreeter = true;
 		return;
 	}
 
@@ -128,10 +129,12 @@ void Shell::LogIn()
 	{
 		this->_AccountID = _CurrentAccountID;
 		system("CLS");
+		ShowLoginGreeter = true;
 	}
 	else
 	{
 		cout << "Incorrect credentials. Try again." << endl << endl;
+		ShowLoginGreeter = false;
 	}
 }
 
@@ -176,6 +179,7 @@ void Shell::ShowHelp()
 	{
 	case 'B':
 		cout
+			<< "topup         : Top up your wallet" << endl
 			<< "psearch       : Search products" << endl
 			<< "plistbyseller : List products of a specific seller" << endl
 			<< "plookup       : Show details of a product" << endl
@@ -187,6 +191,7 @@ void Shell::ShowHelp()
 		break;
 	case 'S':
 		cout
+			<< "withdraw      : Withdraw from your wallet" << endl
 			<< "plist         : List all products that you own" << endl
 			<< "plookup       : Show details of a product that you own" << endl
 			<< "pnew          : Add a new product" << endl
@@ -201,6 +206,7 @@ void Shell::ShowHelp()
 		break;
 	case 'H':
 		cout
+			<< "withdraw      : Withdraw from your wallet" << endl
 			<< "ship          : Ship a product" << endl
 			<< "stats         : Get statistics by month" << endl
 			<< endl;
@@ -580,9 +586,14 @@ void Shell::WalletTopUp()
 	{
 		cout << "Amount: ";
 		getline(cin, _Amount);
+		if (stoll(_Amount) == 0)
+		{
+			cout << "Top up cancelled." << endl;
+			return;
+		}
 	} while
 	(
-		(stoll(_Amount) <= 0)
+		(stoll(_Amount) < 0)
 		&& (cout << "Invalid amount" << endl)
 	);
 	AccountProvider::GetInstance().GetBuyer(_AccountID)->Deposit(stoll(_Amount));

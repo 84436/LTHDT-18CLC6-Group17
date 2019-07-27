@@ -13,6 +13,7 @@ class Shell
 	// Shell itself
 	private:
 		string _AccountID;
+		bool ShowLoginGreeter = true;
 
 		// Command list: string-to-enum mapper
 		enum class c;
