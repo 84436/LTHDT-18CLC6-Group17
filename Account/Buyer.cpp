@@ -46,7 +46,7 @@ void Buyer::ListProductBySellerID(string _SellerID)
 	}
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
-		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << endl;
+		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << ((*i).Stock() == 0 ? " (OUT OF STOCK)" : "") << endl;
 	}
 }
 
@@ -68,7 +68,7 @@ void Buyer::ListProductByQuery(string _ProductName)
 	}
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
-		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << endl;
+		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << ((*i).Stock() == 0 ? " (OUT OF STOCK)" : "") << endl;
 	}
 }
 

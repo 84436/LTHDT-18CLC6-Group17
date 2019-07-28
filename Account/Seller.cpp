@@ -27,7 +27,8 @@ void Seller::ShowCategories()
 	int d = 1;
 	list<string> Categories = ProductProvider::GetInstance().Categories();
 	for (auto i = Categories.begin(); i != Categories.end(); ++i) {
-		cout << d << ". "; d++;
+		if (d == 17) break; // _INVALID CATEGORY_
+		cout << setw(2) << d << ". "; d++;
 		cout << (*i) << endl;
 	}
 }
@@ -37,7 +38,7 @@ void Seller::ListProduct()
 	list<Product> FilteredProducts = ProductProvider::GetInstance().ListBySellerID(this->ID(), true);
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
-		cout << (*i).ID() << ": Name = " << (*i).Name() << endl;
+		cout << (*i).ID() << ": Name = " << (*i).Name() << ((*i).Stock() == 0 ? " (OUT OF STOCK)" : "") << endl;
 	}
 }
 
@@ -56,32 +57,52 @@ void Seller::AddProduct()
 	Product _Product;
 	_Product.SellerID(this->ID());
 	string s;
+
+	cout << "Before adding a new product, be warned that:" << endl;
+	cout << "  - You cannot change its category" << endl;
+	cout << "  - You cannot remove a product" << endl;
+	cout << endl;
+
 	cout << "Available categories: " << endl; ShowCategories();
-	cout << "Category:                                    : ";	getline(cin, s);
+	do
+	{
+		cout << "Category [0 = cancel]                        : ";	getline(cin, s);
+		if (isEmptyString(s) || stoi(s) == 0)
+		{
+			cout << "Operation cancelled." << endl;
+			return;
+		}
+	}
+	while
+	(
+		(stoi(s) < 1 || stoi(s) > 16)
+		&& (cout << "Invalid category." << endl)
+	);
+	
 	switch (stoi(s))
 	{
-	case 1:		_Product.Category("Bakery");					break;
-	case 2:		_Product.Category("Beverage");					break;
-	case 3:		_Product.Category("Cleaning supplies");			break;
-	case 4:		_Product.Category("Computers & Electronics");	break;
-	case 5:		_Product.Category("Condiments");				break;
-	case 6:		_Product.Category("Dairy");						break;
-	case 7:		_Product.Category("Furniture");					break;
-	case 8:		_Product.Category("Gaming Gears");				break;
-	case 9:		_Product.Category("Grains & Staples");			break;
-	case 10:	_Product.Category("Healthcare");				break;
-	case 11:	_Product.Category("Home appliances");			break;
-	case 12:	_Product.Category("Meat & Seafood");			break;
-	case 13:	_Product.Category("Pre-processed Food");		break;
-	case 14:	_Product.Category("Produce");					break;
-	case 15:	_Product.Category("Snacks & Confectionery");	break;
-	case 16:	_Product.Category("Miscellaneous");				break;
-	default:
-		_Product.Category("_INVALID CATEGORY_");				break;
+		case 1:		_Product.Category("Bakery");					break;
+		case 2:		_Product.Category("Beverage");					break;
+		case 3:		_Product.Category("Cleaning supplies");			break;
+		case 4:		_Product.Category("Computers & Electronics");	break;
+		case 5:		_Product.Category("Condiments");				break;
+		case 6:		_Product.Category("Dairy");						break;
+		case 7:		_Product.Category("Furniture");					break;
+		case 8:		_Product.Category("Gaming Gears");				break;
+		case 9:		_Product.Category("Grains & Staples");			break;
+		case 10:	_Product.Category("Healthcare");				break;
+		case 11:	_Product.Category("Home appliances");			break;
+		case 12:	_Product.Category("Meat & Seafood");			break;
+		case 13:	_Product.Category("Pre-processed Food");		break;
+		case 14:	_Product.Category("Produce");					break;
+		case 15:	_Product.Category("Snacks & Confectionery");	break;
+		case 16:	_Product.Category("Miscellaneous");				break;
+		// This should never happen
+		default:    _Product.Category("_INVALID CATEGORY_");		break;
 	}
 
 	cout << "Name                                         : ";	getline(cin, s); _Product.Name(s);
-	cout << "Is R18? [\"true\" = true, otherwise = false]   : ";getline(cin, s); _Product.isR18(s == "true" ? true : false);
+	cout << "Is R18? [\"true\" = true, otherwise = false]   : "; getline(cin, s); _Product.isR18(s == "true" ? true : false);
 	cout << "Description                                  : ";	getline(cin, s); _Product.Description(s);
 	cout << "Price                                        : ";	getline(cin, s); _Product.Price(stoi(s));
 	cout << "Base stock                                   : ";	getline(cin, s); _Product.AddStock(stoi(s));
@@ -99,17 +120,6 @@ void Seller::EditProduct(string _ProductID)
 	ProductProvider::GetInstance().GetByID(_ProductID)->EditInfo();
 }
 
-void Seller::DeleteProduct(string _ProductID)
-{
-	if (!ProductProvider::isRelated(this->ID(), _ProductID))
-	{
-		cout << "Product not found" << endl;
-		return;
-	}
-
-	ProductProvider::GetInstance().Delete(_ProductID);
-}
-
 void Seller::AddStock(string _ProductID, int32_t _Amount)
 {
 	if (!ProductProvider::isRelated(this->ID(), _ProductID))
@@ -119,6 +129,17 @@ void Seller::AddStock(string _ProductID, int32_t _Amount)
 	}
 
 	ProductProvider::GetInstance().GetByID(_ProductID)->AddStock(_Amount);
+}
+
+void Seller::ClearStock(string _ProductID)
+{
+	if (!ProductProvider::isRelated(this->ID(), _ProductID))
+	{
+		cout << "Product not found" << endl;
+		return;
+	}
+
+	ProductProvider::GetInstance().GetByID(_ProductID)->Stock(0);
 }
 
 void Seller::ListShippers()

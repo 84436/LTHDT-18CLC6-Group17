@@ -29,7 +29,7 @@ class Product {
 		void    Name			(string Name)				{ this->_Name = Name; }
 		string  Category		()							{ return this->_Category; }
 		void    Category		(string Category)			{ this->_Category = Category; }
-		string  Description		()							{ return this->_Category; }
+		string  Description		()							{ return this->_Description; }
 		void    Description		(string Description)		{ this->_Description = Description; }
 		int32_t Stock			()							{ return this->_Stock; }
 		void    Stock			(int32_t Stock)				{ this->_Stock = Stock; }

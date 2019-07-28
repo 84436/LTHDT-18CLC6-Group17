@@ -196,8 +196,8 @@ void Shell::ShowHelp()
 			<< "plookup       : Show details of a product that you own" << endl
 			<< "pnew          : Add a new product" << endl
 			<< "pedit         : Edit a product" << endl
-			<< "pdelete       : Remove a product" << endl
 			<< "paddstock     : Re-stock a product" << endl
+			<< "pclearstock   : Clear stock of a product" << endl
 			<< "oaccept       : Accept an order from the buyers" << endl
 			<< "oreject       : Reject an order" << endl
 			<< "hlist         : List all shippers available" << endl
@@ -263,8 +263,8 @@ enum class Shell::c
 	psearch,
 	pnew,
 	pedit,
-	pdelete,
 	paddstock,
+	pclearstock,
 
 	// Order
 	olookup,
@@ -303,6 +303,9 @@ void Shell::cMapper_Init()
 	switch (_AccountID[0])
 	{
 		case 'B':
+			// BUYER - Account
+			cMapper["topup"] = c::wdeposit;
+
 			// BUYER - Products
 			cMapper["plookup"] = c::plookup;
 			cMapper["psearch"] = c::psearch;
@@ -312,7 +315,6 @@ void Shell::cMapper_Init()
 			cMapper["onew"] = c::onew;
 			cMapper["oaccept"] = c::oaccept;
 			cMapper["oreject"] = c::oreject;
-			cMapper["topup"] = c::wdeposit;
 			cMapper["orate"] = c::orate;
 			break;
 
@@ -326,8 +328,8 @@ void Shell::cMapper_Init()
 			cMapper["plist"] = c::plist;
 			cMapper["pnew"] = c::pnew;
 			cMapper["pedit"] = c::pedit;
-			cMapper["pdelete"] = c::pdelete;
 			cMapper["paddstock"] = c::paddstock;
+			cMapper["pclearstock"] = c::pclearstock;
 
 			// SELLER - Orders
 			cMapper["oaccept"] = c::oaccept;
@@ -337,8 +339,8 @@ void Shell::cMapper_Init()
 
 		case 'H':
 			// SHIPPER - Account
-			cMapper["stats"] = c::stats;
 			cMapper["withdraw"] = c::wwithdraw;
+			cMapper["stats"] = c::stats;
 
 			// SHIPPER - Orders
 			cMapper["ship"] = c::ship;
@@ -368,8 +370,8 @@ void Shell::Interpret(string _Command)
 		case c::psearch:		SearchProduct();			break;
 		case c::pnew:			AddProduct();				break;
 		case c::pedit:			EditProduct();				break;
-		case c::pdelete:		DeleteProduct();			break;
 		case c::paddstock:		AddStock();					break;
+		case c::pclearstock:	ClearStock();				break;
 
 		case c::olist:			ListOrder();				break;
 		case c::olistpend:		ListPendingOrder();			break;
@@ -644,13 +646,6 @@ void Shell::EditProduct()
 	AccountProvider::GetInstance().GetSeller(_AccountID)->EditProduct(_ProductID);
 }
 
-void Shell::DeleteProduct()
-{
-	string _ProductID;
-	cout << "Product ID: "; getline(cin, _ProductID);
-	AccountProvider::GetInstance().GetSeller(_AccountID)->DeleteProduct(_ProductID);
-}
-
 void Shell::AddStock()
 {
 	string _ProductID;
@@ -668,6 +663,14 @@ void Shell::AddStock()
 	);
 
 	AccountProvider::GetInstance().GetSeller(_AccountID)->AddStock(_ProductID, stoi(_Amount));
+}
+
+void Shell::ClearStock()
+{
+	string _ProductID;
+	cout << "Product ID: "; getline(cin, _ProductID);
+
+	AccountProvider::GetInstance().GetSeller(_AccountID)->ClearStock(_ProductID);
 }
 
 void Shell::ListShippers()

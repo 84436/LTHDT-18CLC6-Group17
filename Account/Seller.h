@@ -28,8 +28,8 @@ class Seller : public Account
 		void GetProductByID(string _ProductID);
 		void AddProduct();
 		void EditProduct(string _ProductID);
-		void DeleteProduct(string _ProductID);
 		void AddStock(string _ProductID, int32_t _Amount);
+		void ClearStock(string _ProductID);
 
 		void ListShippers();
 

@@ -34,7 +34,6 @@ void Product::EditInfo()
 	string s;
 	cout << "Name [" << this->Name() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Name(s); s.clear();
 	cout << "Is R18? [" << (this->isR18() ? "true" : "false") << "] : "; getline(cin, s); if (!isEmptyString(s)) this->isR18(s == "true" ? true : false); s.clear();
-	cout << "Category [" << this->Category() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Category(s); s.clear();
 	cout << "Description [" << this->Description() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Description(s); s.clear();
 	cout << "Price [" << this->Price() << "] : "; getline(cin, s); if (!isEmptyString(s)) this->Price(stoi(s)); s.clear();
 }

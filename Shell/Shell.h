@@ -53,8 +53,8 @@ class Shell
 		void ListProductBySeller();
 		void AddProduct();
 		void EditProduct();
-		void DeleteProduct();
 		void AddStock();
+		void ClearStock();
 
 		// Callbacks: Shippers/Stats
 		void ListShippers();
