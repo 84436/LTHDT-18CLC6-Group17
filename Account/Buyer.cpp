@@ -85,6 +85,11 @@ void Buyer::AddOrder(string _ProductID)
 		cout << "This product is rated 18+ / Mature Only." << endl;
 		return;
 	}
+	if (_Product->Stock() == 0)
+	{
+		cout << "This product is out of stock." << endl;
+		return;
+	}
 
 	Order NewOrder;
 
@@ -97,9 +102,14 @@ void Buyer::AddOrder(string _ProductID)
 	string _Quantity;
 	while (true)
 	{
-		cout << "Quantity: ";
+		cout << "Quantity [0 = cancel order]: ";
 		getline(cin, _Quantity);
-		if (stoi(_Quantity) <= 0)
+		if (isEmptyString(_Quantity) || stoi(_Quantity) == 0)
+		{
+			cout << "Order aborted." << endl;
+			return;
+		}
+		if (stoi(_Quantity) < 0)
 		{
 			cout << "Invalid amount." << endl;
 			continue;

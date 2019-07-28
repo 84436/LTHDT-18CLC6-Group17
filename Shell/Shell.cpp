@@ -584,9 +584,9 @@ void Shell::WalletTopUp()
 	string _Amount;
 	do
 	{
-		cout << "Amount: ";
+		cout << "Amount [0 = cancel]: ";
 		getline(cin, _Amount);
-		if (stoll(_Amount) == 0)
+		if (isEmptyString(_Amount) || stoll(_Amount) == 0)
 		{
 			cout << "Top up cancelled." << endl;
 			return;

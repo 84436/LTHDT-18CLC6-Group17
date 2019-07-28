@@ -24,7 +24,7 @@ void Product::GetInfo()
 	cout << "Is R18?    : " << (_isR18 ? "true" : "false") << endl;
 	cout << "Category   : " << _Category << endl;
 	cout << "Decription : " << _Description << endl;
-	cout << "Stock      : " << _Stock << endl;
+	cout << "Stock      : " << (_Stock == 0 ? "OUT OF STOCK" : to_string(_Stock)) << endl;
 	cout << "Price      : " << _Price << endl;
 	cout << "Rate       : " << Rate() << endl;
 }

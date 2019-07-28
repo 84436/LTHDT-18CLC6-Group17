@@ -136,7 +136,7 @@ void Seller::AcceptOrder(string _OrderID)
 	}
 	while
 	(
-		(stoll(_ShippingFee) < 0)
+		(isEmptyString(_ShippingFee) || stoll(_ShippingFee) < 0)
 		&& (cout << "Invalid shipping fee." << endl)
 	);
 	_Order->ShippingFee(stoll(_ShippingFee));
@@ -237,7 +237,7 @@ void Seller::StatsByMonth(int16_t _Year, int8_t _Month)
 		}
 	}
 
-	cout << "Overview for " << Date::Month_String(_Month) << ":" << endl;
+	cout << "Overview for " << Date::Month_String(_Month) << " " << to_string(_Year) << ":" << endl;
 	if (FilteredOrders.size() == 0)
 	{
 		cout << "There are no orders for this month." << endl;
@@ -252,7 +252,7 @@ void Seller::StatsByMonth(int16_t _Year, int8_t _Month)
 		bool Found = false;
 		for (auto j = StatTable.begin(); j != StatTable.end(); ++j)
 		{
-			if ((*j).ProductID == (*i).ID())
+			if ((*j).ProductID == (*i).ProductID())
 			{
 				Found = true;
 				(*j).Quantity += (*i).Quantity();
@@ -262,7 +262,7 @@ void Seller::StatsByMonth(int16_t _Year, int8_t _Month)
 		}
 		if (!Found)
 		{
-			StatTable.insert(StatTable.end(), { (*i).ID(), (*i).Quantity(), (*i).TotalPrice() - (*i).ShippingFee() });
+			StatTable.insert(StatTable.end(), { (*i).ProductID(), (*i).Quantity(), (*i).TotalPrice() - (*i).ShippingFee() });
 		}
 	}
 
