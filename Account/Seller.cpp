@@ -270,7 +270,7 @@ void Seller::StatsByMonth(int16_t _Year, int8_t _Month)
 	for (auto i = StatTable.begin(); i != StatTable.end(); ++i)
 	{
 		cout << (*i).ProductID;
-		//cout << " (" << ProductProvider::GetInstance().GetByID((*i).ProductID)->Name() << ") ";
+		cout << " (" << ProductProvider::GetInstance().GetByID((*i).ProductID)->Name() << ") ";
 		cout << " : ";
 		cout << "Quantity = " << (*i).Quantity << "; ";
 		cout << "Revenue = " << (*i).TotalTotalPrice << endl;
