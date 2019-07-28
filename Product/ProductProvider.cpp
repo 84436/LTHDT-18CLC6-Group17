@@ -62,6 +62,13 @@ void ProductProvider::ReadFile()
 	// New ID counter
 	NewProductIDCounter = File["COUNTERS"]["PRODUCT"];
 
+
+	// Shipping fee table
+	for (auto i = File["CATEGORIES"].begin(); i != File["CATEGORIES"].end(); ++i)
+	{
+		ShippingFeeTable[i.key()] = i.value();
+	}
+
 	f.close();
 }
 
@@ -186,6 +193,11 @@ list<Product> ProductProvider::ListByQuery(string _Query, bool _isR18)
 	if (!_isR18) _Products.remove_if(ProductProvider::isR18);
 
 	return _Products;
+}
+
+int ProductProvider::GetShippingFee(string _Category)
+{
+	return ShippingFeeTable[_Category];
 }
 
 list<Product> ProductProvider::ListBySellerID(string _SellerID, bool _isR18)

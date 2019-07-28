@@ -63,6 +63,24 @@
       "YOB": 1980
     }
   },
+  "CATEGORIES": {
+    "Bakery": 32000,
+    "Beverage": 39000,
+    "Cleaning supplies": 20000,
+    "Computers & Electronics": 47000,
+    "Condiments": 2000,
+    "Dairy": 26000,
+    "Furniture": 120000,
+    "Gaming Gears": 70000,
+    "Grains & Staples": 31000,
+    "Healthcare": 37000,
+    "Home appliances": 50000,
+    "Meat & Seafood": 40000,
+    "Miscellaneous": 10000,
+    "Pre-processed Food": 24000,
+    "Produce": 19000,
+    "Snacks & Confectionery": 27000
+  },
   "COUNTERS": {
     "BUYER": 3,
     "ORDER": 1,
@@ -81,7 +99,7 @@
   "ORDERS": {},
   "PRODUCTS": {
     "P0001": {
-      "Category": "Adult",
+      "Category": "Miscellaneous ",
       "Description": "Premium sextay from Duc's",
       "Name": "Duc's Premium Sextay",
       "Price": 6900000,
@@ -97,7 +115,7 @@
       "isR18": false
     },
     "P0002": {
-      "Category": "Food",
+      "Category": "Produce",
       "Description": "Fresh bananas from HaiLua's",
       "Name": "Banana",
       "Price": 10000,
@@ -129,7 +147,7 @@
       "isR18": false
     },
     "P0004": {
-      "Category": "Food",
+      "Category": "Meat & Seafood",
       "Description": "Japan's finest red meat (wait is it red meat?)",
       "Name": "Kobe Beef",
       "Price": 50000,
@@ -145,7 +163,7 @@
       "isR18": false
     },
     "P0005": {
-      "Category": "Food",
+      "Category": "Produce",
       "Description": "Fresh cherries, imported daily from US farms",
       "Name": "Cherry",
       "Price": 300000,
@@ -161,7 +179,7 @@
       "isR18": false
     },
     "P0006": {
-      "Category": "Grocery",
+      "Category": "Healthcare",
       "Description": "Normal shampoo for Your Normal Hair",
       "Name": "Shampoo",
       "Price": 120000,
@@ -177,7 +195,7 @@
       "isR18": false
     },
     "P0007": {
-      "Category": "Fashion",
+      "Category": "Miscellaneous",
       "Description": "Kinda-luxury glasses from nowhere",
       "Name": "Glasses",
       "Price": 150000,
@@ -193,7 +211,7 @@
       "isR18": false
     },
     "P0008": {
-      "Category": "Food",
+      "Category": "Produce",
       "Description": "Coconut from Ben Tre",
       "Name": "Coconut",
       "Price": 12000,
