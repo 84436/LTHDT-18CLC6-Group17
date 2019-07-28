@@ -23,6 +23,7 @@ class Seller : public Account
 		void AcceptOrder(string _OrderID); 
 		void RejectOrder(string _OrderID); 
 
+		void ShowCategories();
 		void ListProduct();
 		void GetProductByID(string _ProductID);
 		void AddProduct();

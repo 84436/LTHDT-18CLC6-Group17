@@ -96,6 +96,7 @@ void Buyer::AddOrder(string _ProductID)
 	NewOrder.ProductID(_ProductID);
 	NewOrder.BuyerID(this->ID());
 	NewOrder.SellerID(_Product->SellerID());
+	NewOrder.ShippingFee(ProductProvider::GetInstance().GetShippingFee(_Product->Category()));
 	NewOrder.OrderDate(Date::Today());
 	NewOrder.Status(SELLER_PENDING);
 	

@@ -29,4 +29,5 @@ class ProductProvider
 		list<Product> ListBySellerID(string _SellerID, bool _isR18);
 		list<Product> ListByQuery(string _Query, bool _isR18);
 		int64_t GetShippingFee(string _Category);
+		list<string> Categories();
 };

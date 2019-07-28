@@ -195,9 +195,18 @@ list<Product> ProductProvider::ListByQuery(string _Query, bool _isR18)
 	return _Products;
 }
 
-int ProductProvider::GetShippingFee(string _Category)
+int64_t ProductProvider::GetShippingFee(string _Category)
 {
 	return ShippingFeeTable[_Category];
+}
+
+list<string> ProductProvider::Categories()
+{
+	list<string> Categories;
+	for (map<string, int64_t>::iterator it = ShippingFeeTable.begin(); it != ShippingFeeTable.end(); ++it) {
+		Categories.push_back(it->first);
+	}
+	return Categories;
 }
 
 list<Product> ProductProvider::ListBySellerID(string _SellerID, bool _isR18)

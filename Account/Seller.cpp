@@ -22,6 +22,16 @@ void Seller::GetInfo()
 	cout << "Rating        : " << this->GetRate() << endl;
 }
 
+void Seller::ShowCategories()
+{
+	int d = 1;
+	list<string> Categories = ProductProvider::GetInstance().Categories();
+	for (auto i = Categories.begin(); i != Categories.end(); ++i) {
+		cout << d << ". "; d++;
+		cout << (*i) << endl;
+	}
+}
+
 void Seller::ListProduct()
 {
 	list<Product> FilteredProducts = ProductProvider::GetInstance().ListBySellerID(this->ID(), true);
@@ -46,9 +56,32 @@ void Seller::AddProduct()
 	Product _Product;
 	_Product.SellerID(this->ID());
 	string s;
+	cout << "Available categories: " << endl; ShowCategories();
+	cout << "Category:                                    : ";	getline(cin, s);
+	switch (stoi(s))
+	{
+	case 1:		_Product.Category("Bakery");					break;
+	case 2:		_Product.Category("Beverage");					break;
+	case 3:		_Product.Category("Cleaning supplies");			break;
+	case 4:		_Product.Category("Computers & Electronics");	break;
+	case 5:		_Product.Category("Condiments");				break;
+	case 6:		_Product.Category("Dairy");						break;
+	case 7:		_Product.Category("Furniture");					break;
+	case 8:		_Product.Category("Gaming Gears");				break;
+	case 9:		_Product.Category("Grains & Staples");			break;
+	case 10:	_Product.Category("Healthcare");				break;
+	case 11:	_Product.Category("Home appliances");			break;
+	case 12:	_Product.Category("Meat & Seafood");			break;
+	case 13:	_Product.Category("Pre-processed Food");		break;
+	case 14:	_Product.Category("Produce");					break;
+	case 15:	_Product.Category("Snacks & Confectionery");	break;
+	case 16:	_Product.Category("Miscellaneous");				break;
+	default:
+		_Product.Category("_INVALID CATEGORY_");				break;
+	}
+
 	cout << "Name                                         : ";	getline(cin, s); _Product.Name(s);
-	cout << "Is R18? [\"true\" = true, otherwise = false]  : ";	getline(cin, s); _Product.isR18(s == "true" ? true : false);
-	cout << "Category                                     : ";	getline(cin, s); _Product.Category(s);
+	cout << "Is R18? [\"true\" = true, otherwise = false]   : ";getline(cin, s); _Product.isR18(s == "true" ? true : false);
 	cout << "Description                                  : ";	getline(cin, s); _Product.Description(s);
 	cout << "Price                                        : ";	getline(cin, s); _Product.Price(stoi(s));
 	cout << "Base stock                                   : ";	getline(cin, s); _Product.AddStock(stoi(s));
@@ -127,19 +160,6 @@ void Seller::AcceptOrder(string _OrderID)
 		&& (cout << "Invalid shipper ID." << endl)
 	);
 	_Order->ShipperID(_ShipperID);
-
-	string _ShippingFee;
-	do
-	{
-		cout << "Shipping fee: ";
-		getline(cin, _ShippingFee);
-	}
-	while
-	(
-		(isEmptyString(_ShippingFee) || stoll(_ShippingFee) < 0)
-		&& (cout << "Invalid shipping fee." << endl)
-	);
-	_Order->ShippingFee(stoll(_ShippingFee));
 
 	string _PriceCoeff;
 	do
