@@ -76,10 +76,10 @@
     "Healthcare": 37000,
     "Home appliances": 50000,
     "Meat & Seafood": 40000,
-    "Miscellaneous": 10000,
     "Pre-processed Food": 24000,
     "Produce": 19000,
-    "Snacks & Confectionery": 27000
+    "Snacks & Confectionery": 27000,
+    "Miscellaneous": 10000
   },
   "COUNTERS": {
     "BUYER": 3,
