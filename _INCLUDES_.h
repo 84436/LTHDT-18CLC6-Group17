@@ -34,7 +34,7 @@ class ProductProvider;
 class OrderProvider;
 
 // Constants
-auto constexpr DATABASE_PATH = "D:/db.json";
+auto constexpr DATABASE_PATH = "D:/Visual studio 2017/LTHDT-18CLC6-Group17/db.json";
 
 // Inline string helpers
 inline bool isEmptyString(const string& s)
