@@ -147,7 +147,7 @@ bool LoginProvider::Login(string _ID, string _HashedPassword)
 {
 	for (auto i = PasswordHashes.begin(); i != PasswordHashes.end(); ++i)
 	{
-		if (ToLower(i->ID) == ToLower(_ID))
+		if ((i->ID) == _ID)
 		{
 			return (i->Hash == _HashedPassword);
 		}
