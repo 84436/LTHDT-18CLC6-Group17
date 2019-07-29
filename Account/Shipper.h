@@ -13,5 +13,5 @@ class Shipper : public Account
 
 		void FinishOrder(string _OrderID);
 
-		void StatsByMonth(uint8_t _Month);
+		void StatsByMonth(int16_t _Year,int8_t _Month);
 };

@@ -42,8 +42,14 @@ void Shipper::FinishOrder(string _OrderID)
 	ProductProvider::GetInstance().GetByID(_Order->ProductID())->RemoveStock(_Order->Quantity());
 }
 
-void Shipper::StatsByMonth(uint8_t _Month)
+void Shipper::StatsByMonth(int16_t _Year ,int8_t _Month)
 {
+	if (_Year < 1900 || _Year > Date::Today().Year)
+	{
+		cout << "Invalid year." << endl;
+		return;
+	}
+
 	if (_Month < 1 || _Month > 12)
 	{
 		cout << "Invalid month" << endl;
@@ -55,14 +61,21 @@ void Shipper::StatsByMonth(uint8_t _Month)
 	{
 		if ((*i).ShippingDate().Month != _Month) FilteredOrders.erase(i);
 	}
-
+	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
+	{
+		cout << "Order ID: " << (*i).ID() << endl;
+		cout << "Shipper Fee: " << (*i).ShippingFee() << endl;
+	}
 	// What month is it?
 
 	// Total $
-	int64_t Total = 0;
+	int64_t TotalF = 0;
+	int64_t TotalL = 0;
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
 	{
-		Total += (*i).ShippingFee();
+		TotalF += (*i).ShippingFee();
+		TotalL++;
 	}
-	cout << "Total income = " << Total << endl;
+	cout << "Total List = " << TotalL << endl;
+	cout << "Total Fee income = " << TotalF << endl;
 }

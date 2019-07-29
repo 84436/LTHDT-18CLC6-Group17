@@ -1,230 +1,252 @@
 {
-  "ACCOUNTS": {
-    "B0001": {
-      "Address": "1 Buyers' Street, District 8, HCM City",
-      "Balance": 1500000,
-      "Email": "ab.nguyen@project.banana",
-      "Name": "Nguyen Van AB",
-      "Phone": "+84-52-466-1968",
-      "YOB": 1975
+    "ACCOUNTS": {
+        "B0001": {
+            "Address": "1 Buyers' Street, District 8, HCM City",
+            "Balance": 1410000,
+            "Email": "ab.nguyen@project.banana",
+            "Name": "Nguyen Van AB",
+            "Phone": "+84-52-466-1968",
+            "YOB": 1975
+        },
+        "B0002": {
+            "Address": "2 Buyers' Street, District 10, HCM City",
+            "Balance": 2000000,
+            "Email": "cd.tran@project.banana",
+            "Name": "Tran Van CD",
+            "Phone": "+84-52-151-3245",
+            "YOB": 2005
+        },
+        "H0001": {
+            "Address": "1 Shippers' Street, Thu Duc District, City",
+            "Balance": 40000,
+            "Email": "lien.vo@project.banana",
+            "Name": "Lien Vo",
+            "Phone": "+84-52-275-3157",
+            "YOB": 1979
+        },
+        "H0002": {
+            "Address": "2 Shippers' Street, District 7, HCM City",
+            "Balance": 0,
+            "Email": "ngo.phan@project.banana",
+            "Name": "Phan Dang Quang Ngo",
+            "Phone": "+84-52-937-5300",
+            "YOB": 2000
+        },
+        "S0001": {
+            "Address": "1 Sellers' Street, District 10, HCM City",
+            "Balance": 0,
+            "Email": "ef.le@project.banana",
+            "Name": "Le Thi EF",
+            "Phone": "+84-52-623-7511",
+            "Rating": [
+                0,
+                0,
+                1,
+                3,
+                4
+            ],
+            "YOB": 1990
+        },
+        "S0002": {
+            "Address": "2 Sellers' Street, District 3, HCM City",
+            "Balance": 50000,
+            "Email": "not.soobin@project.banana",
+            "Name": "Khong phai Soobin Hoang Son",
+            "Phone": "+84-52-175-7068",
+            "Rating": [
+                0,
+                2,
+                0,
+                2,
+                3
+            ],
+            "YOB": 1980
+        }
     },
-    "B0002": {
-      "Address": "2 Buyers' Street, District 10, HCM City",
-      "Balance": 2000000,
-      "Email": "cd.tran@project.banana",
-      "Name": "Tran Van CD",
-      "Phone": "+84-52-151-3245",
-      "YOB": 2005
+    "CATEGORIES": {
+        "Bakery": 32000,
+        "Beverage": 39000,
+        "Cleaning supplies": 20000,
+        "Computers & Electronics": 47000,
+        "Condiments": 2000,
+        "Dairy": 26000,
+        "Furniture": 120000,
+        "Gaming Gears": 70000,
+        "Grains & Staples": 31000,
+        "Healthcare": 37000,
+        "Home appliances": 50000,
+        "Meat & Seafood": 40000,
+        "Miscellaneous": 10000,
+        "Pre-processed Food": 24000,
+        "Produce": 19000,
+        "Snacks & Confectionery": 27000
     },
-    "H0001": {
-      "Address": "1 Shippers' Street, Thu Duc District, City",
-      "Balance": 0,
-      "Email": "lien.vo@project.banana",
-      "Name": "Lien Vo",
-      "Phone": "+84-52-275-3157",
-      "YOB": 1979
+    "COUNTERS": {
+        "BUYER": 3,
+        "ORDER": 2,
+        "PRODUCT": 9,
+        "SELLER": 3,
+        "SHIPPER": 3
     },
-    "H0002": {
-      "Address": "2 Shippers' Street, District 7, HCM City",
-      "Balance": 0,
-      "Email": "ngo.phan@project.banana",
-      "Name": "Phan Dang Quang Ngo",
-      "Phone": "+84-52-937-5300",
-      "YOB": 2000
+    "HASHES": {
+        "B0001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "B0002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "H0001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "H0002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "S0001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "S0002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
-    "S0001": {
-      "Address": "1 Sellers' Street, District 10, HCM City",
-      "Balance": 0,
-      "Email": "ef.le@project.banana",
-      "Name": "Le Thi EF",
-      "Phone": "+84-52-623-7511",
-      "Rating": [
-        0,
-        0,
-        1,
-        3,
-        4
-      ],
-      "YOB": 1990
+    "ORDERS": {
+        "O0001": {
+            "BuyerID": "B0001",
+            "Note": "",
+            "OrderDate": [
+                29,
+                7,
+                2019
+            ],
+            "PriceCoeff": 1.0,
+            "ProductID": "P0004",
+            "Quantity": 1,
+            "SellerID": "S0002",
+            "ShipperID": "H0001",
+            "ShippingDate": [
+                29,
+                7,
+                2019
+            ],
+            "ShippingFee": 40000,
+            "Status": 0
+        }
     },
-    "S0002": {
-      "Address": "2 Sellers' Street, District 3, HCM City",
-      "Balance": 0,
-      "Email": "not.soobin@project.banana",
-      "Name": "Khong phai Soobin Hoang Son",
-      "Phone": "+84-52-175-7068",
-      "Rating": [
-        0,
-        2,
-        0,
-        2,
-        3
-      ],
-      "YOB": 1980
+    "PRODUCTS": {
+        "P0001": {
+            "Category": "Miscellaneous ",
+            "Description": "Premium sextay from Duc's",
+            "Name": "Duc's Premium Sextay",
+            "Price": 6900000,
+            "Rating": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "SellerID": "S0001",
+            "Stock": 7,
+            "isR18": false
+        },
+        "P0002": {
+            "Category": "Produce",
+            "Description": "Fresh bananas from HaiLua's",
+            "Name": "Banana",
+            "Price": 10000,
+            "Rating": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "SellerID": "S0002",
+            "Stock": 100,
+            "isR18": false
+        },
+        "P0003": {
+            "Category": "Furniture",
+            "Description": "Comfy bed",
+            "Name": "Bed",
+            "Price": 1000000,
+            "Rating": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "SellerID": "S0001",
+            "Stock": 3,
+            "isR18": false
+        },
+        "P0004": {
+            "Category": "Meat & Seafood",
+            "Description": "Japan's finest red meat (wait is it red meat?)",
+            "Name": "Kobe Beef",
+            "Price": 50000,
+            "Rating": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "SellerID": "S0002",
+            "Stock": 9,
+            "isR18": false
+        },
+        "P0005": {
+            "Category": "Produce",
+            "Description": "Fresh cherries, imported daily from US farms",
+            "Name": "Cherry",
+            "Price": 300000,
+            "Rating": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "SellerID": "S0002",
+            "Stock": 10,
+            "isR18": false
+        },
+        "P0006": {
+            "Category": "Healthcare",
+            "Description": "Normal shampoo for Your Normal Hair",
+            "Name": "Shampoo",
+            "Price": 120000,
+            "Rating": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "SellerID": "S0001",
+            "Stock": 10,
+            "isR18": false
+        },
+        "P0007": {
+            "Category": "Miscellaneous",
+            "Description": "Kinda-luxury glasses from nowhere",
+            "Name": "Glasses",
+            "Price": 150000,
+            "Rating": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "SellerID": "S0001",
+            "Stock": 10,
+            "isR18": false
+        },
+        "P0008": {
+            "Category": "Produce",
+            "Description": "Coconut from Ben Tre",
+            "Name": "Coconut",
+            "Price": 12000,
+            "Rating": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "SellerID": "S0002",
+            "Stock": 0,
+            "isR18": false
+        }
     }
-  },
-  "CATEGORIES": {
-    "Bakery": 32000,
-    "Beverage": 39000,
-    "Cleaning supplies": 20000,
-    "Computers & Electronics": 47000,
-    "Condiments": 2000,
-    "Dairy": 26000,
-    "Furniture": 120000,
-    "Gaming Gears": 70000,
-    "Grains & Staples": 31000,
-    "Healthcare": 37000,
-    "Home appliances": 50000,
-    "Meat & Seafood": 40000,
-    "Pre-processed Food": 24000,
-    "Produce": 19000,
-    "Snacks & Confectionery": 27000,
-    "Miscellaneous": 10000
-  },
-  "COUNTERS": {
-    "BUYER": 3,
-    "ORDER": 1,
-    "PRODUCT": 9,
-    "SELLER": 3,
-    "SHIPPER": 3
-  },
-  "HASHES": {
-    "B0001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "B0002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "H0001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "H0002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "S0001": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "S0002": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  "ORDERS": {},
-  "PRODUCTS": {
-    "P0001": {
-      "Category": "Miscellaneous ",
-      "Description": "Premium sextay from Duc's",
-      "Name": "Duc's Premium Sextay",
-      "Price": 6900000,
-      "Rating": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "SellerID": "S0001",
-      "Stock": 7,
-      "isR18": false
-    },
-    "P0002": {
-      "Category": "Produce",
-      "Description": "Fresh bananas from HaiLua's",
-      "Name": "Banana",
-      "Price": 10000,
-      "Rating": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "SellerID": "S0002",
-      "Stock": 100,
-      "isR18": false
-    },
-    "P0003": {
-      "Category": "Furniture",
-      "Description": "Comfy bed",
-      "Name": "Bed",
-      "Price": 1000000,
-      "Rating": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "SellerID": "S0001",
-      "Stock": 3,
-      "isR18": false
-    },
-    "P0004": {
-      "Category": "Meat & Seafood",
-      "Description": "Japan's finest red meat (wait is it red meat?)",
-      "Name": "Kobe Beef",
-      "Price": 50000,
-      "Rating": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "SellerID": "S0002",
-      "Stock": 10,
-      "isR18": false
-    },
-    "P0005": {
-      "Category": "Produce",
-      "Description": "Fresh cherries, imported daily from US farms",
-      "Name": "Cherry",
-      "Price": 300000,
-      "Rating": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "SellerID": "S0002",
-      "Stock": 10,
-      "isR18": false
-    },
-    "P0006": {
-      "Category": "Healthcare",
-      "Description": "Normal shampoo for Your Normal Hair",
-      "Name": "Shampoo",
-      "Price": 120000,
-      "Rating": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "SellerID": "S0001",
-      "Stock": 10,
-      "isR18": false
-    },
-    "P0007": {
-      "Category": "Miscellaneous",
-      "Description": "Kinda-luxury glasses from nowhere",
-      "Name": "Glasses",
-      "Price": 150000,
-      "Rating": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "SellerID": "S0001",
-      "Stock": 10,
-      "isR18": false
-    },
-    "P0008": {
-      "Category": "Produce",
-      "Description": "Coconut from Ben Tre",
-      "Name": "Coconut",
-      "Price": 12000,
-      "Rating": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "SellerID": "S0002",
-      "Stock": 0,
-      "isR18": false
-    }
-  }
 }

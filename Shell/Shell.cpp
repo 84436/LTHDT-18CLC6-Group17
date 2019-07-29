@@ -714,7 +714,7 @@ void Shell::Stats()
 			AccountProvider::GetInstance().GetSeller(_AccountID)->StatsByMonth(stoi(_Year), stoi(_Month));
 			break;
 		case 'H':
-			// AccountProvider::GetInstance().GetShipper(_AccountID)->StatsByMonth(stoi(_Year), stoi(_Month));
+			AccountProvider::GetInstance().GetShipper(_AccountID)->StatsByMonth(stoi(_Year), stoi(_Month));
 			break;
 	}
 }
