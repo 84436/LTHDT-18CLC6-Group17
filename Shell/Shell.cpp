@@ -78,9 +78,9 @@ void Shell::Loop()
 
 void Shell::LoginGreeter()
 {
-	cout << "Group 19: project-banana (ALPHA/BETA/GAMMA)" << endl;
-	cout << "\"Sao nhieu bug qua vay :<\" -- Phung 2k19" << endl;
-	cout << "newbuyer | newseller | newshipper | exit, or alternatively enter your login." << endl;
+	cout << "Group 19: project-banana" << endl << endl;
+	cout << "Available commands: newbuyer, newseller, newshipper, exit" << endl;
+	cout << "Alternatively, enter your login." << endl;
 	cout << endl;
 }
 

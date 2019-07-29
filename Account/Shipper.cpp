@@ -59,23 +59,33 @@ void Shipper::StatsByMonth(int16_t _Year ,int8_t _Month)
 	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
 	{
-		if ((*i).ShippingDate().Month != _Month) FilteredOrders.erase(i);
+		if ((*i).ShippingDate().Month != _Month || (*i).Status() != COMPLETED)
+		{
+			FilteredOrders.erase(i);
+			if (FilteredOrders.size() == 0) break;
+			else i = FilteredOrders.begin();
+		}
 	}
+
+	cout << "Overview for " << Date::Month_String(_Month) << " " << to_string(_Year) << ":" << endl;
+	if (FilteredOrders.size() == 0)
+	{
+		cout << "There are no orders for this month." << endl;
+		return;
+	}
+	cout << endl;
+
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
 	{
-		cout << "Order ID: " << (*i).ID() << endl;
-		cout << "Shipper Fee: " << (*i).ShippingFee() << endl;
+		cout << "Order " << (*i).ID() << " : Shipping fee = " << (*i).ShippingFee() << endl;
 	}
-	// What month is it?
 
 	// Total $
-	int64_t TotalF = 0;
-	int64_t TotalL = 0;
+	int64_t TotalShippingFee = 0;
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
 	{
-		TotalF += (*i).ShippingFee();
-		TotalL++;
+		TotalShippingFee += (*i).ShippingFee();
 	}
-	cout << "Total List = " << TotalL << endl;
-	cout << "Total Fee income = " << TotalF << endl;
+	cout << "Total order count = " << FilteredOrders.size() << endl;
+	cout << "Total shipping fee = " << TotalShippingFee << endl;
 }

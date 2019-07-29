@@ -36,9 +36,10 @@ void Seller::ShowCategories()
 void Seller::ListProduct()
 {
 	list<Product> FilteredProducts = ProductProvider::GetInstance().ListBySellerID(this->ID(), true);
+	cout << "Columm order: Product ID | Category | Name" << endl;
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
-		cout << (*i).ID() << ": Name = " << (*i).Name() << ((*i).Stock() == 0 ? " (OUT OF STOCK)" : "") << endl;
+		cout << (*i).ID() << " | " << left << setw(30) << (*i).Category() << " | " << (*i).Name() << ((*i).Stock() == 0 ? " (OUT OF STOCK)" : "") << endl;
 	}
 }
 
@@ -161,7 +162,11 @@ void Seller::AcceptOrder(string _OrderID)
 	
 	if (_Order->Status() != SELLER_PENDING)
 	{
-		cout << "This order is waiting for delivery, completed or cancelled." << endl;
+		cout << "You cannot accept an order in the following conditions:" << endl;
+		cout << "  - The order was previously rejected by the buyer or yourself." << endl;
+		cout << "  - The order has already been approved." << endl;
+		cout << "  - The order is waiting for delivery." << endl;
+		cout << "  - The order has already been completed." << endl;
 		return;
 	}
 
@@ -215,7 +220,11 @@ void Seller::RejectOrder(string _OrderID)
 
 	if (_Order->Status() != SELLER_PENDING)
 	{
-		cout << "This order is waiting for delivery, completed or cancelled." << endl;
+		cout << "You cannot accept an order in the following conditions:" << endl;
+		cout << "  - The order was previously rejected by the buyer or yourself." << endl;
+		cout << "  - The order has already been approved." << endl;
+		cout << "  - The order is waiting for delivery." << endl;
+		cout << "  - The order has already been completed." << endl;
 		return;
 	}
 
@@ -271,10 +280,11 @@ void Seller::StatsByMonth(int16_t _Year, int8_t _Month)
 	list<Order> FilteredOrders = OrderProvider::GetInstance().ListByAccountID(this->ID());
 	for (auto i = FilteredOrders.begin(); i != FilteredOrders.end(); ++i)
 	{
-		if ((*i).ShippingDate().Month != _Month)
+		if ((*i).ShippingDate().Month != _Month || (*i).Status() != COMPLETED)
 		{
 			FilteredOrders.erase(i);
-			i = FilteredOrders.begin();
+			if (FilteredOrders.size() == 0) break;
+			else i = FilteredOrders.begin();
 		}
 	}
 
@@ -342,20 +352,4 @@ void Seller::StatsByMonth(int16_t _Year, int8_t _Month)
 	cout << " : ";
 	cout << "Quantity = " << BestSeller.Quantity << "; ";
 	cout << "Revenue = " << BestSeller.TotalTotalPrice << endl;
-}
-
-void Seller::CancelOrder(string _OrderID)
-{
-	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
-	if (_Order == nullptr) {
-		cout << "Order does not exist." << endl;
-		return;
-	}
-	if (_Order->Status() == SELLER_PENDING) {
-		_Order->Status(SELLER_CANCELLED);
-	}
-	else {
-		cout << "Can not cancel order now" << endl;
-		return;
-	}
 }

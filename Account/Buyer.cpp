@@ -41,12 +41,13 @@ void Buyer::ListProductBySellerID(string _SellerID)
 		cout << "This can be because seller..." << endl;
 		cout << "  - does not exist." << endl;
 		cout << "  - has not added any product." << endl;
-		cout << "  - only sells rate 18+ / Mature Only products." << endl;
+		if (this->GetAge() <= 18) cout << "  - only sells rate 18+ / Mature Only products." << endl;
 		return;
 	}
+	cout << "Columm order: Product ID | Seller ID | Category | Name" << endl;
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
-		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << ((*i).Stock() == 0 ? " (OUT OF STOCK)" : "") << endl;
+		cout << (*i).ID() << " | " << (*i).SellerID() << " | " << left << setw(30) << (*i).Category() << " | " << (*i).Name() << ((*i).Stock() == 0 ? " (OUT OF STOCK)" : "") << endl;
 	}
 }
 
@@ -63,12 +64,13 @@ void Buyer::ListProductByQuery(string _ProductName)
 		cout << "No products found." << endl;
 		cout << "This can be because..." << endl;
 		cout << "  - There are no products whose name or category (partially) match your query." << endl;
-		cout << "  - You are not allowed to view rate 18+ / Mature Only products." << endl;
+		if (this->GetAge() <= 18) cout << "  - You are not allowed to view rate 18+ / Mature Only products." << endl;
 		return;
 	}
+	cout << "Columm order: Product ID | Seller ID | Category | Name" << endl;
 	for (auto i = FilteredProducts.begin(); i != FilteredProducts.end(); ++i)
 	{
-		cout << (*i).ID() << ": SellerID = " << (*i).SellerID() << "; Name = " << (*i).Name() << ((*i).Stock() == 0 ? " (OUT OF STOCK)" : "") << endl;
+		cout << (*i).ID() << " | " << (*i).SellerID() << " | " << left << setw(30) << (*i).Category() << " | " << (*i).Name() << ((*i).Stock() == 0 ? " (OUT OF STOCK)" : "") << endl;
 	}
 }
 
@@ -164,6 +166,8 @@ void Buyer::AcceptOrder(string _OrderID)
 	{
 		cout << "You cannot accept an order in the following conditions:" << endl;
 		cout << "  - The order was previously rejected by the seller or yourself." << endl;
+		cout << "  - The order is waiting for seller's approval." << endl;
+		cout << "  - The order is waiting for delivery." << endl;
 		cout << "  - The order has already been completed." << endl;
 		return;
 	}
@@ -179,7 +183,7 @@ void Buyer::RejectOrder(string _OrderID)
 
 	Order* _Order = OrderProvider::GetInstance().GetByID(_OrderID);
 
-	if (_Order->Status() == BUYER_PENDING)
+	if (_Order->Status() == SELLER_PENDING || _Order->Status() == BUYER_PENDING)
 	{
 		string _Note;
 		cout << "Note (optional): ";
