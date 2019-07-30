@@ -692,16 +692,23 @@ void Shell::Stats()
 	{
 		cout << "Year: ";
 		getline(cin, _Year);
+		if (isEmptyString(_Year)) {
+			return;
+		}
 	} while
 	(
 		(stoi(_Year) < 1900 || stoi(_Year) > Date::Today().Year)
 		&& (cout << "Invalid year." << endl)
 	);
-
+	
 	string _Month;
 	do
 	{
-		cout << "Month: "; getline(cin, _Month);
+		cout << "Month: "; 
+		getline(cin, _Month);
+		if (isEmptyString(_Month)) {
+			return;
+		}
 	}
 	while
 	(
