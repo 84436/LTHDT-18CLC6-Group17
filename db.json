@@ -16,6 +16,30 @@
       "Phone": "+84-52-151-3245",
       "YOB": 2005
     },
+    "B0003": {
+      "Address": "3 Buyers' Street, District 12, HCM City",
+      "Balance": 30000000,
+      "Email": "ai.huynh@project.banana",
+      "Name": "Huynh Thi Ai",
+      "Phone": "+84-52-777-7777",
+      "YOB": 2000
+    },
+    "B0004": {
+      "Address": "4 Buyers' Street, District 7, HCM City",
+      "Balance": 4000000,
+      "Email": "quyen.ngo@project.banana",
+      "Name": "Ngo Hoang Quyen",
+      "Phone": "+84-52-374-1737",
+      "YOB": 2001
+    },
+    "B0005": {
+      "Address": "5 Buyers' Street, District 5, HCM City",
+      "Balance": 50000000,
+      "Email": "trinh.thieu@project.banana",
+      "Name": "Thieu Ngoc Trinh",
+      "Phone": "+84-52-234-8765",
+      "YOB": 1998
+    },
     "H0001": {
       "Address": "1 Shippers' Street, Thu Duc District, City",
       "Balance": 0,
@@ -30,6 +54,14 @@
       "Email": "ngo.phan@project.banana",
       "Name": "Phan Dang Quang Ngo",
       "Phone": "+84-52-937-5300",
+      "YOB": 2000
+    },
+    "H0003": {
+      "Address": "3 Shippers' Street, District 8, HCM City",
+      "Balance": 0,
+      "Email": "cot.giang@project.banana",
+      "Name": "Giang Van Cot",
+      "Phone": "+84-52-743-0965",
       "YOB": 2000
     },
     "S0001": {
@@ -61,6 +93,51 @@
         3
       ],
       "YOB": 1980
+    },
+    "S0003": {
+      "Address": "3 Sellers' Street, District 3, HCM City",
+      "Balance": 0,
+      "Email": "liet.len@project.banana",
+      "Name": "Le Van Liet",
+      "Phone": "+84-52-125-9874",
+      "Rating": [
+        0,
+        2,
+        0,
+        2,
+        3
+      ],
+      "YOB": 1999
+    },
+    "S0004": {
+      "Address": "4 Sellers' Street, District 11, HCM City",
+      "Balance": 0,
+      "Email": "nam.nguyen@project.banana",
+      "Name": "Nguyen Hao Nam",
+      "Phone": "+84-52-919-8749",
+      "Rating": [
+        0,
+        2,
+        0,
+        2,
+        3
+      ],
+      "YOB": 1995
+    },
+    "S0005": {
+      "Address": "5 Sellers' Street, District 8, HCM City",
+      "Balance": 0,
+      "Email": "hao.le@project.banana",
+      "Name": "Le Anh Hao",
+      "Phone": "+84-52-175-1284",
+      "Rating": [
+        0,
+        2,
+        0,
+        2,
+        3
+      ],
+      "YOB": 2000
     }
   },
   "CATEGORIES": {
