@@ -2,7 +2,7 @@
     "ACCOUNTS": {
         "B0001": {
             "Address": "1 Buyers' Street, District 8, HCM City",
-            "Balance": 1500000,
+            "Balance": 1410000,
             "Email": "ab.nguyen@project.banana",
             "Name": "Nguyen Van AB",
             "Phone": "+84-52-466-1968",
@@ -34,7 +34,7 @@
         },
         "B0005": {
             "Address": "3 Buyer's, District 9, HCM City",
-            "Balance": 0,
+            "Balance": 271001,
             "Email": "nam.tran@gmail.com",
             "Name": "Tran Hao Nam",
             "Phone": "+84-52-124-1924",
@@ -42,7 +42,7 @@
         },
         "H0001": {
             "Address": "1 Shippers' Street, Thu Duc District, City",
-            "Balance": 0,
+            "Balance": 19000,
             "Email": "lien.vo@project.banana",
             "Name": "Lien Vo",
             "Phone": "+84-52-275-3157",
@@ -58,7 +58,7 @@
         },
         "H0003": {
             "Address": "1 Shipper's Street, District 7, HCM City",
-            "Balance": 0,
+            "Balance": 40000,
             "Email": "duc.kieu@project.banana",
             "Name": "Kieu Vu Minh Duc",
             "Phone": "+84-52-425-1243",
@@ -81,7 +81,7 @@
         },
         "S0002": {
             "Address": "2 Sellers' Street, District 3, HCM City",
-            "Balance": 0,
+            "Balance": 859999,
             "Email": "not.soobin@project.banana",
             "Name": "Khong phai Soobin Hoang Son",
             "Phone": "+84-52-175-7068",
@@ -160,8 +160,8 @@
     },
     "COUNTERS": {
         "BUYER": 6,
-        "ORDER": 1,
-        "PRODUCT": 9,
+        "ORDER": 3,
+        "PRODUCT": 11,
         "SELLER": 6,
         "SHIPPER": 4
     },
@@ -180,7 +180,50 @@
         "S0004": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "S0005": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
-    "ORDERS": {},
+    "ORDERS": {
+        "O0001": {
+            "BuyerID": "B0001",
+            "Note": "",
+            "OrderDate": [
+                31,
+                7,
+                2019
+            ],
+            "PriceCoeff": 1.0,
+            "ProductID": "P0004",
+            "Quantity": 1,
+            "SellerID": "S0002",
+            "ShipperID": "H0003",
+            "ShippingDate": [
+                31,
+                7,
+                2019
+            ],
+            "ShippingFee": 40000,
+            "Status": 0
+        },
+        "O0002": {
+            "BuyerID": "B0005",
+            "Note": "",
+            "OrderDate": [
+                31,
+                7,
+                2019
+            ],
+            "PriceCoeff": 0.8999999761581421,
+            "ProductID": "P0005",
+            "Quantity": 3,
+            "SellerID": "S0002",
+            "ShipperID": "H0001",
+            "ShippingDate": [
+                31,
+                7,
+                2019
+            ],
+            "ShippingFee": 19000,
+            "Status": 0
+        }
+    },
     "PRODUCTS": {
         "P0001": {
             "Category": "Miscellaneous",
@@ -243,7 +286,7 @@
                 0
             ],
             "SellerID": "S0002",
-            "Stock": 10,
+            "Stock": 9,
             "isR18": false
         },
         "P0005": {
@@ -259,7 +302,7 @@
                 0
             ],
             "SellerID": "S0002",
-            "Stock": 10,
+            "Stock": 7,
             "isR18": false
         },
         "P0006": {
@@ -320,7 +363,7 @@
                 0,
                 0,
                 0,
-                4
+                0
             ],
             "SellerID": "S0002",
             "Stock": 0,
@@ -335,8 +378,8 @@
                 0,
                 0,
                 0,
-                6,
-                15
+                0,
+                0
             ],
             "SellerID": "S0001",
             "Stock": 0,
